@@ -2,1225 +2,957 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>OrcaSmpFlip</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  min-height:100vh;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  background:
-    radial-gradient(circle at 50% -10%,#063c63 0%,#020b16 45%,#01040a 100%);
-  overflow-x:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    color:white;
+    background:
+        radial-gradient(circle at top,#07385a 0%,#020b14 45%,#010307 100%);
 }
-
-/* BACKGROUND */
-
-.bg-orb{
-  position:fixed;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.35;
-  pointer-events:none;
-  z-index:-2;
-}
-
-.orb1{
-  width:350px;
-  height:350px;
-  background:#00aaff;
-  top:10%;
-  left:-120px;
-}
-
-.orb2{
-  width:300px;
-  height:300px;
-  background:#0066ff;
-  right:-100px;
-  top:45%;
-}
-
-.orb3{
-  width:250px;
-  height:250px;
-  background:#00d9ff;
-  left:40%;
-  bottom:-100px;
-}
-
-.particles{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-}
-
-.particle{
-  position:absolute;
-  width:3px;
-  height:3px;
-  border-radius:50%;
-  background:#8eeaff;
-  box-shadow:0 0 10px #00bfff;
-  animation:float 7s infinite ease-in-out;
-}
-
-@keyframes float{
-  0%,100%{
-    transform:translateY(0);
-    opacity:.2;
-  }
-  50%{
-    transform:translateY(-50px);
-    opacity:1;
-  }
-}
-
-/* HEADER */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:16px 5%;
-  background:rgba(2,10,20,.82);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(0,190,255,.2);
+    position:sticky;
+    top:0;
+    z-index:100;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 5%;
+    background:rgba(2,10,18,.9);
+    border-bottom:1px solid #064d70;
+    backdrop-filter:blur(12px);
 }
 
 .logo{
-  font-size:24px;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#fff;
+    font-size:24px;
+    font-weight:bold;
 }
 
 .logo span{
-  color:#00c8ff;
-  text-shadow:0 0 18px #00aaff;
+    color:#00c8ff;
 }
 
 .header-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .balance{
-  padding:10px 16px;
-  border:1px solid rgba(0,210,255,.35);
-  border-radius:12px;
-  background:rgba(0,150,255,.1);
-  box-shadow:0 0 20px rgba(0,180,255,.08);
-  font-weight:800;
+    padding:10px 15px;
+    border-radius:10px;
+    background:#062337;
+    border:1px solid #0879a8;
 }
 
 .discord{
-  text-decoration:none;
-  color:#fff;
-  padding:10px 16px;
-  border-radius:10px;
-  background:#5865f2;
-  font-weight:800;
-  transition:.2s;
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:10px;
+    background:#5865f2;
+    font-weight:bold;
 }
-
-.discord:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 20px rgba(88,101,242,.6);
-}
-
-/* HERO */
 
 .hero{
-  text-align:center;
-  padding:80px 20px 35px;
+    text-align:center;
+    padding:80px 20px 45px;
 }
 
 .hero h1{
-  font-size:clamp(45px,8vw,90px);
-  font-weight:1000;
-  letter-spacing:-4px;
-  background:linear-gradient(90deg,#fff,#6de4ff,#008cff);
-  -webkit-background-clip:text;
-  color:transparent;
-  text-shadow:0 0 35px rgba(0,174,255,.2);
+    font-size:clamp(45px,8vw,85px);
+    background:linear-gradient(90deg,#fff,#5ee8ff,#008cff);
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .hero p{
-  margin-top:15px;
-  color:#8ba8bd;
-  font-size:18px;
+    margin-top:15px;
+    color:#8aa9ba;
+    font-size:18px;
 }
 
-.hero-badge{
-  display:inline-block;
-  margin-bottom:20px;
-  padding:7px 13px;
-  border:1px solid rgba(0,190,255,.35);
-  border-radius:30px;
-  color:#64ddff;
-  background:rgba(0,160,255,.08);
+.container{
+    width:min(1000px,90%);
+    margin:auto;
 }
 
-/* ACCOUNT */
-
-.account-wrap{
-  width:min(1000px,90%);
-  margin:30px auto;
-}
-
-.account{
-  padding:25px;
-  border:1px solid rgba(0,190,255,.22);
-  border-radius:20px;
-  background:rgba(4,18,31,.75);
-  box-shadow:0 0 35px rgba(0,140,255,.08);
+.panel{
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:18px;
+    background:rgba(4,20,32,.85);
+    border:1px solid #07506f;
+    box-shadow:0 0 25px rgba(0,170,255,.08);
 }
 
 .account-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
-.account h2{
-  font-size:22px;
+.status{
+    color:#55dcff;
+    margin-top:7px;
 }
 
-.account-status{
-  color:#75ddff;
-  font-weight:700;
-}
-
-.account-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:20px;
+.buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:18px;
 }
 
 button{
-  border:0;
-  cursor:pointer;
-  color:#fff;
-  font-weight:800;
-  padding:12px 17px;
-  border-radius:10px;
-  background:linear-gradient(135deg,#008cff,#00cfff);
-  box-shadow:0 0 18px rgba(0,174,255,.15);
-  transition:.2s;
+    border:0;
+    padding:12px 18px;
+    border-radius:10px;
+    color:white;
+    background:linear-gradient(135deg,#007fff,#00c8ff);
+    font-weight:bold;
+    cursor:pointer;
 }
 
 button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 25px rgba(0,174,255,.35);
+    transform:translateY(-2px);
 }
 
 button.secondary{
-  background:#102536;
-  border:1px solid rgba(0,200,255,.2);
+    background:#102a3b;
 }
 
-button.danger{
-  background:#481b27;
-  border:1px solid #873348;
+button.red{
+    background:#7c2638;
 }
 
-/* PROGRESS */
-
-.progress-box{
-  width:min(1000px,90%);
-  margin:20px auto 40px;
-}
-
-.progress-header{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  color:#8daabd;
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    color:#8daaba;
+    margin-bottom:8px;
 }
 
 .progress{
-  height:13px;
-  background:#071522;
-  border-radius:30px;
-  overflow:hidden;
-  border:1px solid rgba(0,180,255,.18);
+    height:13px;
+    border-radius:20px;
+    background:#07131d;
+    overflow:hidden;
 }
 
 .progress-bar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#006fff,#00d9ff);
-  box-shadow:0 0 18px #00bfff;
-  transition:.5s;
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#006fff,#00d9ff);
+    transition:.4s;
 }
 
-/* WEEKLY RESET */
-
-.reset-box{
-  width:min(1000px,90%);
-  margin:0 auto 45px;
-  padding:24px;
-  text-align:center;
-  border:1px solid rgba(0,200,255,.25);
-  border-radius:20px;
-  background:linear-gradient(
-    135deg,
-    rgba(0,120,200,.12),
-    rgba(0,20,40,.6)
-  );
+.reset{
+    text-align:center;
 }
 
 .reset-title{
-  color:#79ddff;
-  font-weight:900;
-  font-size:14px;
-  letter-spacing:2px;
+    color:#5ee5ff;
+    font-weight:bold;
+    letter-spacing:2px;
 }
 
 .countdown{
-  margin-top:8px;
-  font-size:38px;
-  font-weight:1000;
-  letter-spacing:2px;
-  color:#fff;
-  text-shadow:0 0 20px rgba(0,190,255,.45);
+    margin-top:10px;
+    font-size:35px;
+    font-weight:bold;
 }
 
-.reset-info{
-  margin-top:7px;
-  color:#7592a6;
-  font-size:13px;
+.reset-text{
+    margin-top:8px;
+    color:#718c9d;
 }
-
-/* GAMES */
-
-.games{
-  width:min(1200px,90%);
-  margin:auto;
-  padding-bottom:80px;
-}
-
-.games-title{
-  margin-bottom:20px;
-  font-size:30px;
-}
-
-.game-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
-}
-
-.game{
-  position:relative;
-  padding:24px;
-  min-height:190px;
-  border-radius:20px;
-  border:1px solid rgba(0,190,255,.17);
-  background:linear-gradient(
-    145deg,
-    rgba(7,31,48,.9),
-    rgba(3,12,22,.85)
-  );
-  overflow:hidden;
-  transition:.25s;
-}
-
-.game:hover{
-  transform:translateY(-6px);
-  border-color:rgba(0,210,255,.5);
-  box-shadow:0 0 35px rgba(0,160,255,.13);
-}
-
-.game-icon{
-  font-size:38px;
-}
-
-.game h3{
-  margin-top:10px;
-  font-size:21px;
-}
-
-.game p{
-  margin-top:8px;
-  color:#7e9aac;
-  line-height:1.4;
-}
-
-.game button{
-  margin-top:18px;
-  width:100%;
-}
-
-/* MILESTONE */
 
 .milestone{
-  display:none;
-  width:min(1000px,90%);
-  margin:0 auto 35px;
-  padding:25px;
-  text-align:center;
-  border-radius:20px;
-  border:1px solid #00eaff;
-  background:rgba(0,190,255,.08);
-  box-shadow:0 0 35px rgba(0,200,255,.15);
+    display:none;
+    text-align:center;
+    border-color:#00eaff;
 }
 
 .milestone h2{
-  color:#70eaff;
+    color:#5eeaff;
 }
 
 .milestone p{
-  color:#91aabd;
-  margin:10px 0 18px;
+    color:#91adbd;
+    margin:10px 0 20px;
+}
+
+.games-title{
+    margin-bottom:18px;
+}
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+    padding-bottom:70px;
+}
+
+.game{
+    padding:23px;
+    border-radius:18px;
+    background:linear-gradient(145deg,#071e30,#03101b);
+    border:1px solid #084963;
+    transition:.2s;
+}
+
+.game:hover{
+    transform:translateY(-5px);
+    border-color:#00aeea;
+    box-shadow:0 0 25px rgba(0,180,255,.15);
+}
+
+.icon{
+    font-size:38px;
+}
+
+.game h3{
+    margin-top:10px;
+}
+
+.game p{
+    margin-top:8px;
+    color:#7f9aaa;
+    min-height:42px;
+    line-height:1.4;
+}
+
+.game button{
+    width:100%;
+    margin-top:15px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#526e7d;
+    border-top:1px solid #073246;
 }
 
 /* MODAL */
 
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:500;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,3,8,.78);
-  backdrop-filter:blur(10px);
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:500;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:rgba(0,0,0,.75);
 }
 
 .modal-box{
-  width:min(430px,100%);
-  padding:28px;
-  border-radius:22px;
-  border:1px solid rgba(0,200,255,.35);
-  background:#061522;
-  box-shadow:0 0 60px rgba(0,170,255,.15);
+    width:min(430px,100%);
+    padding:25px;
+    border-radius:18px;
+    background:#061622;
+    border:1px solid #08749c;
+    box-shadow:0 0 50px rgba(0,170,255,.2);
 }
 
 .modal-box h2{
-  margin-bottom:18px;
+    margin-bottom:15px;
 }
 
 .close{
-  float:right;
-  cursor:pointer;
-  font-size:24px;
-  color:#7d9cad;
+    float:right;
+    font-size:25px;
+    cursor:pointer;
+    color:#7895a5;
 }
 
 .input{
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  color:#fff;
-  outline:none;
-  border-radius:10px;
-  border:1px solid rgba(0,190,255,.2);
-  background:#020b13;
+    display:block;
+    width:100%;
+    margin:9px 0;
+    padding:13px;
+    border-radius:9px;
+    outline:none;
+    border:1px solid #174a62;
+    background:#020a11;
+    color:white;
 }
 
 .input:focus{
-  border-color:#00c8ff;
-  box-shadow:0 0 12px rgba(0,190,255,.15);
+    border-color:#00bfff;
 }
 
 .modal-box button{
-  width:100%;
-  margin-top:10px;
+    width:100%;
+    margin-top:8px;
 }
 
-.modal-note{
-  margin-top:12px;
-  color:#6e8b9d;
-  font-size:12px;
-  line-height:1.5;
+.message{
+    margin-top:10px;
+    min-height:18px;
+    color:#ff7187;
 }
 
-.error{
-  margin-top:10px;
-  color:#ff7088;
-  font-size:13px;
+.game-result{
+    text-align:center;
+    margin-top:20px;
+    min-height:30px;
+    color:#72eaff;
+    font-weight:bold;
 }
 
-.success{
-  margin-top:10px;
-  color:#55e5a0;
-  font-size:13px;
-}
-
-/* GAME AREA */
-
-.game-area{
-  text-align:center;
-}
-
-.big-number{
-  font-size:70px;
-  font-weight:1000;
-  color:#65eaff;
-  text-shadow:0 0 30px #00aaff;
-  margin:20px 0;
-}
-
-.result{
-  min-height:25px;
-  color:#9fc0d1;
-  margin:12px;
+.big{
+    text-align:center;
+    font-size:60px;
+    margin:20px 0;
 }
 
 .game-buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
 }
 
-.game-buttons button{
-  min-width:100px;
-}
+@media(max-width:600px){
 
-/* FOOTER */
+    header{
+        padding:12px;
+    }
 
-footer{
-  padding:35px 20px;
-  text-align:center;
-  color:#506c7e;
-  border-top:1px solid rgba(0,180,255,.1);
-}
+    .logo{
+        font-size:17px;
+    }
 
-footer span{
-  color:#00c8ff;
-}
+    .balance{
+        font-size:12px;
+        padding:8px;
+    }
 
-/* MOBILE */
+    .discord{
+        font-size:12px;
+        padding:8px;
+    }
 
-@media(max-width:650px){
-  header{
-    padding:12px;
-  }
+    .account-top{
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
-  .logo{
-    font-size:18px;
-  }
-
-  .header-right{
-    gap:5px;
-  }
-
-  .balance{
-    padding:8px 9px;
-    font-size:12px;
-  }
-
-  .discord{
-    padding:8px 10px;
-    font-size:12px;
-  }
-
-  .hero{
-    padding-top:55px;
-  }
-
-  .hero h1{
-    letter-spacing:-2px;
-  }
-
-  .account-top{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .countdown{
-    font-size:27px;
-  }
+    .countdown{
+        font-size:25px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-<div class="bg-orb orb3"></div>
-
-<div class="particles" id="particles"></div>
-
 <header>
-  <div class="logo">
-    🐋 Orca<span>SmpFlip</span>
-  </div>
 
-  <div class="header-right">
-    <div class="balance" id="headerBalance">
-      🪙 50,000
+    <div class="logo">
+        🐋 Orca<span>SmpFlip</span>
     </div>
 
-    <a
-      class="discord"
-      href="https://discord.gg/TZRAGfKaFx"
-      target="_blank"
-    >
-      Discord
-    </a>
-  </div>
+    <div class="header-right">
+
+        <div class="balance" id="balance">
+            🪙 50,000
+        </div>
+
+        <a
+            class="discord"
+            href="https://discord.gg/TZRAGfKaFx"
+            target="_blank"
+        >
+            Discord
+        </a>
+
+    </div>
+
 </header>
+
 
 <section class="hero">
 
-  <div class="hero-badge">
-    VIRTUAL ORCACOINS • FREE ARCADE
-  </div>
+    <h1>OrcaSmpFlip</h1>
 
-  <h1>OrcaSmpFlip</h1>
-
-  <p>
-    Play games. Earn OrcaCoins. Reach 10,000,000.
-  </p>
+    <p>
+        Play virtual arcade games and collect OrcaCoins.
+    </p>
 
 </section>
 
-<!-- ACCOUNT -->
 
-<div class="account-wrap">
+<div class="container">
 
-  <div class="account">
+    <!-- ACCOUNT -->
 
-    <div class="account-top">
+    <div class="panel">
 
-      <div>
-        <h2>👤 Account</h2>
-        <div
-          class="account-status"
-          id="accountStatus"
-        >
-          Not logged in
+        <div class="account-top">
+
+            <div>
+                <h2>👤 Account</h2>
+
+                <div
+                    class="status"
+                    id="status"
+                >
+                    Not logged in
+                </div>
+            </div>
+
+            <strong id="username">
+                Guest
+            </strong>
+
         </div>
-      </div>
 
-      <div id="usernameDisplay">
-        Guest
-      </div>
+        <div class="buttons">
 
-    </div>
+            <button id="loginOpen">
+                Login
+            </button>
 
-    <div class="account-actions">
+            <button
+                class="secondary"
+                id="registerOpen"
+            >
+                Create Account
+            </button>
 
-      <button onclick="openModal('loginModal')">
-        Login
-      </button>
+            <button
+                class="red"
+                id="logout"
+            >
+                Logout
+            </button>
 
-      <button
-        class="secondary"
-        onclick="openModal('registerModal')"
-      >
-        Create Account
-      </button>
-
-      <button
-        class="danger"
-        onclick="logout()"
-      >
-        Logout
-      </button>
+        </div>
 
     </div>
 
-  </div>
 
-</div>
+    <!-- PROGRESS -->
 
-<!-- PROGRESS -->
+    <div class="panel">
 
-<div class="progress-box">
+        <div class="progress-info">
 
-  <div class="progress-header">
-    <span>Progress to 10M</span>
-    <span id="progressText">0%</span>
-  </div>
+            <span>
+                Progress to 10M
+            </span>
 
-  <div class="progress">
+            <span id="progressText">
+                0%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESET -->
+
+    <div class="panel reset">
+
+        <div class="reset-title">
+            🔄 WEEKLY RESET
+        </div>
+
+        <div
+            class="countdown"
+            id="countdown"
+        >
+            Loading...
+        </div>
+
+        <div class="reset-text">
+            Every account resets to 50,000 OrcaCoins every week.
+        </div>
+
+    </div>
+
+
+    <!-- MILESTONE -->
+
     <div
-      class="progress-bar"
-      id="progressBar"
-    ></div>
-  </div>
+        class="panel milestone"
+        id="milestone"
+    >
+
+        <h2>
+            🐋 10,000,000 ORCACOINS!
+        </h2>
+
+        <p>
+            You reached the maximum OrcaCoins balance.
+        </p>
+
+        <a
+            class="discord"
+            href="https://discord.gg/TZRAGfKaFx"
+            target="_blank"
+        >
+            JOIN DISCORD
+        </a>
+
+    </div>
+
+
+    <!-- GAMES -->
+
+    <h2 class="games-title">
+        🎮 Games
+    </h2>
+
+    <div class="games">
+
+        <div class="game">
+
+            <div class="icon">🪙</div>
+
+            <h3>Coin Flip</h3>
+
+            <p>
+                Choose heads or tails and earn virtual OrcaCoins.
+            </p>
+
+            <button data-game="coin">
+                Play
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">🎯</div>
+
+            <h3>Roulette Challenge</h3>
+
+            <p>
+                Guess the winning color.
+            </p>
+
+            <button data-game="roulette">
+                Play
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">7️⃣</div>
+
+            <h3>777</h3>
+
+            <p>
+                Spin three numbers and try to match them.
+            </p>
+
+            <button data-game="777">
+                Spin
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">🎲</div>
+
+            <h3>Lucky Dice</h3>
+
+            <p>
+                Roll a dice and receive a virtual reward.
+            </p>
+
+            <button data-game="dice">
+                Roll
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">🧠</div>
+
+            <h3>Memory</h3>
+
+            <p>
+                Remember the number and enter it correctly.
+            </p>
+
+            <button data-game="memory">
+                Play
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">⚡</div>
+
+            <h3>Reaction</h3>
+
+            <p>
+                Test how quickly you can react.
+            </p>
+
+            <button data-game="reaction">
+                Play
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">💎</div>
+
+            <h3>Treasure Vault</h3>
+
+            <p>
+                Choose a vault and discover the reward.
+            </p>
+
+            <button data-game="treasure">
+                Open
+            </button>
+
+        </div>
+
+
+        <div class="game">
+
+            <div class="icon">🐔</div>
+
+            <h3>Chicken Road</h3>
+
+            <p>
+                Help the chicken cross the road.
+            </p>
+
+            <button data-game="chicken">
+                Play
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- WEEKLY RESET -->
-
-<div class="reset-box">
-
-  <div class="reset-title">
-    🔄 WEEKLY RESET
-  </div>
-
-  <div
-    class="countdown"
-    id="countdown"
-  >
-    Loading...
-  </div>
-
-  <div class="reset-info">
-    Every account resets to 50,000 OrcaCoins every week.
-  </div>
-
-</div>
-
-<!-- MILESTONE -->
-
-<div
-  class="milestone"
-  id="milestone"
->
-
-  <h2>
-    🐋 10,000,000 ORCACOINS!
-  </h2>
-
-  <p>
-    You reached the maximum OrcaCoins balance.
-    Redeem your milestone in Discord.
-  </p>
-
-  <a
-    class="discord"
-    href="https://discord.gg/TZRAGfKaFx"
-    target="_blank"
-  >
-    JOIN DISCORD
-  </a>
-
-</div>
-
-<!-- GAMES -->
-
-<section class="games">
-
-  <h2 class="games-title">
-    🎮 Games
-  </h2>
-
-  <div class="game-grid">
-
-    <div class="game">
-      <div class="game-icon">🐔</div>
-      <h3>Chicken Road</h3>
-      <p>
-        Help the chicken cross the road and earn OrcaCoins.
-      </p>
-      <button onclick="chickenRoad()">
-        Play
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">🪙</div>
-      <h3>Coin Flip</h3>
-      <p>
-        Pick heads or tails and try your luck.
-      </p>
-      <button onclick="coinFlip()">
-        Play
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">🎡</div>
-      <h3>Daily Wheel</h3>
-      <p>
-        Spin the wheel and receive a virtual reward.
-      </p>
-      <button onclick="dailyWheel()">
-        Spin
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">🧠</div>
-      <h3>Memory</h3>
-      <p>
-        Remember the number and type it correctly.
-      </p>
-      <button onclick="memoryGame()">
-        Play
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">⚡</div>
-      <h3>Reaction</h3>
-      <p>
-        Test your reaction speed.
-      </p>
-      <button onclick="reactionGame()">
-        Play
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">🎯</div>
-      <h3>Roulette Challenge</h3>
-      <p>
-        Guess the winning color and earn virtual coins.
-      </p>
-      <button onclick="roulette()">
-        Play
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">7️⃣</div>
-      <h3>777</h3>
-      <p>
-        Spin three numbers and try to hit 777.
-      </p>
-      <button onclick="sevenGame()">
-        Spin
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">🎲</div>
-      <h3>Lucky Dice</h3>
-      <p>
-        Roll the dice and earn a virtual reward.
-      </p>
-      <button onclick="diceGame()">
-        Roll
-      </button>
-    </div>
-
-    <div class="game">
-      <div class="game-icon">💎</div>
-      <h3>Treasure Vault</h3>
-      <p>
-        Choose a vault and discover your reward.
-      </p>
-      <button onclick="treasureGame()">
-        Open
-      </button>
-    </div>
-
-  </div>
-
-</section>
 
 <footer>
-  OrcaSmpFlip • Virtual OrcaCoins only •
-  <span>Made for fun</span>
+    OrcaSmpFlip • Virtual OrcaCoins • Free Arcade
 </footer>
 
-<!-- LOGIN MODAL -->
+
+<!-- LOGIN -->
 
 <div
-  class="modal"
-  id="loginModal"
+    class="modal"
+    id="loginModal"
 >
 
-  <div class="modal-box">
+    <div class="modal-box">
 
-    <span
-      class="close"
-      onclick="closeModal('loginModal')"
-    >
-      ×
-    </span>
+        <span
+            class="close"
+            data-close="loginModal"
+        >
+            ×
+        </span>
 
-    <h2>Login</h2>
+        <h2>🔐 Login</h2>
 
-    <input
-      class="input"
-      id="loginUsername"
-      placeholder="Username"
-      maxlength="20"
-    >
+        <input
+            class="input"
+            id="loginUsername"
+            placeholder="Username"
+            maxlength="20"
+        >
 
-    <input
-      class="input"
-      id="loginPassword"
-      type="password"
-      placeholder="Password"
-    >
+        <input
+            class="input"
+            id="loginPassword"
+            type="password"
+            placeholder="Password"
+        >
 
-    <button onclick="login()">
-      Login
-    </button>
+        <button id="loginButton">
+            Login
+        </button>
 
-    <div
-      class="error"
-      id="loginError"
-    ></div>
+        <div
+            class="message"
+            id="loginMessage"
+        ></div>
 
-  </div>
+    </div>
 
 </div>
 
-<!-- REGISTER MODAL -->
+
+<!-- REGISTER -->
 
 <div
-  class="modal"
-  id="registerModal"
+    class="modal"
+    id="registerModal"
 >
 
-  <div class="modal-box">
+    <div class="modal-box">
 
-    <span
-      class="close"
-      onclick="closeModal('registerModal')"
-    >
-      ×
-    </span>
+        <span
+            class="close"
+            data-close="registerModal"
+        >
+            ×
+        </span>
 
-    <h2>Create Account</h2>
+        <h2>👤 Create Account</h2>
 
-    <input
-      class="input"
-      id="registerUsername"
-      placeholder="Username"
-      maxlength="20"
-    >
+        <input
+            class="input"
+            id="registerUsername"
+            placeholder="Username"
+            maxlength="20"
+        >
 
-    <input
-      class="input"
-      id="registerPassword"
-      type="password"
-      placeholder="Password"
-    >
+        <input
+            class="input"
+            id="registerPassword"
+            type="password"
+            placeholder="Password"
+        >
 
-    <input
-      class="input"
-      id="registerPassword2"
-      type="password"
-      placeholder="Repeat password"
-    >
+        <input
+            class="input"
+            id="registerPassword2"
+            type="password"
+            placeholder="Repeat password"
+        >
 
-    <button onclick="register()">
-      Create Account
-    </button>
+        <button id="registerButton">
+            Create Account
+        </button>
 
-    <div
-      class="error"
-      id="registerError"
-    ></div>
+        <div
+            class="message"
+            id="registerMessage"
+        ></div>
 
-  </div>
+    </div>
 
 </div>
 
-<!-- GAME MODAL -->
+
+<!-- GAME -->
 
 <div
-  class="modal"
-  id="gameModal"
+    class="modal"
+    id="gameModal"
 >
 
-  <div class="modal-box">
+    <div class="modal-box">
 
-    <span
-      class="close"
-      onclick="closeModal('gameModal')"
-    >
-      ×
-    </span>
+        <span
+            class="close"
+            data-close="gameModal"
+        >
+            ×
+        </span>
 
-    <div id="gameContent"></div>
+        <div id="gameContent"></div>
 
-  </div>
+    </div>
 
 </div>
+
 
 <script>
 
 /* =========================
-   PARTICLES
-========================= */
-
-const particles =
-  document.getElementById("particles");
-
-for(let i=0;i<45;i++){
-
-  const p =
-    document.createElement("div");
-
-  p.className="particle";
-
-  p.style.left =
-    Math.random()*100+"%";
-
-  p.style.top =
-    Math.random()*100+"%";
-
-  p.style.animationDelay =
-    Math.random()*7+"s";
-
-  particles.appendChild(p);
-}
-
-
-/* =========================
-   CONSTANTS
+   SETTINGS
 ========================= */
 
 const START_BALANCE = 50000;
 const MAX_BALANCE = 10000000;
 
+const ACCOUNTS_KEY = "orca_accounts";
+const CURRENT_USER_KEY = "orca_current_user";
+
 
 /* =========================
-   ACCOUNT STORAGE
+   STORAGE
 ========================= */
 
 function getAccounts(){
 
-  return JSON.parse(
-    localStorage.getItem("orcaAccounts") || "{}"
-  );
-
+    try{
+        return JSON.parse(
+            localStorage.getItem(ACCOUNTS_KEY)
+        ) || {};
+    }
+    catch{
+        return {};
+    }
 }
+
 
 function saveAccounts(accounts){
 
-  localStorage.setItem(
-    "orcaAccounts",
-    JSON.stringify(accounts)
-  );
-
-}
-
-function getCurrentUser(){
-
-  return localStorage.getItem("orcaCurrentUser");
-
-}
-
-function setCurrentUser(username){
-
-  localStorage.setItem(
-    "orcaCurrentUser",
-    username
-  );
-
-}
-
-function clearCurrentUser(){
-
-  localStorage.removeItem(
-    "orcaCurrentUser"
-  );
-
+    localStorage.setItem(
+        ACCOUNTS_KEY,
+        JSON.stringify(accounts)
+    );
 }
 
 
-/* =========================
-   ACCOUNT FUNCTIONS
-========================= */
+function getCurrentUsername(){
 
-function register(){
+    return localStorage.getItem(
+        CURRENT_USER_KEY
+    );
+}
 
-  const username =
-    document
-      .getElementById("registerUsername")
-      .value
-      .trim();
 
-  const password =
-    document
-      .getElementById("registerPassword")
-      .value;
+function setCurrentUsername(username){
 
-  const password2 =
-    document
-      .getElementById("registerPassword2")
-      .value;
+    localStorage.setItem(
+        CURRENT_USER_KEY,
+        username
+    );
+}
 
-  const error =
-    document.getElementById("registerError");
 
-  error.textContent="";
+function logoutUser(){
 
-  if(username.length < 3){
-
-    error.textContent =
-      "Username must contain at least 3 characters.";
-
-    return;
-  }
-
-  if(password.length < 4){
-
-    error.textContent =
-      "Password must contain at least 4 characters.";
-
-    return;
-  }
-
-  if(password !== password2){
-
-    error.textContent =
-      "Passwords do not match.";
-
-    return;
-  }
-
-  const accounts = getAccounts();
-
-  if(accounts[username]){
-
-    error.textContent =
-      "This username already exists.";
-
-    return;
-  }
-
-  accounts[username] = {
-
-    password: password,
-
-    balance: START_BALANCE,
-
-    createdAt: Date.now(),
-
-    lastReset:
-      getCurrentWeekKey()
-
-  };
-
-  saveAccounts(accounts);
-
-  setCurrentUser(username);
-
-  closeModal("registerModal");
-
-  updateUI();
-
+    localStorage.removeItem(
+        CURRENT_USER_KEY
+    );
 }
 
 
 /* =========================
-   LOGIN
+   WEEK IDENTIFIER
 ========================= */
 
-function login(){
+function getWeekId(){
 
-  const username =
-    document
-      .getElementById("loginUsername")
-      .value
-      .trim();
+    const date = new Date();
 
-  const password =
-    document
-      .getElementById("loginPassword")
-      .value;
+    const first = new Date(
+        date.getFullYear(),
+        0,
+        1
+    );
 
-  const error =
-    document.getElementById("loginError");
+    const days = Math.floor(
+        (date - first) / 86400000
+    );
 
-  error.textContent="";
-
-  const accounts = getAccounts();
-
-  if(!accounts[username]){
-
-    error.textContent =
-      "Account not found.";
-
-    return;
-  }
-
-  if(accounts[username].password !== password){
-
-    error.textContent =
-      "Incorrect password.";
-
-    return;
-  }
-
-  setCurrentUser(username);
-
-  closeModal("loginModal");
-
-  updateUI();
-
+    return (
+        date.getFullYear() +
+        "-" +
+        Math.floor(
+            (days + first.getDay()) / 7
+        )
+    );
 }
 
 
 /* =========================
-   LOGOUT
+   RESET CURRENT ACCOUNT
 ========================= */
 
-function logout(){
+function checkWeeklyReset(){
 
-  clearCurrentUser();
+    const username =
+        getCurrentUsername();
 
-  updateUI();
+    if(!username){
+        return;
+    }
 
+    const accounts =
+        getAccounts();
+
+    const account =
+        accounts[username];
+
+    if(!account){
+        logoutUser();
+        return;
+    }
+
+    const currentWeek =
+        getWeekId();
+
+    if(account.weekId !== currentWeek){
+
+        account.balance =
+            START_BALANCE;
+
+        account.weekId =
+            currentWeek;
+
+        accounts[username] =
+            account;
+
+        saveAccounts(accounts);
+    }
 }
 
 
 /* =========================
-   GET CURRENT ACCOUNT
+   CURRENT ACCOUNT
 ========================= */
 
-function getAccount(){
+function getCurrentAccount(){
 
-  const username =
-    getCurrentUser();
+    checkWeeklyReset();
 
-  if(!username)
-    return null;
+    const username =
+        getCurrentUsername();
 
-  const accounts =
-    getAccounts();
+    if(!username){
+        return null;
+    }
 
-  return accounts[username] || null;
+    const accounts =
+        getAccounts();
 
-}
-
-
-/* =========================
-   SAVE CURRENT ACCOUNT
-========================= */
-
-function saveCurrentAccount(account){
-
-  const username =
-    getCurrentUser();
-
-  if(!username)
-    return;
-
-  const accounts =
-    getAccounts();
-
-  accounts[username] =
-    account;
-
-  saveAccounts(accounts);
-
+    return accounts[username] || null;
 }
 
 
@@ -1228,236 +960,37 @@ function saveCurrentAccount(account){
    BALANCE
 ========================= */
 
-function getBalance(){
-
-  const account =
-    getAccount();
-
-  if(!account)
-    return START_BALANCE;
-
-  return account.balance;
-
-}
-
-
 function addCoins(amount){
 
-  const account =
-    getAccount();
+    const username =
+        getCurrentUsername();
 
-  if(!account)
-    return;
+    if(!username){
+        return;
+    }
 
-  account.balance =
-    Math.min(
-      MAX_BALANCE,
-      account.balance + amount
-    );
+    const accounts =
+        getAccounts();
 
-  saveCurrentAccount(account);
+    const account =
+        accounts[username];
 
-  updateUI();
-
-}
-
-
-/* =========================
-   WEEKLY RESET
-========================= */
-
-function getCurrentWeekKey(){
-
-  const now =
-    new Date();
-
-  const year =
-    now.getFullYear();
-
-  const firstDay =
-    new Date(
-      year,
-      0,
-      1
-    );
-
-  const days =
-    Math.floor(
-      (now - firstDay) /
-      86400000
-    );
-
-  const week =
-    Math.ceil(
-      (days +
-      firstDay.getDay() + 1) / 7
-    );
-
-  return year + "-W" + week;
-
-}
-
-
-function resetAccountIfNeeded(){
-
-  const username =
-    getCurrentUser();
-
-  if(!username)
-    return;
-
-  const accounts =
-    getAccounts();
-
-  const account =
-    accounts[username];
-
-  if(!account)
-    return;
-
-  const currentWeek =
-    getCurrentWeekKey();
-
-  if(account.lastReset !== currentWeek){
+    if(!account){
+        return;
+    }
 
     account.balance =
-      START_BALANCE;
-
-    account.lastReset =
-      currentWeek;
+        Math.min(
+            MAX_BALANCE,
+            account.balance + amount
+        );
 
     accounts[username] =
-      account;
+        account;
 
     saveAccounts(accounts);
 
-  }
-
-}
-
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-function getNextReset(){
-
-  const now =
-    new Date();
-
-  const day =
-    now.getDay();
-
-  let daysUntilSunday =
-    7 - day;
-
-  if(day === 0)
-    daysUntilSunday = 0;
-
-  const next =
-    new Date(now);
-
-  next.setDate(
-    now.getDate() +
-    daysUntilSunday
-  );
-
-  next.setHours(
-    23,59,59,999
-  );
-
-  if(next <= now){
-
-    next.setDate(
-      next.getDate()+7
-    );
-
-  }
-
-  return next;
-
-}
-
-
-function updateCountdown(){
-
-  const now =
-    new Date();
-
-  const target =
-    getNextReset();
-
-  const difference =
-    target - now;
-
-  if(difference <= 0){
-
-    document
-      .getElementById("countdown")
-      .textContent =
-      "RESETTING...";
-
-    resetAllLocalAccounts();
-
-    return;
-
-  }
-
-  const totalSeconds =
-    Math.floor(
-      difference / 1000
-    );
-
-  const days =
-    Math.floor(
-      totalSeconds / 86400
-    );
-
-  const hours =
-    Math.floor(
-      (totalSeconds % 86400) /
-      3600
-    );
-
-  const minutes =
-    Math.floor(
-      (totalSeconds % 3600) /
-      60
-    );
-
-  const seconds =
-    totalSeconds % 60;
-
-  document
-    .getElementById("countdown")
-    .textContent =
-    `${days}d ${String(hours).padStart(2,"0")}h ${String(minutes).padStart(2,"0")}m ${String(seconds).padStart(2,"0")}s`;
-
-}
-
-
-function resetAllLocalAccounts(){
-
-  const accounts =
-    getAccounts();
-
-  const currentWeek =
-    getCurrentWeekKey();
-
-  for(const username in accounts){
-
-    accounts[username].balance =
-      START_BALANCE;
-
-    accounts[username].lastReset =
-      currentWeek;
-
-  }
-
-  saveAccounts(accounts);
-
-  updateUI();
-
+    updateUI();
 }
 
 
@@ -1467,55 +1000,61 @@ function resetAllLocalAccounts(){
 
 function updateUI(){
 
-  resetAccountIfNeeded();
+    checkWeeklyReset();
 
-  const username =
-    getCurrentUser();
+    const account =
+        getCurrentAccount();
 
-  const balance =
-    getBalance();
+    const balance =
+        account
+            ? account.balance
+            : START_BALANCE;
 
-  document
-    .getElementById("headerBalance")
-    .textContent =
-    "🪙 " +
-    balance.toLocaleString();
+    const username =
+        account
+            ? getCurrentUsername()
+            : null;
 
-  document
-    .getElementById("usernameDisplay")
-    .textContent =
-    username || "Guest";
+    document.getElementById(
+        "balance"
+    ).textContent =
+        "🪙 " +
+        balance.toLocaleString();
 
-  document
-    .getElementById("accountStatus")
-    .textContent =
-    username
-      ? "● Logged in"
-      : "Not logged in";
+    document.getElementById(
+        "username"
+    ).textContent =
+        username || "Guest";
 
-  const percent =
-    Math.min(
-      100,
-      (balance / MAX_BALANCE) * 100
-    );
+    document.getElementById(
+        "status"
+    ).textContent =
+        username
+            ? "● Logged in"
+            : "Not logged in";
 
-  document
-    .getElementById("progressBar")
-    .style.width =
-    percent + "%";
+    const percent =
+        Math.min(
+            100,
+            (balance / MAX_BALANCE) * 100
+        );
 
-  document
-    .getElementById("progressText")
-    .textContent =
-    percent.toFixed(2) + "%";
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percent + "%";
 
-  document
-    .getElementById("milestone")
-    .style.display =
-    balance >= MAX_BALANCE
-      ? "block"
-      : "none";
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        percent.toFixed(2) + "%";
 
+    document.getElementById(
+        "milestone"
+    ).style.display =
+        balance >= MAX_BALANCE
+            ? "block"
+            : "none";
 }
 
 
@@ -1525,393 +1064,335 @@ function updateUI(){
 
 function openModal(id){
 
-  if(
-    id === "gameModal" &&
-    !getCurrentUser()
-  ){
-
-    alert(
-      "You need to create an account or login first."
-    );
-
-    return;
-
-  }
-
-  document
-    .getElementById(id)
-    .style.display =
-    "flex";
-
+    document.getElementById(
+        id
+    ).style.display = "flex";
 }
+
 
 function closeModal(id){
 
-  document
-    .getElementById(id)
-    .style.display =
-    "none";
-
+    document.getElementById(
+        id
+    ).style.display = "none";
 }
 
 
 /* =========================
-   GAME HELPER
+   REGISTER
 ========================= */
 
-function showGame(title,html){
+document.getElementById(
+    "registerButton"
+).addEventListener(
+    "click",
+    function(){
 
-  document
-    .getElementById("gameContent")
-    .innerHTML =
+        const username =
+            document.getElementById(
+                "registerUsername"
+            ).value.trim();
 
-    `<h2>${title}</h2>
-     ${html}`;
+        const password =
+            document.getElementById(
+                "registerPassword"
+            ).value;
 
-  openModal("gameModal");
+        const password2 =
+            document.getElementById(
+                "registerPassword2"
+            ).value;
 
-}
+        const message =
+            document.getElementById(
+                "registerMessage"
+            );
+
+        message.textContent = "";
+
+        if(username.length < 3){
+
+            message.textContent =
+                "Username must have at least 3 characters.";
+
+            return;
+        }
+
+        if(password.length < 4){
+
+            message.textContent =
+                "Password must have at least 4 characters.";
+
+            return;
+        }
+
+        if(password !== password2){
+
+            message.textContent =
+                "Passwords do not match.";
+
+            return;
+        }
+
+        const accounts =
+            getAccounts();
+
+        const key =
+            username.toLowerCase();
+
+        if(accounts[key]){
+
+            message.textContent =
+                "This username already exists.";
+
+            return;
+        }
+
+        accounts[key] = {
+
+            username:username,
+
+            password:password,
+
+            balance:START_BALANCE,
+
+            weekId:getWeekId()
+
+        };
+
+        saveAccounts(accounts);
+
+        setCurrentUsername(key);
+
+        closeModal("registerModal");
+
+        updateUI();
+
+        alert(
+            "Account created! You received 50,000 OrcaCoins."
+        );
+
+    }
+);
 
 
 /* =========================
-   CHICKEN ROAD
+   LOGIN
 ========================= */
 
-function chickenRoad(){
+document.getElementById(
+    "loginButton"
+).addEventListener(
+    "click",
+    function(){
 
-  if(!getCurrentUser())
-    return alert("Login first.");
+        const username =
+            document.getElementById(
+                "loginUsername"
+            ).value.trim();
 
-  const reward =
-    Math.floor(
-      Math.random()*5000
-    ) + 1000;
+        const password =
+            document.getElementById(
+                "loginPassword"
+            ).value;
 
-  showGame(
-    "🐔 Chicken Road",
-    `
-    <div class="game-area">
-      <div class="big-number">🐔</div>
+        const message =
+            document.getElementById(
+                "loginMessage"
+            );
 
-      <p class="result">
-        The chicken made it across!
-      </p>
+        message.textContent = "";
 
-      <button onclick="
-        addCoins(${reward});
-        this.disabled=true;
-        this.textContent='Reward claimed';
-        document.querySelector('.result').textContent='+' + ${reward}.toLocaleString() + ' OrcaCoins!';
-      ">
-        Claim +${reward.toLocaleString()}
-      </button>
-    </div>
-    `
-  );
+        const accounts =
+            getAccounts();
 
-}
+        const key =
+            username.toLowerCase();
+
+        const account =
+            accounts[key];
+
+        if(!account){
+
+            message.textContent =
+                "Account not found.";
+
+            return;
+        }
+
+        if(account.password !== password){
+
+            message.textContent =
+                "Incorrect password.";
+
+            return;
+        }
+
+        setCurrentUsername(key);
+
+        closeModal("loginModal");
+
+        updateUI();
+
+    }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document.getElementById(
+    "logout"
+).addEventListener(
+    "click",
+    function(){
+
+        logoutUser();
+
+        updateUI();
+
+    }
+);
+
+
+/* =========================
+   ACCOUNT BUTTONS
+========================= */
+
+document.getElementById(
+    "loginOpen"
+).addEventListener(
+    "click",
+    function(){
+        openModal("loginModal");
+    }
+);
+
+
+document.getElementById(
+    "registerOpen"
+).addEventListener(
+    "click",
+    function(){
+        openModal("registerModal");
+    }
+);
+
+
+/* =========================
+   CLOSE BUTTONS
+========================= */
+
+document.querySelectorAll(
+    "[data-close]"
+).forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                closeModal(
+                    button.dataset.close
+                );
+
+            }
+        );
+
+    }
+);
 
 
 /* =========================
    COIN FLIP
 ========================= */
 
-function coinFlip(){
+function coinGame(){
 
-  showGame(
-    "🪙 Coin Flip",
-    `
-    <div class="game-area">
-
-      <p>Choose a side.</p>
-
-      <div class="game-buttons">
-
-        <button onclick="flipCoin('Heads')">
-          Heads
-        </button>
-
-        <button onclick="flipCoin('Tails')">
-          Tails
-        </button>
-
-      </div>
-
-      <div
-        class="result"
-        id="flipResult"
-      ></div>
-
-    </div>
-    `
-  );
-
-}
-
-
-function flipCoin(choice){
-
-  const result =
-    Math.random() < .5
-      ? "Heads"
-      : "Tails";
-
-  const won =
-    choice === result;
-
-  const reward =
-    won
-      ? Math.floor(Math.random()*5000)+1000
-      : 0;
-
-  const el =
-    document.getElementById("flipResult");
-
-  if(won){
-
-    addCoins(reward);
-
-    el.textContent =
-      `🟢 ${result}! +${reward.toLocaleString()} OrcaCoins`;
-
-  }else{
-
-    el.textContent =
-      `🔴 ${result}! Better luck next time.`;
-
-  }
-
-}
-
-
-/* =========================
-   DAILY WHEEL
-========================= */
-
-function dailyWheel(){
-
-  const rewards = [
-    1000,
-    2500,
-    5000,
-    10000,
-    25000,
-    50000
-  ];
-
-  const reward =
-    rewards[
-      Math.floor(
-        Math.random()*rewards.length
-      )
-    ];
-
-  showGame(
-    "🎡 Daily Wheel",
-    `
-    <div class="game-area">
-
-      <div class="big-number">🎡</div>
-
-      <button onclick="
-        addCoins(${reward});
-        this.disabled=true;
-        this.textContent='Reward claimed';
-        document.querySelector('.result').textContent='+${reward.toLocaleString()} OrcaCoins!';
-      ">
-        SPIN
-      </button>
-
-      <div class="result"></div>
-
-    </div>
-    `
-  );
-
-}
-
-
-/* =========================
-   MEMORY
-========================= */
-
-function memoryGame(){
-
-  const number =
-    Math.floor(
-      10000 +
-      Math.random()*90000
-    );
-
-  showGame(
-    "🧠 Memory",
-    `
-    <div class="game-area">
-
-      <div class="big-number">
-        ${number}
-      </div>
-
-      <p>
-        Remember this number!
-      </p>
-
-      <button onclick="
-        document.querySelector('.big-number').textContent='?????';
-        this.style.display='none';
-        document.getElementById('memoryInput').style.display='block';
-        document.getElementById('memorySubmit').style.display='block';
-      ">
-        Hide
-      </button>
-
-      <input
-        id="memoryInput"
-        class="input"
-        style="display:none"
-        placeholder="Type the number"
-      >
-
-      <button
-        id="memorySubmit"
-        style="display:none"
-        onclick="
-          checkMemory(${number});
-        "
-      >
-        Check
-      </button>
-
-      <div
-        class="result"
-        id="memoryResult"
-      ></div>
-
-    </div>
-    `
-  );
-
-}
-
-
-function checkMemory(correct){
-
-  const input =
-    document
-      .getElementById("memoryInput")
-      .value;
-
-  const result =
-    document
-      .getElementById("memoryResult");
-
-  if(input === String(correct)){
-
-    const reward = 15000;
-
-    addCoins(reward);
-
-    result.textContent =
-      `🟢 Correct! +${reward.toLocaleString()} OrcaCoins`;
-
-  }else{
-
-    result.textContent =
-      "🔴 Wrong number.";
-
-  }
-
-}
-
-
-/* =========================
-   REACTION
-========================= */
-
-function reactionGame(){
-
-  showGame(
-    "⚡ Reaction",
-    `
-    <div class="game-area">
-
-      <p class="result" id="reactionText">
-        Wait...
-      </p>
-
-      <button
-        id="reactionButton"
-        style="display:none"
-        onclick="finishReaction()"
-      >
-        CLICK!
-      </button>
-
-    </div>
-    `
-  );
-
-  const delay =
-    1500 +
-    Math.random()*3000;
-
-  setTimeout(()=>{
-
-    const button =
-      document.getElementById(
-        "reactionButton"
-      );
-
-    if(!button)
-      return;
-
-    button.style.display =
-      "inline-block";
-
-    button.dataset.start =
-      performance.now();
-
-    document
-      .getElementById("reactionText")
-      .textContent =
-      "CLICK NOW!";
-
-  },delay);
-
-}
-
-
-function finishReaction(){
-
-  const button =
     document.getElementById(
-      "reactionButton"
+        "gameContent"
+    ).innerHTML = `
+
+        <h2>🪙 Coin Flip</h2>
+
+        <p style="margin-top:10px;color:#8ca9b8">
+            Choose a side.
+        </p>
+
+        <div class="game-buttons" style="margin-top:20px">
+
+            <button id="heads">
+                Heads
+            </button>
+
+            <button id="tails">
+                Tails
+            </button>
+
+        </div>
+
+        <div
+            class="game-result"
+            id="gameResult"
+        ></div>
+    `;
+
+    openModal("gameModal");
+
+    document.getElementById(
+        "heads"
+    ).addEventListener(
+        "click",
+        function(){
+            flip("Heads");
+        }
     );
 
-  const time =
-    performance.now() -
-    Number(button.dataset.start);
+    document.getElementById(
+        "tails"
+    ).addEventListener(
+        "click",
+        function(){
+            flip("Tails");
+        }
+    );
+}
 
-  let reward = 0;
 
-  if(time < 250)
-    reward = 30000;
-  else if(time < 400)
-    reward = 15000;
-  else if(time < 700)
-    reward = 5000;
-  else
-    reward = 1000;
+function flip(choice){
 
-  addCoins(reward);
+    const result =
+        Math.random() < .5
+            ? "Heads"
+            : "Tails";
 
-  document
-    .getElementById("reactionText")
-    .textContent =
-    `${Math.round(time)}ms • +${reward.toLocaleString()} OrcaCoins`;
+    const resultBox =
+        document.getElementById(
+            "gameResult"
+        );
 
-  button.disabled=true;
+    if(choice === result){
 
+        const reward = 5000;
+
+        addCoins(reward);
+
+        resultBox.textContent =
+            "🟢 " +
+            result +
+            "! +" +
+            reward.toLocaleString() +
+            " OrcaCoins";
+
+    }else{
+
+        resultBox.textContent =
+            "🔴 " +
+            result +
+            "! Try again.";
+
+    }
 }
 
 
@@ -1919,76 +1400,111 @@ function finishReaction(){
    ROULETTE
 ========================= */
 
-function roulette(){
+function rouletteGame(){
 
-  showGame(
-    "🎯 Roulette Challenge",
-    `
-    <div class="game-area">
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
 
-      <p>Guess the winning color.</p>
+        <h2>🎯 Roulette Challenge</h2>
 
-      <div class="game-buttons">
+        <p style="margin-top:10px;color:#8ca9b8">
+            Guess the winning color.
+        </p>
 
-        <button onclick="spinRoulette('RED')">
-          🔴 RED
-        </button>
+        <div class="game-buttons" style="margin-top:20px">
 
-        <button onclick="spinRoulette('BLACK')">
-          ⚫ BLACK
-        </button>
+            <button id="red">
+                🔴 Red
+            </button>
 
-        <button onclick="spinRoulette('GREEN')">
-          🟢 GREEN
-        </button>
+            <button id="black">
+                ⚫ Black
+            </button>
 
-      </div>
+            <button id="green">
+                🟢 Green
+            </button>
 
-      <div
-        class="result"
-        id="rouletteResult"
-      ></div>
+        </div>
 
-    </div>
-    `
-  );
+        <div
+            class="game-result"
+            id="gameResult"
+        ></div>
+    `;
 
+    openModal("gameModal");
+
+    document.getElementById("red")
+        .addEventListener(
+            "click",
+            () => spinRoulette("Red")
+        );
+
+    document.getElementById("black")
+        .addEventListener(
+            "click",
+            () => spinRoulette("Black")
+        );
+
+    document.getElementById("green")
+        .addEventListener(
+            "click",
+            () => spinRoulette("Green")
+        );
 }
 
 
 function spinRoulette(choice){
 
-  const colors =
-    ["RED","BLACK","RED","BLACK","RED","BLACK","GREEN"];
+    const colors =
+        [
+            "Red",
+            "Black",
+            "Red",
+            "Black",
+            "Red",
+            "Black",
+            "Green"
+        ];
 
-  const result =
-    colors[
-      Math.floor(
-        Math.random()*colors.length
-      )
-    ];
+    const result =
+        colors[
+            Math.floor(
+                Math.random() * colors.length
+            )
+        ];
 
-  let reward = 0;
+    const box =
+        document.getElementById(
+            "gameResult"
+        );
 
-  if(choice === result){
+    if(choice === result){
 
-    reward =
-      result === "GREEN"
-        ? 100000
-        : 10000;
+        const reward =
+            result === "Green"
+                ? 50000
+                : 10000;
 
-    addCoins(reward);
+        addCoins(reward);
 
-  }
+        box.textContent =
+            "🟢 " +
+            result +
+            "! +" +
+            reward.toLocaleString() +
+            " OrcaCoins";
 
-  document
-    .getElementById("rouletteResult")
-    .textContent =
+    }else{
 
-    choice === result
-      ? `🟢 ${result}! +${reward.toLocaleString()} OrcaCoins`
-      : `🔴 ${result}! No reward this time.`;
+        box.textContent =
+            "🔴 The result was " +
+            result +
+            ".";
 
+    }
 }
 
 
@@ -1998,66 +1514,72 @@ function spinRoulette(choice){
 
 function sevenGame(){
 
-  const a =
-    Math.floor(Math.random()*9)+1;
+    const a =
+        Math.floor(Math.random()*9)+1;
 
-  const b =
-    Math.floor(Math.random()*9)+1;
+    const b =
+        Math.floor(Math.random()*9)+1;
 
-  const c =
-    Math.floor(Math.random()*9)+1;
+    const c =
+        Math.floor(Math.random()*9)+1;
 
-  let reward = 0;
+    let reward = 0;
 
-  if(a===7 && b===7 && c===7)
-    reward=1000000;
+    if(a === 7 && b === 7 && c === 7){
+        reward = 1000000;
+    }
+    else if(a === b && b === c){
+        reward = 100000;
+    }
+    else if(a === b || b === c || a === c){
+        reward = 10000;
+    }
 
-  else if(a===b && b===c)
-    reward=100000;
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
 
-  else if(a===b || b===c || a===c)
-    reward=10000;
+        <h2>7️⃣ 777</h2>
 
-  showGame(
-    "7️⃣ 777",
-    `
-    <div class="game-area">
+        <div class="big">
+            ${a} ${b} ${c}
+        </div>
 
-      <div class="big-number">
-        ${a} ${b} ${c}
-      </div>
+        <div
+            class="game-result"
+        >
+            ${
+                reward > 0
+                    ? "+" + reward.toLocaleString() + " OrcaCoins!"
+                    : "No match."
+            }
+        </div>
 
-      <div class="result">
-        ${
-          reward > 0
-            ? `🎉 +${reward.toLocaleString()} OrcaCoins!`
-            : "No matching numbers."
+        <div style="text-align:center;margin-top:20px">
+
+            <button id="claim777">
+                ${reward > 0 ? "Claim Reward" : "Close"}
+            </button>
+
+        </div>
+    `;
+
+    openModal("gameModal");
+
+    document.getElementById(
+        "claim777"
+    ).addEventListener(
+        "click",
+        function(){
+
+            if(reward > 0){
+                addCoins(reward);
+            }
+
+            closeModal("gameModal");
+
         }
-      </div>
-
-      <button
-        ${
-          reward===0
-            ? "disabled"
-            : ""
-        }
-        onclick="
-          addCoins(${reward});
-          this.disabled=true;
-          this.textContent='Reward claimed';
-        "
-      >
-        ${
-          reward>0
-            ? "Claim reward"
-            : "No reward"
-        }
-      </button>
-
-    </div>
-    `
-  );
-
+    );
 }
 
 
@@ -2067,64 +1589,127 @@ function sevenGame(){
 
 function diceGame(){
 
-  const dice =
-    Math.floor(
-      Math.random()*6
-    )+1;
+    const dice =
+        Math.floor(
+            Math.random()*6
+        ) + 1;
 
-  const rewards = {
-    1:1000,
-    2:2500,
-    3:5000,
-    4:10000,
-    5:25000,
-    6:50000
-  };
+    const rewards =
+        {
+            1:1000,
+            2:2500,
+            3:5000,
+            4:10000,
+            5:25000,
+            6:50000
+        };
 
-  const reward =
-    rewards[dice];
+    const reward =
+        rewards[dice];
 
-  showGame(
-    "🎲 Lucky Dice",
-    `
-    <div class="game-area">
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
 
-      <div class="big-number">
-        ${dice}
-      </div>
+        <h2>🎲 Lucky Dice</h2>
 
-      <p class="result">
-        +${reward.toLocaleString()} OrcaCoins
-      </p>
+        <div class="big">
+            ${dice}
+        </div>
 
-      <button onclick="
-        addCoins(${reward});
-        this.disabled=true;
-        this.textContent='Reward claimed';
-      ">
-        Claim
-      </button>
+        <div class="game-result">
+            +${reward.toLocaleString()} OrcaCoins
+        </div>
 
-    </div>
-    `
-  );
+        <div style="text-align:center;margin-top:20px">
 
+            <button id="claimDice">
+                Claim Reward
+            </button>
+
+        </div>
+    `;
+
+    openModal("gameModal");
+
+    document.getElementById(
+        "claimDice"
+    ).addEventListener(
+        "click",
+        function(){
+
+            addCoins(reward);
+
+            closeModal("gameModal");
+
+        }
+    );
 }
 
 
 /* =========================
-   TREASURE
+   MEMORY
 ========================= */
 
-function treasureGame(){
+function memoryGame(){
 
-  showGame(
-    "💎 Treasure Vault",
-    `
-    <div class="game-area">
+    const number =
+        Math.floor(
+            10000 +
+            Math.random()*90000
+        );
 
-      <p>
-        Choose one vault.
-      </p>
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
 
-      <div
+        <h2>🧠 Memory</h2>
+
+        <div
+            class="big"
+            id="memoryNumber"
+        >
+            ${number}
+        </div>
+
+        <p style="text-align:center;color:#8ca9b8">
+            Remember the number!
+        </p>
+
+        <div style="text-align:center;margin-top:15px">
+
+            <button id="hideNumber">
+                Hide Number
+            </button>
+
+        </div>
+
+        <input
+            class="input"
+            id="memoryInput"
+            placeholder="Enter the number"
+            style="display:none"
+        >
+
+        <button
+            id="memoryCheck"
+            style="display:none"
+        >
+            Check
+        </button>
+
+        <div
+            class="game-result"
+            id="memoryResult"
+        ></div>
+    `;
+
+    openModal("gameModal");
+
+    document.getElementById(
+        "hideNumber"
+    ).addEventListener(
+        "click",
+        function(){
+
+            document
