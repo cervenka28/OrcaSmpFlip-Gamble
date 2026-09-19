@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrcaSMPFlip</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+    background:
+        radial-gradient(circle at 20% 20%,#063b70 0%,transparent 35%),
+        radial-gradient(circle at 80% 80%,#001d42 0%,transparent 35%),
+        linear-gradient(135deg,#02050b,#00152d,#000812);
+    overflow-x:hidden;
+}
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle,#168cff 1px,transparent 1px);
+    background-size:45px 45px;
+    opacity:.12;
+    animation:move 15s linear infinite;
+}
+
+@keyframes move{
+    from{background-position:0 0}
+    to{background-position:450px 450px}
+}
+
+header{
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    background:rgba(0,8,20,.75);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #0d5ca8;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    color:#42aaff;
+    text-shadow:0 0 20px #087fff;
+}
+
+.logo span{color:white}
+
+nav{
+    display:flex;
+    gap:12px;
+}
+
+button{
+    border:0;
+    color:white;
+    background:#071b31;
+    border:1px solid #1268ad;
+    padding:11px 17px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.2s;
+    font-weight:bold;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    background:#0b3963;
+    box-shadow:0 0 20px #087fff;
+}
+
+.discord{
+    background:#5865f2;
+    border-color:#7d87ff;
+}
+
+.hero{
+    text-align:center;
+    padding:80px 20px 45px;
+}
+
+.hero h1{
+    font-size:65px;
+    margin:0;
+    letter-spacing:2px;
+    text-shadow:
+        0 0 10px #008cff,
+        0 0 40px #005cff;
+}
+
+.hero p{
+    color:#91b9df;
+    font-size:18px;
+}
+
+.stats{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    padding:20px;
+}
+
+.stat{
+    padding:25px;
+    background:rgba(5,20,38,.8);
+    border:1px solid #0d5ca8;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(0,130,255,.12);
+}
+
+.stat h2{
+    color:#42aaff;
+    margin:5px 0;
+    font-size:30px;
+}
+
+.stat p{
+    margin:0;
+    color:#779cc2;
+}
+
+.section{
+    max-width:1100px;
+    margin:40px auto;
+    padding:20px;
+}
+
+.section h2{
+    font-size:30px;
+}
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    min-height:210px;
+    padding:25px;
+    border-radius:20px;
+    background:
+        linear-gradient(145deg,rgba(8,35,63,.95),rgba(2,10,20,.95));
+    border:1px solid #1268ad;
+    position:relative;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-7px) scale(1.02);
+    box-shadow:0 0 35px rgba(0,140,255,.35);
+    border-color:#42aaff;
+}
+
+.icon{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.card h3{
+    font-size:23px;
+    margin:5px 0 10px;
+}
+
+.card p{
+    color:#86a9ce;
+    line-height:1.5;
+}
+
+.card button{
+    margin-top:10px;
+}
+
+.profile{
+    max-width:700px;
+    margin:30px auto 70px;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(4,16,30,.9);
+    border:1px solid #1268ad;
+    text-align:center;
+}
+
+.progress{
+    height:16px;
+    background:#071426;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid #164a78;
+}
+
+.progress div{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#006eff,#42c8ff);
+    box-shadow:0 0 15px #008cff;
+    transition:.5s;
+}
+
+footer{
+    padding:30px;
+    text-align:center;
+    color:#55799e;
+    border-top:1px solid #092b4b;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+    align-items:center;
+    justify-content:center;
+    z-index:20;
+}
+
+.modalBox{
+    width:min(420px,90%);
+    padding:30px;
+    border-radius:20px;
+    background:#061323;
+    border:1px solid #168cff;
+    box-shadow:0 0 50px rgba(0,130,255,.4);
+    text-align:center;
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+    color:#6da9d9;
+}
+
+@media(max-width:750px){
+    .stats,.games{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        padding:0 15px;
+    }
+
+    nav button{
+        padding:8px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">ORCA<span>SMPFLIP</span></div>
+
+    <nav>
+        <button onclick="openModal('login')">LOGIN</button>
+        <button onclick="openModal('create')">CREATE ACCOUNT</button>
+        <button class="discord" onclick="discord()">💬 DISCORD</button>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>ORCASMPFLIP</h1>
+    <p>⚡ The ultimate blue & black game lobby ⚡</p>
+</section>
+
+<section class="stats">
+
+    <div class="stat">
+        <p>Your XP</p>
+        <h2 id="balance">50,000</h2>
+    </div>
+
+    <div class="stat">
+        <p>Weekly Maximum</p>
+        <h2>10,000,000</h2>
+    </div>
+
+    <div class="stat">
+        <p>Weekly Reset</p>
+        <h2 id="timer">Loading...</h2>
+    </div>
+
+</section>
+
+<section class="section">
+
+<h2>🎮 Games</h2>
+
+<div class="games">
+
+    <div class="card">
+        <div class="icon">🐔</div>
+        <h3>Chicken Cross</h3>
+        <p>Cross the road and collect virtual XP.</p>
+        <button onclick="play('Chicken Cross')">PLAY</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">🪙</div>
+        <h3>Coin Flip</h3>
+        <p>A simple virtual coin-flip minigame.</p>
+        <button onclick="play('Coin Flip')">PLAY</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">🎡</div>
+        <h3>Daily Wheel</h3>
+        <p>Spin once per day and receive virtual XP.</p>
+        <button onclick="wheel()">SPIN</button>
+    </div>
+
+</div>
+
+</section>
+
+<section class="profile">
+
+<h2>👤 Player Progress</h2>
+
+<p>XP Progress</p>
+
+<div class="progress">
+    <div id="bar"></div>
+</div>
+
+<p id="progressText">50,000 / 10,000,000 XP</p>
+
+<button onclick="resetXP()">RESET DEMO XP</button>
+
+</section>
+
+<footer>
+    <p>© 2026 OrcaSMPFlip</p>
+    <p>🎮 Virtual XP only • No real-money gambling</p>
+
+    <button class="discord" onclick="discord()">
+        💬 Join our Discord
+    </button>
+</footer>
+
+<div class="modal" id="modal">
+    <div class="modalBox">
+        <span class="close" onclick="closeModal()">✕</span>
+        <h2 id="modalTitle">Welcome</h2>
+        <p>This demo account system is only for the website interface.</p>
+        <button onclick="closeModal()">CONTINUE</button>
+    </div>
+</div>
+
+<script>
+
+let xp = Number(localStorage.getItem("orcaxp")) || 50000;
+
+const MAX = 10000000;
+
+function format(number){
+    return number.toLocaleString("en-US");
+}
+
+function update(){
+
+    document.getElementById("balance").textContent = format(xp);
+
+    document.getElementById("progressText").textContent =
+        format(xp) + " / " + format(MAX) + " XP";
+
+    document.getElementById("bar").style.width =
+        Math.min((xp / MAX) * 100,100) + "%";
+}
+
+function addXP(amount){
+
+    xp = Math.min(MAX,xp + amount);
+
+    localStorage.setItem("orcaxp",xp);
+
+    update();
+}
+
+function play(game){
+
+    const reward = Math.floor(Math.random()*25000)+5000;
+
+    addXP(reward);
+
+    alert(
+        "🎮 " + game +
+        "\\n\\nYou earned " +
+        format(reward) +
+        " virtual XP!"
+    );
+}
+
+function wheel(){
+
+    const today = new Date().toDateString();
+    const last = localStorage.getItem("wheelDate");
+
+    if(last === today){
+
+        alert("🎡 You already used the Daily Wheel today!");
+
+        return;
+    }
+
+    const reward =
+        Math.floor(Math.random()*50000)+10000;
+
+    localStorage.setItem("wheelDate",today);
+
+    addXP(reward);
+
+    alert(
+        "🎡 DAILY WHEEL!\\n\\n+" +
+        format(reward) +
+        " virtual XP!"
+    );
+}
+
+function resetXP(){
+
+    xp = 50000;
+
+    localStorage.setItem("orcaxp",xp);
+
+    update();
+}
+
+function discord(){
+
+    window.open(
+        "https://discord.gg/TZRAGfKaFx",
+        "_blank"
+    );
+}
+
+function openModal(type){
+
+    document.getElementById("modal").style.display="flex";
+
+    if(type === "login"){
+        document.getElementById("modalTitle").textContent =
+            "🔐 Login";
+    }else{
+        document.getElementById("modalTitle").textContent =
+            "🚀 Create Account";
+    }
+}
+
+function closeModal(){
+
+    document.getElementById("modal").style.display="none";
+}
+
+function countdown(){
+
+    const now = new Date();
+
+    const day = now.getDay();
+
+    const daysUntilMonday =
+        day === 0 ? 1 : 8 - day;
+
+    const next = new Date(now);
+
+    next.setDate(now.getDate()+daysUntilMonday);
+    next.setHours(0,0,0,0);
+
+    const diff = next-now;
+
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff/3600000)%24;
+    const m = Math.floor(diff/60000)%60;
+    const s = Math.floor(diff/1000)%60;
+
+    document.getElementById("timer").textContent =
+        `${d}d ${h}h ${m}m ${s}s`;
+}
+
+update();
+countdown();
+setInterval(countdown,1000);
+
+</script>
+
+</body>
+</html>
