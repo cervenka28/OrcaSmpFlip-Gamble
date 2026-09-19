@@ -3,247 +3,479 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OrcaSmpFlip</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OrcaCoins Arcade</title>
 
 <style>
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
 body{
-margin:0;
-font-family:Arial,sans-serif;
-color:white;
-background:
-radial-gradient(circle at 20% 20%,#064b91,transparent 35%),
-radial-gradient(circle at 80% 80%,#002b58,transparent 35%),
-linear-gradient(135deg,#02050b,#00152d,#000812);
-min-height:100vh;
+ margin:0;
+ min-height:100vh;
+ color:#fff;
+ font-family:Arial,Helvetica,sans-serif;
+ background:
+ radial-gradient(circle at 15% 10%,#0756a0 0%,transparent 28%),
+ radial-gradient(circle at 85% 90%,#003e76 0%,transparent 30%),
+ linear-gradient(135deg,#01040a,#021326,#00050c);
+ overflow-x:hidden;
 }
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ opacity:.16;
+ background-image:
+ radial-gradient(circle,#3db8ff 1px,transparent 1px);
+ background-size:45px 45px;
+ animation:stars 18s linear infinite;
+}
+
+@keyframes stars{
+ from{background-position:0 0}
+ to{background-position:450px 450px}
+}
+
 header{
-height:75px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 30px;
-background:#020b17dd;
-border-bottom:1px solid #087fff;
-position:sticky;
-top:0;
-z-index:10;
-backdrop-filter:blur(15px);
+ position:sticky;
+ top:0;
+ z-index:100;
+ height:76px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 32px;
+ background:rgba(1,8,18,.82);
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid rgba(38,156,255,.45);
+ box-shadow:0 0 35px rgba(0,130,255,.12);
 }
+
 .logo{
-font-size:25px;
-font-weight:900;
-color:#35aaff;
-text-shadow:0 0 20px #008cff;
+ font-size:25px;
+ font-weight:900;
+ letter-spacing:1px;
+ color:#39b8ff;
+ text-shadow:0 0 12px #008cff,0 0 35px #006eff;
 }
-.logo span{color:white}
-nav{display:flex;gap:10px}
+
+.logo span{color:#fff}
+
+nav{
+ display:flex;
+ align-items:center;
+ gap:9px;
+}
+
 button{
-border:1px solid #168cff;
-background:#061a30;
-color:white;
-padding:11px 16px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-transition:.2s;
+ border:1px solid #168cff;
+ background:linear-gradient(135deg,#08243e,#061525);
+ color:#fff;
+ padding:11px 16px;
+ border-radius:11px;
+ cursor:pointer;
+ font-weight:800;
+ transition:.2s;
 }
+
 button:hover{
-transform:translateY(-2px);
-box-shadow:0 0 20px #008cff;
-background:#0b3860;
+ transform:translateY(-3px);
+ border-color:#59c5ff;
+ box-shadow:0 0 22px rgba(0,145,255,.55);
 }
-.discord{background:#5865f2}
+
+button:active{
+ transform:scale(.96);
+}
+
+.discord{
+ background:linear-gradient(135deg,#5865f2,#3947c7);
+ border-color:#8290ff;
+}
+
+.coinTop{
+ display:none;
+ align-items:center;
+ gap:8px;
+ padding:8px 12px;
+ border:1px solid #159cff;
+ border-radius:12px;
+ background:#061a2d;
+ font-weight:900;
+}
 
 .hero{
-text-align:center;
-padding:70px 20px 35px;
+ position:relative;
+ text-align:center;
+ padding:90px 20px 55px;
 }
-.hero h1{
-font-size:65px;
-margin:0;
-text-shadow:0 0 10px #008cff,0 0 45px #006cff;
-}
-.hero p{color:#8eb8df}
 
-.stats,.games{
-max-width:1100px;
-margin:20px auto;
-padding:20px;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
+.heroBadge{
+ display:inline-block;
+ padding:8px 14px;
+ border:1px solid #168cff;
+ border-radius:999px;
+ background:#06203a99;
+ color:#62c8ff;
+ box-shadow:0 0 20px #008cff25;
 }
-.stat,.card{
-background:#061626dd;
-border:1px solid #1268ad;
-border-radius:18px;
-padding:25px;
-box-shadow:0 0 25px #008cff18;
+
+.hero h1{
+ margin:20px 0 8px;
+ font-size:clamp(44px,8vw,82px);
+ line-height:.95;
+ letter-spacing:3px;
+ text-shadow:
+ 0 0 8px #fff,
+ 0 0 20px #008cff,
+ 0 0 55px #006eff;
+ animation:titlePulse 3s ease-in-out infinite;
 }
-.stat{text-align:center}
+
+@keyframes titlePulse{
+ 50%{text-shadow:0 0 8px #fff,0 0 28px #00aaff,0 0 80px #006eff}
+}
+
+.hero p{
+ color:#86afd2;
+ font-size:18px;
+}
+
+.stats{
+ max-width:1100px;
+ margin:auto;
+ padding:20px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
+}
+
+.stat{
+ padding:24px;
+ border:1px solid #1268ad;
+ border-radius:20px;
+ background:linear-gradient(145deg,#071d34dd,#020a14dd);
+ box-shadow:0 0 30px #008cff12;
+ text-align:center;
+}
+
+.stat small{color:#7096bb}
+
 .stat h2{
-color:#43b2ff;
-font-size:30px;
-margin:8px;
+ margin:8px 0 0;
+ color:#45baff;
+ font-size:30px;
+ text-shadow:0 0 15px #008cff;
 }
 
 .section{
-max-width:1100px;
-margin:auto;
-padding:20px;
+ max-width:1120px;
+ margin:auto;
+ padding:25px 20px;
 }
-.section h2{font-size:30px}
+
+.sectionTitle{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+}
+
+.sectionTitle h2{
+ font-size:30px;
+}
+
+.games{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:20px;
+}
 
 .card{
-min-height:210px;
-transition:.2s;
+ position:relative;
+ overflow:hidden;
+ min-height:235px;
+ padding:25px;
+ border:1px solid #1268ad;
+ border-radius:22px;
+ background:
+ linear-gradient(145deg,rgba(8,35,62,.95),rgba(2,9,18,.96));
+ transition:.25s;
 }
+
+.card:before{
+ content:"";
+ position:absolute;
+ width:180px;
+ height:180px;
+ right:-90px;
+ top:-90px;
+ border-radius:50%;
+ background:#008cff;
+ filter:blur(70px);
+ opacity:.18;
+}
+
 .card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 35px #008cff45;
-}
-.icon{font-size:50px}
-.card h3{font-size:23px}
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:#000b;
-backdrop-filter:blur(8px);
-align-items:center;
-justify-content:center;
-z-index:30;
-}
-.modalBox{
-width:min(650px,92%);
-background:#061626;
-border:1px solid #168cff;
-border-radius:20px;
-padding:30px;
-box-shadow:0 0 60px #008cff55;
-text-align:center;
-}
-.close{
-float:right;
-cursor:pointer;
-font-size:22px;
+ transform:translateY(-8px);
+ border-color:#48bbff;
+ box-shadow:0 0 35px rgba(0,145,255,.3);
 }
 
-.gameArea{
-margin-top:20px;
-background:#020b16;
-border:1px solid #1268ad;
-border-radius:15px;
-padding:20px;
+.icon{
+ font-size:54px;
+ filter:drop-shadow(0 0 15px #008cff);
 }
 
-.coin{
-font-size:90px;
-margin:20px;
-transition:.5s;
+.card h3{
+ margin:12px 0 7px;
+ font-size:23px;
 }
 
-.choice{
-display:flex;
-justify-content:center;
-gap:10px;
+.card p{
+ color:#83a9ca;
+ line-height:1.5;
 }
 
-#road{
-height:260px;
-background:#292929;
-border-radius:15px;
-position:relative;
-overflow:hidden;
-border:2px solid #555;
-}
-
-.lane{
-position:absolute;
-left:0;
-right:0;
-height:5px;
-background:#ddd;
-opacity:.7;
-top:50%;
-}
-
-.chicken{
-position:absolute;
-bottom:15px;
-left:50%;
-font-size:40px;
-transform:translateX(-50%);
-}
-
-.car{
-position:absolute;
-font-size:40px;
-right:-60px;
-animation:drive 2s linear infinite;
-}
-
-@keyframes drive{
-from{right:-60px}
-to{right:100%}
-}
-
-.wheel{
-width:230px;
-height:230px;
-border-radius:50%;
-margin:20px auto;
-border:10px solid #168cff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:35px;
-background:conic-gradient(
-#086cff 0deg 60deg,
-#061b34 60deg 120deg,
-#086cff 120deg 180deg,
-#061b34 180deg 240deg,
-#086cff 240deg 300deg,
-#061b34 300deg
-);
-box-shadow:0 0 35px #008cff;
-transition:transform 2s cubic-bezier(.1,.7,.1,1);
-}
-
-.progress{
-height:14px;
-background:#06101e;
-border-radius:20px;
-overflow:hidden;
-}
-.progress div{
-height:100%;
-background:linear-gradient(90deg,#006eff,#42c8ff);
-box-shadow:0 0 15px #008cff;
+.card button{
+ position:absolute;
+ bottom:20px;
+ left:25px;
 }
 
 .profile{
-max-width:700px;
-margin:30px auto 60px;
-padding:25px;
-text-align:center;
+ max-width:750px;
+ margin:30px auto 70px;
+ padding:28px;
+ text-align:center;
+ border:1px solid #1268ad;
+ border-radius:22px;
+ background:#061626dd;
+}
+
+.progress{
+ height:16px;
+ overflow:hidden;
+ border-radius:99px;
+ background:#020913;
+ border:1px solid #16476d;
+}
+
+.progress div{
+ width:0%;
+ height:100%;
+ background:linear-gradient(90deg,#006eff,#55d1ff);
+ box-shadow:0 0 18px #009cff;
+ transition:.5s;
 }
 
 footer{
-text-align:center;
-padding:30px;
-border-top:1px solid #092b4b;
-color:#6285a7;
+ padding:35px;
+ text-align:center;
+ color:#5e83a6;
+ border-top:1px solid #0a2d4d;
 }
 
-@media(max-width:750px){
-.stats,.games{grid-template-columns:1fr}
-.hero h1{font-size:42px}
-header{padding:0 12px}
-nav button{padding:8px}
+footer button{margin-top:8px}
+
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:500;
+ align-items:center;
+ justify-content:center;
+ background:rgba(0,3,8,.78);
+ backdrop-filter:blur(12px);
+}
+
+.modalBox{
+ width:min(720px,94%);
+ max-height:90vh;
+ overflow:auto;
+ padding:28px;
+ border:1px solid #168cff;
+ border-radius:24px;
+ background:
+ radial-gradient(circle at 50% 0%,#06325b,#061322 45%);
+ box-shadow:0 0 70px rgba(0,140,255,.4);
+ position:relative;
+}
+
+.close{
+ position:absolute;
+ top:14px;
+ right:18px;
+ cursor:pointer;
+ color:#8ebce1;
+ font-size:24px;
+}
+
+.gameArea{text-align:center}
+
+.gameButtons{
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:10px;
+}
+
+.result{
+ min-height:30px;
+ color:#65c9ff;
+ font-weight:900;
+ margin:15px 0;
+}
+
+.coin3d{
+ width:120px;
+ height:120px;
+ margin:25px auto;
+ position:relative;
+ transform-style:preserve-3d;
+ transition:transform 1.5s cubic-bezier(.15,.75,.15,1);
+}
+
+.coinFace{
+ position:absolute;
+ inset:0;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:55px;
+ background:
+ radial-gradient(circle at 35% 30%,#fff,#65cfff 18%,#087bd2 55%,#023b70);
+ border:5px solid #7edcff;
+ box-shadow:
+ inset 0 0 20px #fff8,
+ 0 0 35px #008cff;
+ backface-visibility:hidden;
+}
+
+.coinBack{
+ transform:rotateY(180deg);
+}
+
+.road{
+ height:280px;
+ position:relative;
+ overflow:hidden;
+ border-radius:18px;
+ background:
+ linear-gradient(#172b3d 0 48%,#252525 48% 100%);
+ border:2px solid #27658d;
+}
+
+.roadLine{
+ position:absolute;
+ left:0;
+ right:0;
+ top:55%;
+ height:5px;
+ background:repeating-linear-gradient(
+  90deg,
+  #fff 0 45px,
+  transparent 45px 90px
+ );
+ opacity:.65;
+}
+
+.side{
+ position:absolute;
+ bottom:18px;
+ left:45px;
+ font-size:50px;
+ transition:.35s;
+}
+
+.car{
+ position:absolute;
+ bottom:43px;
+ right:-90px;
+ font-size:55px;
+}
+
+.car.drive{
+ animation:carDrive 1.8s linear;
+}
+
+@keyframes carDrive{
+ from{right:-90px}
+ to{right:110%}
+}
+
+.multiplier{
+ font-size:34px;
+ color:#4dc1ff;
+ font-weight:900;
+ text-shadow:0 0 20px #008cff;
+ margin:12px;
+}
+
+.wheel{
+ width:250px;
+ height:250px;
+ margin:20px auto;
+ border-radius:50%;
+ border:9px solid #58c9ff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:32px;
+ background:conic-gradient(
+ #087dff 0deg 45deg,
+ #06192c 45deg 90deg,
+ #13a8ff 90deg 135deg,
+ #06192c 135deg 180deg,
+ #087dff 180deg 225deg,
+ #06192c 225deg 270deg,
+ #13a8ff 270deg 315deg,
+ #06192c 315deg
+ );
+ box-shadow:0 0 40px #008cff;
+ transition:transform 2s cubic-bezier(.1,.7,.1,1);
+}
+
+.memoryGrid{
+ display:grid;
+ grid-template-columns:repeat(4,80px);
+ gap:10px;
+ justify-content:center;
+ margin:20px auto;
+}
+
+.mem{
+ width:80px;
+ height:80px;
+ font-size:30px;
+}
+
+input{
+ width:100%;
+ padding:13px;
+ margin:7px 0;
+ border-radius:10px;
+ border:1px solid #176ba8;
+ background:#020b16;
+ color:white;
+ outline:none;
+}
+
+input:focus{
+ border-color:#4bc2ff;
+ box-shadow:0 0 15px #008cff44;
+}
+
+@media(max-width:800px){
+ .stats,.games{grid-template-columns:1fr}
+ header{padding:0 12px}
+ nav button{padding:8px}
+ .coinTop{display:flex}
+ .hero{padding-top:60px}
 }
 </style>
 </head>
@@ -251,34 +483,46 @@ nav button{padding:8px}
 <body>
 
 <header>
-<div class="logo">ORCA<span>SMPFLIP</span></div>
+
+<div class="logo">ORCA<span>COINS</span></div>
+
+<div class="coinTop" id="mobileCoins">
+🪙 <span id="topCoins">50,000</span>
+</div>
 
 <nav>
-<button onclick="login()">🔐 LOGIN</button>
-<button onclick="createAccount()">🚀 CREATE ACCOUNT</button>
+<button onclick="showAccount()">🔐 ACCOUNT</button>
 <button class="discord" onclick="discord()">💬 DISCORD</button>
 </nav>
+
 </header>
 
 <section class="hero">
+
+<div class="heroBadge">🐋 ORCA ARCADE • VIRTUAL COINS</div>
+
 <h1>ORCASMPFLIP</h1>
-<p>⚡ BLUE • BLACK • MINI GAMES ⚡</p>
+
+<p>Ultra Blue. Ultra Black. Ultra Arcade.</p>
+
+<button onclick="showAccount()">🚀 CREATE ACCOUNT</button>
+
 </section>
 
 <section class="stats">
 
 <div class="stat">
-<p>YOUR XP</p>
-<h2 id="xp">50,000</h2>
+<small>ORCACOINS</small>
+<h2 id="coins">50,000</h2>
 </div>
 
 <div class="stat">
-<p>MAX XP</p>
-<h2>10,000,000</h2>
+<small>PLAYER</small>
+<h2 id="playerName">GUEST</h2>
 </div>
 
 <div class="stat">
-<p>WEEKLY RESET</p>
+<small>WEEKLY RESET</small>
 <h2 id="timer">...</h2>
 </div>
 
@@ -286,52 +530,83 @@ nav button{padding:8px}
 
 <section class="section">
 
-<h2>🎮 MINI GAMES</h2>
+<div class="sectionTitle">
+<h2>🎮 ARCADE</h2>
+</div>
 
 <div class="games">
 
 <div class="card">
 <div class="icon">🐔</div>
-<h3>Chicken Cross</h3>
-<p>Get the chicken safely across the road.</p>
-<button onclick="openGame('chicken')">PLAY NOW</button>
+<h3>Chicken Road</h3>
+<p>Cross the road. Each safe step increases the multiplier.</p>
+<button onclick="openGame('chicken')">PLAY</button>
 </div>
 
 <div class="card">
 <div class="icon">🪙</div>
 <h3>Coin Flip</h3>
-<p>Choose heads or tails and flip the coin.</p>
-<button onclick="openGame('coin')">PLAY NOW</button>
+<p>Flip a fully animated virtual coin and test your luck.</p>
+<button onclick="openGame('coin')">PLAY</button>
 </div>
 
 <div class="card">
 <div class="icon">🎡</div>
 <h3>Daily Wheel</h3>
-<p>One free virtual XP spin every day.</p>
-<button onclick="openGame('wheel')">SPIN NOW</button>
+<p>One free spin every day for virtual OrcaCoins.</p>
+<button onclick="openGame('wheel')">PLAY</button>
+</div>
+
+<div class="card">
+<div class="icon">🧠</div>
+<h3>Memory</h3>
+<p>Match the symbols and earn virtual coins.</p>
+<button onclick="openGame('memory')">PLAY</button>
+</div>
+
+<div class="card">
+<div class="icon">⚡</div>
+<h3>Reaction</h3>
+<p>Wait for the signal and click as quickly as possible.</p>
+<button onclick="openGame('reaction')">PLAY</button>
+</div>
+
+<div class="card">
+<div class="icon">🎯</div>
+<h3>Target</h3>
+<p>Hit the moving target to earn a virtual reward.</p>
+<button onclick="openGame('target')">PLAY</button>
 </div>
 
 </div>
+
 </section>
 
 <section class="profile">
 
-<h2>📊 YOUR PROGRESS</h2>
+<h2>📊 PLAYER PROGRESS</h2>
+
+<p id="progressText">50,000 / 10,000,000 OrcaCoins</p>
 
 <div class="progress">
 <div id="bar"></div>
 </div>
 
-<p id="progressText"></p>
+<br>
 
-<button onclick="resetXP()">RESET DEMO XP</button>
+<button onclick="resetDemo()">RESET DEMO</button>
 
 </section>
 
 <footer>
-<p>© 2026 OrcaSmpFlip</p>
-<p>Virtual XP only • No real-money gambling</p>
-<button class="discord" onclick="discord()">💬 JOIN DISCORD</button>
+
+<p>© 2026 OrcaCoins Arcade</p>
+<p>Virtual OrcaCoins only • No real-money gambling</p>
+
+<button class="discord" onclick="discord()">
+💬 JOIN DISCORD
+</button>
+
 </footer>
 
 
@@ -339,238 +614,171 @@ nav button{padding:8px}
 
 <div class="modalBox">
 
-<span class="close" onclick="closeGame()">✕</span>
+<div class="close" onclick="closeModal()">✕</div>
 
-<h2 id="gameTitle"></h2>
+<h2 id="modalTitle"></h2>
 
-<div id="gameContent"></div>
+<div id="modalContent"></div>
 
 </div>
+
 </div>
 
 
 <script>
 
-let xp=Number(localStorage.getItem("orcaXP"))||50000;
-
 const MAX=10000000;
+
+let account=JSON.parse(localStorage.getItem("orcaAccount")||"null");
+
+let coins=Number(localStorage.getItem("orcaCoins"));
+
+if(!coins) coins=50000;
+
+function format(n){
+ return Math.floor(n).toLocaleString("en-US");
+}
+
+function save(){
+ localStorage.setItem("orcaCoins",coins);
+ if(account)
+ localStorage.setItem("orcaAccount",JSON.stringify(account));
+ update();
+}
 
 function update(){
 
-document.getElementById("xp").textContent=
-xp.toLocaleString();
+document.getElementById("coins").textContent=format(coins);
+document.getElementById("topCoins").textContent=format(coins);
+
+document.getElementById("playerName").textContent=
+ account ? account.name.toUpperCase() : "GUEST";
 
 document.getElementById("progressText").textContent=
-xp.toLocaleString()+" / "+
-MAX.toLocaleString()+" XP";
+ format(coins)+" / "+format(MAX)+" OrcaCoins";
 
 document.getElementById("bar").style.width=
-Math.min(xp/MAX*100,100)+"%";
+ Math.min(coins/MAX*100,100)+"%";
+
 }
 
-function addXP(amount){
+function addCoins(amount){
 
-xp=Math.min(MAX,xp+amount);
+coins=Math.min(MAX,coins+amount);
+save();
 
-localStorage.setItem("orcaXP",xp);
-
-update();
 }
 
-function openGame(game){
+function requireAccount(){
+
+if(!account){
+
+showAccount();
+
+return false;
+
+}
+
+return true;
+
+}
+
+function openGame(type){
+
+if(!requireAccount()) return;
 
 document.getElementById("modal").style.display="flex";
 
-if(game==="coin") coinGame();
-
-if(game==="chicken") chickenGame();
-
-if(game==="wheel") wheelGame();
+if(type==="chicken") chickenGame();
+if(type==="coin") coinGame();
+if(type==="wheel") wheelGame();
+if(type==="memory") memoryGame();
+if(type==="reaction") reactionGame();
+if(type==="target") targetGame();
 
 }
 
-function closeGame(){
+function closeModal(){
 
 document.getElementById("modal").style.display="none";
 
 }
 
-function coinGame(){
+function showAccount(){
 
-document.getElementById("gameTitle").textContent="🪙 COIN FLIP";
+document.getElementById("modal").style.display="flex";
 
-document.getElementById("gameContent").innerHTML=`
+document.getElementById("modalTitle").textContent=
+ account ? "👤 YOUR ACCOUNT" : "🚀 CREATE ACCOUNT";
 
-<div class="gameArea">
-
-<div class="coin" id="coin">🪙</div>
-
-<p>Choose your side:</p>
-
-<div class="choice">
-
-<button onclick="flip('HEADS')">HEADS</button>
-
-<button onclick="flip('TAILS')">TAILS</button>
-
-</div>
-
-<p id="coinResult"></p>
-
-</div>
-`;
-}
-
-function flip(choice){
-
-const result=Math.random()<.5?"HEADS":"TAILS";
-
-const coin=document.getElementById("coin");
-
-coin.style.transform="rotateY(1080deg)";
-
-setTimeout(()=>{
-
-coin.style.transform="rotateY(0deg)";
-
-document.getElementById("coinResult").textContent=
-"Result: "+result;
-
-if(choice===result){
-
-const reward=Math.floor(Math.random()*15000)+5000;
-
-addXP(reward);
-
-document.getElementById("coinResult").textContent+=
-" 🎉 +"+reward.toLocaleString()+" XP";
-
-}else{
-
-document.getElementById("coinResult").textContent+=
-" 😭 Try again!";
-
-}
-
-},500);
-
-}
-
-function chickenGame(){
-
-document.getElementById("gameTitle").textContent="🐔 CHICKEN CROSS";
-
-document.getElementById("gameContent").innerHTML=`
+document.getElementById("modalContent").innerHTML=`
 
 <div class="gameArea">
 
-<div id="road">
+${account ? `
+<h3>Welcome back, ${escapeHtml(account.name)}! 🐋</h3>
+<p>Your OrcaCoins: ${format(coins)}</p>
+<button onclick="logout()">LOG OUT</button>
+` : `
 
-<div class="lane"></div>
+<p>Create a local demo account to unlock the arcade.</p>
 
-<div class="chicken" id="chicken">🐔</div>
+<input id="nameInput" maxlength="18" placeholder="Username">
 
-<div class="car">🚗</div>
+<br>
 
-</div>
+<button onclick="createAccount()">CREATE ACCOUNT</button>
 
-<p>Press the button to move the chicken forward!</p>
-
-<button onclick="moveChicken()">⬆️ MOVE</button>
-
-<p id="chickenResult"></p>
-
-</div>
-`;
-
-window.chickenPosition=15;
-
-}
-
-function moveChicken(){
-
-window.chickenPosition+=20;
-
-const chicken=document.getElementById("chicken");
-
-chicken.style.bottom=
-window.chickenPosition+"px";
-
-if(window.chickenPosition>=215){
-
-const reward=Math.floor(Math.random()*25000)+10000;
-
-addXP(reward);
-
-document.getElementById("chickenResult").textContent=
-"🏆 YOU MADE IT! +"+
-reward.toLocaleString()+" XP";
-
-window.chickenPosition=15;
-
-}
-
-}
-
-function wheelGame(){
-
-document.getElementById("gameTitle").textContent="🎡 DAILY WHEEL";
-
-document.getElementById("gameContent").innerHTML=`
-
-<div class="gameArea">
-
-<div class="wheel" id="wheel">🎡</div>
-
-<button onclick="spinWheel()">SPIN</button>
-
-<p id="wheelResult"></p>
+`}
 
 </div>
 `;
-
-}
-
-function spinWheel(){
-
-const today=new Date().toDateString();
-
-if(localStorage.getItem("orcaWheel")===today){
-
-document.getElementById("wheelResult").textContent=
-"⏳ You already spun today!";
-
-return;
-
-}
-
-localStorage.setItem("orcaWheel",today);
-
-const reward=Math.floor(Math.random()*50000)+10000;
-
-document.getElementById("wheel").style.transform=
-"rotate("+(1440+Math.random()*720)+"deg)";
-
-setTimeout(()=>{
-
-addXP(reward);
-
-document.getElementById("wheelResult").textContent=
-"🎉 YOU WON "+reward.toLocaleString()+" XP!";
-
-},1800);
-
-}
-
-function login(){
-
-alert("🔐 Login system coming soon!");
 
 }
 
 function createAccount(){
 
-alert("🚀 Account creation system coming soon!");
+const name=document.getElementById("nameInput").value.trim();
+
+if(name.length<2){
+
+alert("Username musí mať aspoň 2 znaky.");
+
+return;
+
+}
+
+account={name:name};
+
+localStorage.setItem("orcaAccount",JSON.stringify(account));
+
+update();
+
+showAccount();
+
+}
+
+function logout(){
+
+account=null;
+
+localStorage.removeItem("orcaAccount");
+
+update();
+
+showAccount();
+
+}
+
+function escapeHtml(text){
+
+return text.replace(/[&<>"']/g,m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[m]));
 
 }
 
@@ -583,15 +791,483 @@ window.open(
 
 }
 
-function resetXP(){
 
-xp=50000;
+/* ---------------- COIN FLIP ---------------- */
 
-localStorage.setItem("orcaXP",xp);
+function coinGame(){
 
-update();
+document.getElementById("modalTitle").textContent="🪙 COIN FLIP";
+
+document.getElementById("modalContent").innerHTML=`
+
+<div class="gameArea">
+
+<div class="coin3d" id="coin3d">
+
+<div class="coinFace">🐋</div>
+
+<div class="coinFace coinBack">ORCA</div>
+
+</div>
+
+<p>Choose a side:</p>
+
+<div class="gameButtons">
+
+<button onclick="flipCoin('HEADS')">HEADS</button>
+
+<button onclick="flipCoin('TAILS')">TAILS</button>
+
+</div>
+
+<div class="result" id="coinResult"></div>
+
+</div>
+
+`;
 
 }
+
+function flipCoin(choice){
+
+const coin=document.getElementById("coin3d");
+
+coin.style.transform=
+"rotateY("+(1800+(Math.random()<.5?0:180))+"deg)";
+
+const result=Math.random()<.5?"HEADS":"TAILS";
+
+setTimeout(()=>{
+
+if(choice===result){
+
+const reward=5000;
+
+addCoins(reward);
+
+document.getElementById("coinResult").textContent=
+"🎉 "+result+" • +"+format(reward)+" OrcaCoins";
+
+}else{
+
+document.getElementById("coinResult").textContent=
+"❌ "+result+" • Try again!";
+
+}
+
+},1500);
+
+}
+
+
+/* ---------------- CHICKEN ROAD ---------------- */
+
+let chickenStep=0;
+
+function chickenGame(){
+
+chickenStep=0;
+
+document.getElementById("modalTitle").textContent="🐔 CHICKEN ROAD";
+
+document.getElementById("modalContent").innerHTML=`
+
+<div class="gameArea">
+
+<div class="multiplier" id="multiplier">2×</div>
+
+<div class="road">
+
+<div class="roadLine"></div>
+
+<div class="side" id="chicken">🐔</div>
+
+<div class="car" id="car">🚗</div>
+
+</div>
+
+<p id="chickenInfo">
+Move forward. Every safe step increases the multiplier.
+</p>
+
+<div class="gameButtons">
+
+<button onclick="chickenMove()">⬆️ CROSS</button>
+
+<button onclick="chickenCash()">COLLECT</button>
+
+</div>
+
+<div class="result" id="chickenResult"></div>
+
+</div>
+
+`;
+
+}
+
+function chickenMove(){
+
+const chicken=document.getElementById("chicken");
+const car=document.getElementById("car");
+
+chickenStep++;
+
+chicken.style.left=
+(45+chickenStep*10)+"px";
+
+const multiplier=Math.min(2+chickenStep,10);
+
+document.getElementById("multiplier").textContent=
+multiplier+"×";
+
+car.classList.remove("drive");
+
+void car.offsetWidth;
+
+car.classList.add("drive");
+
+setTimeout(()=>{
+
+if(Math.random()<.12){
+
+document.getElementById("chickenResult").textContent=
+"🚗 The car passed too close! Round over.";
+
+chickenStep=0;
+
+document.getElementById("multiplier").textContent="2×";
+
+chicken.style.left="45px";
+
+}
+
+},900);
+
+}
+
+function chickenCash(){
+
+if(chickenStep===0){
+
+document.getElementById("chickenResult").textContent=
+"Cross at least once first!";
+
+return;
+
+}
+
+const multiplier=Math.min(2+chickenStep,10);
+
+const reward=5000*multiplier;
+
+addCoins(reward);
+
+document.getElementById("chickenResult").textContent=
+"🏆 +"+format(reward)+" OrcaCoins • "+multiplier+"×";
+
+chickenStep=0;
+
+document.getElementById("multiplier").textContent="2×";
+
+document.getElementById("chicken").style.left="45px";
+
+}
+
+
+/* ---------------- DAILY WHEEL ---------------- */
+
+function wheelGame(){
+
+document.getElementById("modalTitle").textContent="🎡 DAILY WHEEL";
+
+document.getElementById("modalContent").innerHTML=`
+
+<div class="gameArea">
+
+<div class="wheel" id="wheel">🐋</div>
+
+<button onclick="spinWheel()">SPIN</button>
+
+<div class="result" id="wheelResult"></div>
+
+</div>
+
+`;
+
+}
+
+function spinWheel(){
+
+const today=new Date().toDateString();
+
+if(localStorage.getItem("orcaWheel")===today){
+
+document.getElementById("wheelResult").textContent=
+"⏳ You already used the Daily Wheel today.";
+
+return;
+
+}
+
+localStorage.setItem("orcaWheel",today);
+
+const reward=
+[5000,10000,15000,25000][
+Math.floor(Math.random()*4)
+];
+
+const rotation=1440+Math.random()*1080;
+
+document.getElementById("wheel").style.transform=
+"rotate("+rotation+"deg)";
+
+setTimeout(()=>{
+
+addCoins(reward);
+
+document.getElementById("wheelResult").textContent=
+"🎉 +"+format(reward)+" OrcaCoins!";
+
+},2000);
+
+}
+
+
+/* ---------------- MEMORY ---------------- */
+
+function memoryGame(){
+
+const icons=["🐋","🐔","🪙","⚡"];
+
+let cards=[...icons,...icons];
+
+cards.sort(()=>Math.random()-.5);
+
+let html="";
+
+cards.forEach((icon,i)=>{
+
+html+=`
+<button class="mem" id="mem${i}" onclick="memoryClick(${i},'${icon}')">❓</button>
+`;
+
+});
+
+document.getElementById("modalTitle").textContent="🧠 MEMORY";
+
+document.getElementById("modalContent").innerHTML=`
+
+<div class="gameArea">
+
+<p>Find all matching pairs.</p>
+
+<div class="memoryGrid">${html}</div>
+
+<div class="result" id="memoryResult"></div>
+
+</div>
+
+`;
+
+window.memoryCards=cards;
+window.memoryOpen=[];
+window.memoryFound=0;
+
+}
+
+function memoryClick(i,icon){
+
+const btn=document.getElementById("mem"+i);
+
+if(window.memoryOpen.some(x=>x.i===i)) return;
+
+if(btn.textContent!=="❓") return;
+
+btn.textContent=icon;
+
+window.memoryOpen.push({i,icon});
+
+if(window.memoryOpen.length===2){
+
+const a=window.memoryOpen[0];
+const b=window.memoryOpen[1];
+
+if(a.icon===b.icon){
+
+window.memoryFound++;
+
+window.memoryOpen=[];
+
+if(window.memoryFound===4){
+
+addCoins(25000);
+
+document.getElementById("memoryResult").textContent=
+"🧠 PERFECT! +25,000 OrcaCoins";
+
+}
+
+}else{
+
+setTimeout(()=>{
+
+document.getElementById("mem"+a.i).textContent="❓";
+document.getElementById("mem"+b.i).textContent="❓";
+
+window.memoryOpen=[];
+
+},650);
+
+}
+
+}
+
+}
+
+
+/* ---------------- REACTION ---------------- */
+
+function reactionGame(){
+
+document.getElementById("modalTitle").textContent="⚡ REACTION";
+
+document.getElementById("modalContent").innerHTML=`
+
+<div class="gameArea">
+
+<h2 id="reactionText">WAIT...</h2>
+
+<button id="reactionButton" onclick="reactionClick()" disabled>
+WAIT
+</button>
+
+<div class="result" id="reactionResult"></div>
+
+</div>
+
+`;
+
+const delay=1500+Math.random()*3000;
+
+window.reactionReady=false;
+
+setTimeout(()=>{
+
+window.reactionReady=true;
+
+document.getElementById("reactionText").textContent="⚡ CLICK NOW!";
+
+document.getElementById("reactionButton").textContent="CLICK!";
+
+document.getElementById("reactionButton").disabled=false;
+
+window.reactionStart=performance.now();
+
+},delay);
+
+}
+
+function reactionClick(){
+
+if(!window.reactionReady) return;
+
+const time=Math.round(performance.now()-window.reactionStart);
+
+let reward=5000;
+
+if(time<250) reward=25000;
+else if(time<400) reward=15000;
+else if(time<700) reward=10000;
+
+addCoins(reward);
+
+document.getElementById("reactionResult").textContent=
+"⚡ "+time+"ms • +"+format(reward)+" OrcaCoins";
+
+}
+
+
+/* ---------------- TARGET ---------------- */
+
+function targetGame(){
+
+document.getElementById("modalTitle").textContent="🎯 TARGET";
+
+document.getElementById("modalContent").innerHTML=`
+
+<div class="gameArea">
+
+<div id="targetArea"
+style="
+height:300px;
+position:relative;
+background:#020b16;
+border:1px solid #1268ad;
+border-radius:15px;
+overflow:hidden;
+">
+
+<button id="target"
+style="
+position:absolute;
+width:65px;
+height:65px;
+padding:0;
+border-radius:50%;
+font-size:25px;
+"
+onclick="hitTarget()">
+🎯
+</button>
+
+</div>
+
+<div class="result" id="targetResult">
+Hit the target!
+</div>
+
+</div>
+
+`;
+
+moveTarget();
+
+}
+
+function moveTarget(){
+
+const area=document.getElementById("targetArea");
+
+const target=document.getElementById("target");
+
+if(!area||!target)return;
+
+const x=Math.random()*(area.clientWidth-70);
+
+const y=Math.random()*(area.clientHeight-70);
+
+target.style.left=x+"px";
+
+target.style.top=y+"px";
+
+}
+
+function hitTarget(){
+
+const reward=10000+Math.floor(Math.random()*10000);
+
+addCoins(reward);
+
+document.getElementById("targetResult").textContent=
+"🎯 HIT! +"+format(reward)+" OrcaCoins";
+
+moveTarget();
+
+}
+
+
+/* ---------------- TIMER ---------------- */
 
 function countdown(){
 
@@ -607,25 +1283,30 @@ next.setDate(now.getDate()+days);
 
 next.setHours(0,0,0,0);
 
-let diff=next-now;
+const diff=next-now;
 
-let d=Math.floor(diff/86400000);
-
-let h=Math.floor(diff/3600000)%24;
-
-let m=Math.floor(diff/60000)%60;
-
-let s=Math.floor(diff/1000)%60;
+const d=Math.floor(diff/86400000);
+const h=Math.floor(diff/3600000)%24;
+const m=Math.floor(diff/60000)%60;
+const s=Math.floor(diff/1000)%60;
 
 document.getElementById("timer").textContent=
 d+"d "+h+"h "+m+"m "+s+"s";
 
 }
 
+function resetDemo(){
+
+coins=50000;
+
+save();
+
+alert("Demo reset to 50,000 OrcaCoins.");
+
+}
+
 update();
-
 countdown();
-
 setInterval(countdown,1000);
 
 </script>
@@ -633,4 +1314,3 @@ setInterval(countdown,1000);
 </body>
 </html>
 ```
-
