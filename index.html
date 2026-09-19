@@ -1,6 +1,5 @@
-```html
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -13,1304 +12,2194 @@ html{scroll-behavior:smooth}
 body{
  margin:0;
  min-height:100vh;
- color:#fff;
+ color:white;
  font-family:Arial,Helvetica,sans-serif;
- background:
- radial-gradient(circle at 15% 10%,#0756a0 0%,transparent 28%),
- radial-gradient(circle at 85% 90%,#003e76 0%,transparent 30%),
- linear-gradient(135deg,#01040a,#021326,#00050c);
  overflow-x:hidden;
+ background:
+ radial-gradient(circle at 15% 10%,#063c69 0%,transparent 30%),
+ radial-gradient(circle at 85% 20%,#32106b 0%,transparent 28%),
+ radial-gradient(circle at 50% 100%,#002d4f 0%,transparent 35%),
+ #02050b;
 }
 
-body:before{
- content:"";
+.background{
  position:fixed;
  inset:0;
  pointer-events:none;
- opacity:.16;
- background-image:
- radial-gradient(circle,#3db8ff 1px,transparent 1px);
- background-size:45px 45px;
- animation:stars 18s linear infinite;
+ overflow:hidden;
+ z-index:-1;
 }
 
-@keyframes stars{
- from{background-position:0 0}
- to{background-position:450px 450px}
+.orb{
+ position:absolute;
+ width:350px;
+ height:350px;
+ border-radius:50%;
+ filter:blur(100px);
+ opacity:.25;
+ animation:orbMove 12s infinite alternate ease-in-out;
 }
+
+.orb:nth-child(1){background:#00aaff;left:-100px;top:100px}
+.orb:nth-child(2){background:#7c22ff;right:-120px;top:300px;animation-delay:2s}
+.orb:nth-child(3){background:#00ffd5;left:40%;bottom:-200px;animation-delay:4s}
+
+@keyframes orbMove{
+ from{transform:translate(0,0) scale(1)}
+ to{transform:translate(100px,-70px) scale(1.3)}
+}
+
+.particle{
+ position:absolute;
+ width:3px;
+ height:3px;
+ background:#5fdcff;
+ border-radius:50%;
+ opacity:.7;
+ animation:float 8s infinite linear;
+}
+
+@keyframes float{
+ from{transform:translateY(100vh);opacity:0}
+ 20%{opacity:.8}
+ 80%{opacity:.8}
+ to{transform:translateY(-10vh);opacity:0}
+}
+
+/* HEADER */
 
 header{
  position:sticky;
  top:0;
- z-index:100;
- height:76px;
+ z-index:50;
  display:flex;
  align-items:center;
  justify-content:space-between;
- padding:0 32px;
- background:rgba(1,8,18,.82);
- backdrop-filter:blur(18px);
- border-bottom:1px solid rgba(38,156,255,.45);
- box-shadow:0 0 35px rgba(0,130,255,.12);
+ padding:18px 35px;
+ background:rgba(2,7,15,.72);
+ backdrop-filter:blur(22px);
+ border-bottom:1px solid rgba(64,190,255,.18);
 }
 
 .logo{
- font-size:25px;
- font-weight:900;
- letter-spacing:1px;
- color:#39b8ff;
- text-shadow:0 0 12px #008cff,0 0 35px #006eff;
-}
-
-.logo span{color:#fff}
-
-nav{
  display:flex;
  align-items:center;
- gap:9px;
-}
-
-button{
- border:1px solid #168cff;
- background:linear-gradient(135deg,#08243e,#061525);
- color:#fff;
- padding:11px 16px;
- border-radius:11px;
- cursor:pointer;
- font-weight:800;
- transition:.2s;
-}
-
-button:hover{
- transform:translateY(-3px);
- border-color:#59c5ff;
- box-shadow:0 0 22px rgba(0,145,255,.55);
-}
-
-button:active{
- transform:scale(.96);
-}
-
-.discord{
- background:linear-gradient(135deg,#5865f2,#3947c7);
- border-color:#8290ff;
-}
-
-.coinTop{
- display:none;
- align-items:center;
- gap:8px;
- padding:8px 12px;
- border:1px solid #159cff;
- border-radius:12px;
- background:#061a2d;
+ gap:12px;
+ font-size:24px;
  font-weight:900;
+ letter-spacing:1px;
 }
+
+.logoIcon{
+ width:44px;
+ height:44px;
+ border-radius:14px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:25px;
+ background:linear-gradient(135deg,#08bfff,#2454ff);
+ box-shadow:0 0 25px #00aeff88,inset 0 0 15px #ffffff33;
+}
+
+.headerRight{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.balance{
+ padding:10px 16px;
+ border-radius:14px;
+ background:rgba(13,33,55,.75);
+ border:1px solid #24bfff44;
+ color:#65dcff;
+ font-weight:bold;
+}
+
+.discordBtn{
+ text-decoration:none;
+ color:white;
+ font-weight:bold;
+ padding:11px 17px;
+ border-radius:12px;
+ background:linear-gradient(135deg,#5865f2,#754cff);
+ box-shadow:0 0 20px #5865f255;
+ transition:.25s;
+}
+
+.discordBtn:hover{
+ transform:translateY(-3px) scale(1.03);
+ box-shadow:0 0 35px #5865f299;
+}
+
+/* HERO */
 
 .hero{
- position:relative;
  text-align:center;
- padding:90px 20px 55px;
+ padding:80px 20px 45px;
 }
 
-.heroBadge{
+.badge{
  display:inline-block;
- padding:8px 14px;
- border:1px solid #168cff;
+ padding:8px 15px;
  border-radius:999px;
- background:#06203a99;
- color:#62c8ff;
- box-shadow:0 0 20px #008cff25;
+ background:#08bfff12;
+ border:1px solid #22c9ff44;
+ color:#62ddff;
+ font-size:13px;
+ font-weight:bold;
+ letter-spacing:2px;
 }
 
 .hero h1{
- margin:20px 0 8px;
- font-size:clamp(44px,8vw,82px);
+ margin:20px 0 10px;
+ font-size:clamp(45px,8vw,90px);
  line-height:.95;
- letter-spacing:3px;
- text-shadow:
- 0 0 8px #fff,
- 0 0 20px #008cff,
- 0 0 55px #006eff;
- animation:titlePulse 3s ease-in-out infinite;
+ background:linear-gradient(90deg,#ffffff,#4bd7ff,#9675ff,#ffffff);
+ background-size:250% auto;
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+ animation:titleFlow 5s linear infinite;
 }
 
-@keyframes titlePulse{
- 50%{text-shadow:0 0 8px #fff,0 0 28px #00aaff,0 0 80px #006eff}
+@keyframes titleFlow{
+ to{background-position:250% center}
 }
 
 .hero p{
- color:#86afd2;
+ color:#9db5ca;
  font-size:18px;
 }
 
-.stats{
+/* ACCOUNT */
+
+.accountPanel{
  max-width:1100px;
- margin:auto;
- padding:20px;
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:18px;
+ margin:0 auto 35px;
+ padding:22px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px;
+ border-radius:24px;
+ background:linear-gradient(135deg,rgba(14,39,64,.85),rgba(7,13,27,.82));
+ border:1px solid #2ac6ff22;
+ box-shadow:0 15px 60px #0008;
 }
 
-.stat{
- padding:24px;
- border:1px solid #1268ad;
- border-radius:20px;
- background:linear-gradient(145deg,#071d34dd,#020a14dd);
- box-shadow:0 0 30px #008cff12;
- text-align:center;
+.accountInfo strong{
+ color:#61dcff;
 }
 
-.stat small{color:#7096bb}
-
-.stat h2{
- margin:8px 0 0;
- color:#45baff;
- font-size:30px;
- text-shadow:0 0 15px #008cff;
+.accountActions{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
 }
+
+.mainBtn{
+ border:0;
+ cursor:pointer;
+ color:white;
+ font-weight:bold;
+ padding:12px 18px;
+ border-radius:12px;
+ background:linear-gradient(135deg,#087fff,#7a39ff);
+ box-shadow:0 0 20px #287cff44;
+ transition:.2s;
+}
+
+.mainBtn:hover{
+ transform:translateY(-2px);
+ box-shadow:0 0 35px #287cff88;
+}
+
+/* PROGRESS */
+
+.progressBox{
+ max-width:1200px;
+ margin:30px auto;
+ padding:25px;
+ border-radius:24px;
+ background:#071321cc;
+ border:1px solid #2ac6ff1c;
+}
+
+.progressTop{
+ display:flex;
+ justify-content:space-between;
+ margin-bottom:10px;
+}
+
+.progress{
+ height:14px;
+ border-radius:999px;
+ overflow:hidden;
+ background:#07101d;
+}
+
+.progressBar{
+ height:100%;
+ width:0%;
+ background:linear-gradient(90deg,#00c8ff,#6d55ff,#d66cff);
+ box-shadow:0 0 25px #00bfff;
+ transition:1s;
+}
+
+/* GAMES */
 
 .section{
- max-width:1120px;
+ max-width:1200px;
  margin:auto;
- padding:25px 20px;
+ padding:20px;
 }
 
 .sectionTitle{
  display:flex;
  align-items:center;
  justify-content:space-between;
- gap:15px;
+ margin-bottom:20px;
 }
 
 .sectionTitle h2{
- font-size:30px;
+ margin:0;
+ font-size:27px;
+}
+
+.sectionTitle span{
+ color:#66839c;
+ font-size:13px;
 }
 
 .games{
  display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:20px;
+ grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+ gap:18px;
 }
 
 .card{
  position:relative;
  overflow:hidden;
- min-height:235px;
+ min-height:245px;
  padding:25px;
- border:1px solid #1268ad;
- border-radius:22px;
- background:
- linear-gradient(145deg,rgba(8,35,62,.95),rgba(2,9,18,.96));
- transition:.25s;
-}
-
-.card:before{
- content:"";
- position:absolute;
- width:180px;
- height:180px;
- right:-90px;
- top:-90px;
- border-radius:50%;
- background:#008cff;
- filter:blur(70px);
- opacity:.18;
+ border-radius:25px;
+ background:linear-gradient(145deg,rgba(15,38,63,.88),rgba(5,11,22,.92));
+ border:1px solid rgba(72,205,255,.16);
+ box-shadow:0 15px 50px #0007;
+ transition:.3s;
 }
 
 .card:hover{
- transform:translateY(-8px);
- border-color:#48bbff;
- box-shadow:0 0 35px rgba(0,145,255,.3);
+ transform:translateY(-8px) scale(1.015);
+ border-color:#42d4ff66;
+ box-shadow:0 20px 65px #0009,0 0 35px #00bfff22;
 }
 
 .icon{
- font-size:54px;
- filter:drop-shadow(0 0 15px #008cff);
+ width:62px;
+ height:62px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:18px;
+ font-size:32px;
+ background:#0b2138;
+ border:1px solid #36cfff33;
 }
 
 .card h3{
- margin:12px 0 7px;
- font-size:23px;
+ margin:18px 0 8px;
+ font-size:22px;
 }
 
 .card p{
- color:#83a9ca;
- line-height:1.5;
+ min-height:45px;
+ color:#849bb0;
+ line-height:1.4;
 }
 
-.card button{
- position:absolute;
- bottom:20px;
- left:25px;
+.play{
+ width:100%;
+ border:0;
+ cursor:pointer;
+ color:white;
+ font-weight:900;
+ padding:12px;
+ border-radius:13px;
+ background:linear-gradient(135deg,#087fff,#713cff);
+ transition:.2s;
 }
 
-.profile{
- max-width:750px;
- margin:30px auto 70px;
- padding:28px;
- text-align:center;
- border:1px solid #1268ad;
- border-radius:22px;
- background:#061626dd;
+.play:hover{
+ filter:brightness(1.2);
+ transform:scale(1.02);
 }
 
-.progress{
- height:16px;
- overflow:hidden;
- border-radius:99px;
- background:#020913;
- border:1px solid #16476d;
-}
-
-.progress div{
- width:0%;
- height:100%;
- background:linear-gradient(90deg,#006eff,#55d1ff);
- box-shadow:0 0 18px #009cff;
- transition:.5s;
-}
-
-footer{
- padding:35px;
- text-align:center;
- color:#5e83a6;
- border-top:1px solid #0a2d4d;
-}
-
-footer button{margin-top:8px}
+/* MODAL */
 
 .modal{
- display:none;
  position:fixed;
  inset:0;
- z-index:500;
+ z-index:100;
+ display:none;
  align-items:center;
  justify-content:center;
- background:rgba(0,3,8,.78);
- backdrop-filter:blur(12px);
+ padding:20px;
+ background:#000b;
+ backdrop-filter:blur(14px);
 }
 
 .modalBox{
- width:min(720px,94%);
+ width:min(850px,100%);
  max-height:90vh;
  overflow:auto;
- padding:28px;
- border:1px solid #168cff;
- border-radius:24px;
- background:
- radial-gradient(circle at 50% 0%,#06325b,#061322 45%);
- box-shadow:0 0 70px rgba(0,140,255,.4);
- position:relative;
+ padding:30px;
+ border-radius:28px;
+ background:linear-gradient(145deg,#0a2035,#050a14);
+ border:1px solid #3dd6ff44;
+ box-shadow:0 30px 100px #000,0 0 70px #009dff22;
+ animation:modalIn .3s ease;
+}
+
+@keyframes modalIn{
+ from{opacity:0;transform:scale(.9) translateY(30px)}
+ to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+.modalTop{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
 }
 
 .close{
- position:absolute;
- top:14px;
- right:18px;
  cursor:pointer;
- color:#8ebce1;
- font-size:24px;
+ width:40px;
+ height:40px;
+ border-radius:12px;
+ border:1px solid #ffffff18;
+ background:#ffffff08;
+ color:white;
+ font-size:20px;
 }
 
-.gameArea{text-align:center}
-
-.gameButtons{
+.form{
  display:flex;
- justify-content:center;
- flex-wrap:wrap;
- gap:10px;
+ flex-direction:column;
+ gap:12px;
 }
 
-.result{
- min-height:30px;
- color:#65c9ff;
- font-weight:900;
- margin:15px 0;
-}
-
-.coin3d{
- width:120px;
- height:120px;
- margin:25px auto;
- position:relative;
- transform-style:preserve-3d;
- transition:transform 1.5s cubic-bezier(.15,.75,.15,1);
-}
-
-.coinFace{
- position:absolute;
- inset:0;
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:55px;
- background:
- radial-gradient(circle at 35% 30%,#fff,#65cfff 18%,#087bd2 55%,#023b70);
- border:5px solid #7edcff;
- box-shadow:
- inset 0 0 20px #fff8,
- 0 0 35px #008cff;
- backface-visibility:hidden;
-}
-
-.coinBack{
- transform:rotateY(180deg);
-}
-
-.road{
- height:280px;
- position:relative;
- overflow:hidden;
- border-radius:18px;
- background:
- linear-gradient(#172b3d 0 48%,#252525 48% 100%);
- border:2px solid #27658d;
-}
-
-.roadLine{
- position:absolute;
- left:0;
- right:0;
- top:55%;
- height:5px;
- background:repeating-linear-gradient(
-  90deg,
-  #fff 0 45px,
-  transparent 45px 90px
- );
- opacity:.65;
-}
-
-.side{
- position:absolute;
- bottom:18px;
- left:45px;
- font-size:50px;
- transition:.35s;
-}
-
-.car{
- position:absolute;
- bottom:43px;
- right:-90px;
- font-size:55px;
-}
-
-.car.drive{
- animation:carDrive 1.8s linear;
-}
-
-@keyframes carDrive{
- from{right:-90px}
- to{right:110%}
-}
-
-.multiplier{
- font-size:34px;
- color:#4dc1ff;
- font-weight:900;
- text-shadow:0 0 20px #008cff;
- margin:12px;
-}
-
-.wheel{
- width:250px;
- height:250px;
- margin:20px auto;
- border-radius:50%;
- border:9px solid #58c9ff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:32px;
- background:conic-gradient(
- #087dff 0deg 45deg,
- #06192c 45deg 90deg,
- #13a8ff 90deg 135deg,
- #06192c 135deg 180deg,
- #087dff 180deg 225deg,
- #06192c 225deg 270deg,
- #13a8ff 270deg 315deg,
- #06192c 315deg
- );
- box-shadow:0 0 40px #008cff;
- transition:transform 2s cubic-bezier(.1,.7,.1,1);
-}
-
-.memoryGrid{
- display:grid;
- grid-template-columns:repeat(4,80px);
- gap:10px;
- justify-content:center;
- margin:20px auto;
-}
-
-.mem{
- width:80px;
- height:80px;
- font-size:30px;
-}
-
-input{
+.form input{
  width:100%;
- padding:13px;
- margin:7px 0;
- border-radius:10px;
- border:1px solid #176ba8;
- background:#020b16;
+ padding:14px;
+ border-radius:12px;
+ border:1px solid #2ac6ff33;
+ background:#020914;
  color:white;
  outline:none;
 }
 
-input:focus{
- border-color:#4bc2ff;
- box-shadow:0 0 15px #008cff44;
+.form input:focus{
+ border-color:#35cfff;
+ box-shadow:0 0 20px #00bfff22;
 }
 
-@media(max-width:800px){
- .stats,.games{grid-template-columns:1fr}
- header{padding:0 12px}
- nav button{padding:8px}
- .coinTop{display:flex}
- .hero{padding-top:60px}
+.gameArea{
+ text-align:center;
+ padding:20px 5px;
+}
+
+.gameButton{
+ border:0;
+ cursor:pointer;
+ padding:14px 25px;
+ border-radius:14px;
+ background:linear-gradient(135deg,#00aaff,#714cff);
+ color:white;
+ font-size:16px;
+ font-weight:900;
+ box-shadow:0 0 30px #009dff44;
+}
+
+.gameButton:disabled{
+ opacity:.5;
+ cursor:not-allowed;
+}
+
+.result{
+ min-height:30px;
+ color:#62ddff;
+ font-weight:bold;
+}
+
+/* 777 */
+
+.slotMachine{
+ display:flex;
+ justify-content:center;
+ gap:15px;
+ margin:30px 0;
+}
+
+.slot{
+ width:120px;
+ height:140px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:55px;
+ border-radius:22px;
+ background:linear-gradient(145deg,#123653,#030b15);
+ border:2px solid #28caff55;
+ box-shadow:inset 0 0 35px #00aaff16,0 0 30px #00aaff22;
+}
+
+.spinning{
+ animation:spinSlot .13s linear infinite;
+}
+
+@keyframes spinSlot{
+ 0%{transform:rotateX(0deg) translateY(-5px)}
+ 50%{transform:rotateX(180deg) translateY(5px)}
+ 100%{transform:rotateX(360deg) translateY(-5px)}
+}
+
+/* ROULETTE */
+
+.rouletteWheel{
+ width:280px;
+ height:280px;
+ margin:25px auto;
+ border-radius:50%;
+ position:relative;
+ background:conic-gradient(
+ #e63946 0deg 30deg,
+ #111827 30deg 60deg,
+ #e63946 60deg 90deg,
+ #111827 90deg 120deg,
+ #e63946 120deg 150deg,
+ #111827 150deg 180deg,
+ #e63946 180deg 210deg,
+ #111827 210deg 240deg,
+ #e63946 240deg 270deg,
+ #111827 270deg 300deg,
+ #e63946 300deg 330deg,
+ #111827 330deg 360deg
+ );
+ border:10px solid #d7b35b;
+ box-shadow:0 0 40px #ff174455,inset 0 0 30px #000;
+}
+
+.rouletteWheel:after{
+ content:"";
+ position:absolute;
+ width:70px;
+ height:70px;
+ left:50%;
+ top:50%;
+ transform:translate(-50%,-50%);
+ border-radius:50%;
+ background:radial-gradient(circle,#fff 0 10%,#111 11% 30%,#d7b35b 31%);
+ border:5px solid #222;
+}
+
+.rouletteSpin{
+ animation:rouletteSpin 3s cubic-bezier(.1,.8,.15,1);
+}
+
+@keyframes rouletteSpin{
+ to{transform:rotate(1100deg)}
+}
+
+/* COIN */
+
+.coin{
+ width:150px;
+ height:150px;
+ margin:30px auto;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:50px;
+ background:radial-gradient(circle,#fff2a8,#e1a92b 55%,#8b5b0a);
+ border:8px solid #dcae3c;
+ box-shadow:0 0 50px #ffcf3f66,inset 0 0 30px #fff7;
+}
+
+.coinFlip{
+ animation:coinFlip 1.5s ease-in-out;
+}
+
+@keyframes coinFlip{
+ 0%{transform:rotateY(0)}
+ 100%{transform:rotateY(1080deg)}
+}
+
+/* MEMORY */
+
+.memoryGrid{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:9px;
+ max-width:500px;
+ margin:20px auto;
+}
+
+.memoryCard{
+ aspect-ratio:1;
+ border:1px solid #3bcfff33;
+ border-radius:12px;
+ background:#0a1c30;
+ cursor:pointer;
+ font-size:25px;
+ transition:.2s;
+ color:white;
+}
+
+.memoryCard:hover{
+ transform:scale(1.05);
+}
+
+.memoryCard.open{
+ background:#123e60;
+ box-shadow:0 0 20px #00bfff33;
+}
+
+/* REACTION */
+
+.reactionBox{
+ width:250px;
+ height:250px;
+ margin:30px auto;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:30px;
+ background:#101a29;
+ border:2px solid #26394e;
+ cursor:pointer;
+ font-size:25px;
+ font-weight:900;
+}
+
+.reactionBox.ready{
+ background:#00b879;
+ box-shadow:0 0 60px #00ffad55;
+}
+
+/* DICE */
+
+.dice{
+ font-size:110px;
+ margin:25px;
+ display:inline-block;
+}
+
+.diceRoll{
+ animation:diceRoll .8s ease;
+}
+
+@keyframes diceRoll{
+ 0%{transform:rotate(0) scale(1)}
+ 50%{transform:rotate(360deg) scale(1.3)}
+ 100%{transform:rotate(720deg) scale(1)}
+}
+
+/* VAULT */
+
+.treasure{
+ width:100%;
+ height:130px;
+ border-radius:20px;
+ background:linear-gradient(145deg,#432d09,#17100a);
+ border:3px solid #d6a92f;
+ font-size:50px;
+ cursor:pointer;
+}
+
+/* MILESTONE */
+
+.milestone{
+ text-align:center;
+ padding:30px;
+}
+
+.million{
+ font-size:clamp(50px,10vw,110px);
+ font-weight:1000;
+ background:linear-gradient(90deg,#fff,#53dfff,#a66bff,#fff);
+ background-size:300%;
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+ animation:titleFlow 3s linear infinite;
+}
+
+.milestoneText{
+ color:#a8bed0;
+ font-size:18px;
+ margin-bottom:25px;
+}
+
+.bigDiscord{
+ display:inline-block;
+ padding:16px 30px;
+ border-radius:15px;
+ color:white;
+ text-decoration:none;
+ font-weight:900;
+ font-size:18px;
+ background:linear-gradient(135deg,#5865f2,#8c4dff);
+ box-shadow:0 0 40px #5865f266;
+}
+
+footer{
+ text-align:center;
+ padding:50px 20px;
+ color:#50687d;
+}
+
+@media(max-width:700px){
+
+ header{
+  padding:14px;
+ }
+
+ .headerRight .balance{
+  display:none;
+ }
+
+ .accountPanel{
+  flex-direction:column;
+  align-items:stretch;
+ }
+
+ .slot{
+  width:85px;
+  height:105px;
+  font-size:40px;
+ }
+
+ .rouletteWheel{
+  width:230px;
+  height:230px;
+ }
+
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<div class="background">
+ <div class="orb"></div>
+ <div class="orb"></div>
+ <div class="orb"></div>
 
-<div class="logo">ORCA<span>COINS</span></div>
-
-<div class="coinTop" id="mobileCoins">
-🪙 <span id="topCoins">50,000</span>
+ <div class="particle" style="left:5%;animation-delay:0s"></div>
+ <div class="particle" style="left:15%;animation-delay:2s"></div>
+ <div class="particle" style="left:28%;animation-delay:5s"></div>
+ <div class="particle" style="left:44%;animation-delay:1s"></div>
+ <div class="particle" style="left:61%;animation-delay:4s"></div>
+ <div class="particle" style="left:76%;animation-delay:3s"></div>
+ <div class="particle" style="left:91%;animation-delay:6s"></div>
 </div>
 
-<nav>
-<button onclick="showAccount()">🔐 ACCOUNT</button>
-<button class="discord" onclick="discord()">💬 DISCORD</button>
-</nav>
+<header>
+
+ <div class="logo">
+  <div class="logoIcon">🐋</div>
+  OrcaCoins
+ </div>
+
+ <div class="headerRight">
+
+  <div class="balance">
+   🪙 <span id="balance">50,000</span>
+  </div>
+
+  <a class="discordBtn"
+     href="https://discord.gg/TZRAGfKaFx"
+     target="_blank">
+   💬 Discord
+  </a>
+
+ </div>
 
 </header>
 
 <section class="hero">
 
-<div class="heroBadge">🐋 ORCA ARCADE • VIRTUAL COINS</div>
+ <span class="badge">
+  ORCASMP • ARCADE
+ </span>
 
-<h1>ORCASMPFLIP</h1>
+ <h1>ORCACOINS</h1>
 
-<p>Ultra Blue. Ultra Black. Ultra Arcade.</p>
-
-<button onclick="showAccount()">🚀 CREATE ACCOUNT</button>
-
-</section>
-
-<section class="stats">
-
-<div class="stat">
-<small>ORCACOINS</small>
-<h2 id="coins">50,000</h2>
-</div>
-
-<div class="stat">
-<small>PLAYER</small>
-<h2 id="playerName">GUEST</h2>
-</div>
-
-<div class="stat">
-<small>WEEKLY RESET</small>
-<h2 id="timer">...</h2>
-</div>
+ <p>
+  Enter the neon arcade. Master the challenges. Reach 10M.
+ </p>
 
 </section>
+
+<div class="accountPanel">
+
+ <div class="accountInfo">
+  Account:
+  <strong id="accountName">Guest</strong>
+ </div>
+
+ <div class="accountActions">
+
+  <button class="mainBtn" onclick="openLogin()">
+   🔐 LOGIN
+  </button>
+
+  <button class="mainBtn" onclick="openRegister()">
+   ✨ CREATE ACCOUNT
+  </button>
+
+  <button class="mainBtn" onclick="logout()">
+   🚪 LOGOUT
+  </button>
+
+ </div>
+
+</div>
+
+<div class="progressBox">
+
+ <div class="progressTop">
+  <strong>🏆 10M MILESTONE</strong>
+  <span id="progressText">
+   50,000 / 10,000,000
+  </span>
+ </div>
+
+ <div class="progress">
+  <div class="progressBar" id="progressBar"></div>
+ </div>
+
+</div>
 
 <section class="section">
 
-<div class="sectionTitle">
-<h2>🎮 ARCADE</h2>
-</div>
+ <div class="sectionTitle">
+  <h2>🎮 Games</h2>
+  <span>Virtual OrcaCoins only</span>
+ </div>
 
-<div class="games">
+ <div class="games">
 
-<div class="card">
-<div class="icon">🐔</div>
-<h3>Chicken Road</h3>
-<p>Cross the road. Each safe step increases the multiplier.</p>
-<button onclick="openGame('chicken')">PLAY</button>
-</div>
+  <div class="card">
+   <div class="icon">🐔</div>
+   <h3>Chicken Road</h3>
+   <p>
+    Cross increasingly dangerous roads.
+    Timing gets faster every round.
+   </p>
+   <button class="play" onclick="openGame('chicken')">
+    PLAY
+   </button>
+  </div>
 
-<div class="card">
-<div class="icon">🪙</div>
-<h3>Coin Flip</h3>
-<p>Flip a fully animated virtual coin and test your luck.</p>
-<button onclick="openGame('coin')">PLAY</button>
-</div>
+  <div class="card">
+   <div class="icon">🪙</div>
+   <h3>Coin Flip</h3>
+   <p>
+    Stop the spinning coin at the right moment.
+   </p>
+   <button class="play" onclick="openGame('coin')">
+    PLAY
+   </button>
+  </div>
 
-<div class="card">
-<div class="icon">🎡</div>
-<h3>Daily Wheel</h3>
-<p>One free spin every day for virtual OrcaCoins.</p>
-<button onclick="openGame('wheel')">PLAY</button>
-</div>
+  <div class="card">
+   <div class="icon">🎡</div>
+   <h3>Daily Wheel</h3>
+   <p>
+    One free challenge spin every day.
+   </p>
+   <button class="play" onclick="openGame('wheel')">
+    PLAY
+   </button>
+  </div>
 
-<div class="card">
-<div class="icon">🧠</div>
-<h3>Memory</h3>
-<p>Match the symbols and earn virtual coins.</p>
-<button onclick="openGame('memory')">PLAY</button>
-</div>
+  <div class="card">
+   <div class="icon">🧠</div>
+   <h3>Memory</h3>
+   <p>
+    Match 10 pairs with limited mistakes.
+   </p>
+   <button class="play" onclick="openGame('memory')">
+    PLAY
+   </button>
+  </div>
 
-<div class="card">
-<div class="icon">⚡</div>
-<h3>Reaction</h3>
-<p>Wait for the signal and click as quickly as possible.</p>
-<button onclick="openGame('reaction')">PLAY</button>
-</div>
+  <div class="card">
+   <div class="icon">⚡</div>
+   <h3>Reaction</h3>
+   <p>
+    Wait for the signal and react as fast as possible.
+   </p>
+   <button class="play" onclick="openGame('reaction')">
+    PLAY
+   </button>
+  </div>
 
-<div class="card">
-<div class="icon">🎯</div>
-<h3>Target</h3>
-<p>Hit the moving target to earn a virtual reward.</p>
-<button onclick="openGame('target')">PLAY</button>
-</div>
+  <div class="card">
+   <div class="icon">🎰</div>
+   <h3>Roulette Challenge</h3>
+   <p>
+    Predict the color before the wheel stops.
+   </p>
+   <button class="play" onclick="openGame('roulette')">
+    PLAY
+   </button>
+  </div>
 
-</div>
+  <div class="card">
+   <div class="icon">7️⃣</div>
+   <h3>777</h3>
+   <p>
+    Three spinning reels. Match the symbols.
+   </p>
+   <button class="play" onclick="openGame('777')">
+    PLAY
+   </button>
+  </div>
 
-</section>
+  <div class="card">
+   <div class="icon">🎲</div>
+   <h3>Lucky Dice</h3>
+   <p>
+    Roll two dice and reach the target.
+   </p>
+   <button class="play" onclick="openGame('dice')">
+    PLAY
+   </button>
+  </div>
 
-<section class="profile">
+  <div class="card">
+   <div class="icon">🔐</div>
+   <h3>Treasure Vault</h3>
+   <p>
+    Find the legendary Orca Crystal.
+   </p>
+   <button class="play" onclick="openGame('vault')">
+    PLAY
+   </button>
+  </div>
 
-<h2>📊 PLAYER PROGRESS</h2>
-
-<p id="progressText">50,000 / 10,000,000 OrcaCoins</p>
-
-<div class="progress">
-<div id="bar"></div>
-</div>
-
-<br>
-
-<button onclick="resetDemo()">RESET DEMO</button>
+ </div>
 
 </section>
 
 <footer>
-
-<p>© 2026 OrcaCoins Arcade</p>
-<p>Virtual OrcaCoins only • No real-money gambling</p>
-
-<button class="discord" onclick="discord()">
-💬 JOIN DISCORD
-</button>
-
+ 🐋 OrcaCoins Arcade • Virtual points only • No real-money value
 </footer>
-
 
 <div class="modal" id="modal">
 
-<div class="modalBox">
+ <div class="modalBox">
 
-<div class="close" onclick="closeModal()">✕</div>
+  <div class="modalTop">
 
-<h2 id="modalTitle"></h2>
+   <h2 id="modalTitle">
+    Game
+   </h2>
 
-<div id="modalContent"></div>
+   <button class="close" onclick="closeModal()">
+    ✕
+   </button>
+
+  </div>
+
+  <div id="modalContent"></div>
+
+ </div>
 
 </div>
-
-</div>
-
 
 <script>
 
-const MAX=10000000;
+/* =========================
+ ACCOUNT SYSTEM
+========================= */
 
-let account=JSON.parse(localStorage.getItem("orcaAccount")||"null");
+let account =
+ JSON.parse(localStorage.getItem("orcaAccount")) || null;
 
-let coins=Number(localStorage.getItem("orcaCoins"));
+let coins =
+ account ? account.coins : 50000;
 
-if(!coins) coins=50000;
-
-function format(n){
- return Math.floor(n).toLocaleString("en-US");
-}
+const MAX_COINS=10000000;
 
 function save(){
- localStorage.setItem("orcaCoins",coins);
- if(account)
- localStorage.setItem("orcaAccount",JSON.stringify(account));
- update();
+
+ if(account){
+
+  account.coins=Math.min(coins,MAX_COINS);
+
+  localStorage.setItem(
+   "orcaAccount",
+   JSON.stringify(account)
+  );
+
+  localStorage.setItem(
+   "orcaUser_"+account.username,
+   JSON.stringify(account)
+  );
+ }
+
+ updateUI();
 }
 
-function update(){
+function updateUI(){
 
-document.getElementById("coins").textContent=format(coins);
-document.getElementById("topCoins").textContent=format(coins);
+ document.getElementById("balance").textContent=
+  coins.toLocaleString();
 
-document.getElementById("playerName").textContent=
- account ? account.name.toUpperCase() : "GUEST";
+ document.getElementById("accountName").textContent=
+  account ? account.username : "Guest";
 
-document.getElementById("progressText").textContent=
- format(coins)+" / "+format(MAX)+" OrcaCoins";
+ const percent=
+  Math.min(coins/MAX_COINS*100,100);
 
-document.getElementById("bar").style.width=
- Math.min(coins/MAX*100,100)+"%";
+ document.getElementById("progressBar").style.width=
+  percent+"%";
+
+ document.getElementById("progressText").textContent=
+  coins.toLocaleString()+
+  " / 10,000,000";
 
 }
 
 function addCoins(amount){
 
-coins=Math.min(MAX,coins+amount);
-save();
+ if(!account)return;
 
+ const oldCoins=coins;
+
+ coins=Math.min(
+  MAX_COINS,
+  coins+amount
+ );
+
+ save();
+
+ if(
+  oldCoins<MAX_COINS &&
+  coins>=MAX_COINS
+ ){
+  setTimeout(showMilestone,300);
+ }
 }
 
 function requireAccount(){
 
-if(!account){
+ if(!account){
 
-showAccount();
+  openLogin();
 
-return false;
+  return false;
+ }
 
+ return true;
 }
 
-return true;
+/* =========================
+ LOGIN
+========================= */
 
+function openLogin(){
+
+ document.getElementById("modal").style.display="flex";
+
+ document.getElementById("modalTitle").textContent=
+  "🔐 Login to OrcaCoins";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="form">
+
+   <p style="color:#8da8bd">
+    Login to access your OrcaCoins and games.
+   </p>
+
+   <input
+    id="loginUser"
+    placeholder="Username"
+    autocomplete="username">
+
+   <input
+    id="loginPass"
+    type="password"
+    placeholder="Password"
+    autocomplete="current-password">
+
+   <button
+    class="gameButton"
+    onclick="login()">
+    🔐 LOGIN
+   </button>
+
+   <button
+    class="mainBtn"
+    onclick="openRegister()">
+    Don't have an account? Register
+   </button>
+
+   <p
+    id="loginResult"
+    class="result">
+   </p>
+
+  </div>
+ `;
 }
 
-function openGame(type){
+function login(){
 
-if(!requireAccount()) return;
+ const username=
+  document.getElementById("loginUser").value.trim();
 
-document.getElementById("modal").style.display="flex";
+ const password=
+  document.getElementById("loginPass").value;
 
-if(type==="chicken") chickenGame();
-if(type==="coin") coinGame();
-if(type==="wheel") wheelGame();
-if(type==="memory") memoryGame();
-if(type==="reaction") reactionGame();
-if(type==="target") targetGame();
+ if(!username || !password){
 
+  document.getElementById("loginResult").textContent=
+   "⚠️ Enter your username and password.";
+
+  return;
+ }
+
+ const saved=
+  JSON.parse(
+   localStorage.getItem(
+    "orcaUser_"+username
+   )
+  );
+
+ if(
+  saved &&
+  saved.password===password
+ ){
+
+  account=saved;
+  coins=account.coins;
+
+  localStorage.setItem(
+   "orcaAccount",
+   JSON.stringify(account)
+  );
+
+  closeModal();
+  updateUI();
+
+ }else{
+
+  document.getElementById("loginResult").textContent=
+   "❌ Incorrect username or password.";
+
+ }
 }
 
-function closeModal(){
+/* =========================
+ REGISTER
+========================= */
 
-document.getElementById("modal").style.display="none";
+function openRegister(){
 
+ document.getElementById("modal").style.display="flex";
+
+ document.getElementById("modalTitle").textContent=
+  "✨ Create OrcaCoins Account";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="form">
+
+   <p style="color:#8da8bd">
+    Create your account and receive
+    50,000 OrcaCoins.
+   </p>
+
+   <input
+    id="registerUser"
+    placeholder="Choose username">
+
+   <input
+    id="registerPass"
+    type="password"
+    placeholder="Choose password">
+
+   <input
+    id="registerPass2"
+    type="password"
+    placeholder="Repeat password">
+
+   <button
+    class="gameButton"
+    onclick="register()">
+    ✨ CREATE ACCOUNT
+   </button>
+
+   <button
+    class="mainBtn"
+    onclick="openLogin()">
+    Already have an account? Login
+   </button>
+
+   <p
+    id="registerResult"
+    class="result">
+   </p>
+
+  </div>
+ `;
 }
 
-function showAccount(){
+function register(){
 
-document.getElementById("modal").style.display="flex";
+ const username=
+  document.getElementById("registerUser").value.trim();
 
-document.getElementById("modalTitle").textContent=
- account ? "👤 YOUR ACCOUNT" : "🚀 CREATE ACCOUNT";
+ const password=
+  document.getElementById("registerPass").value;
 
-document.getElementById("modalContent").innerHTML=`
+ const password2=
+  document.getElementById("registerPass2").value;
 
-<div class="gameArea">
+ const result=
+  document.getElementById("registerResult");
 
-${account ? `
-<h3>Welcome back, ${escapeHtml(account.name)}! 🐋</h3>
-<p>Your OrcaCoins: ${format(coins)}</p>
-<button onclick="logout()">LOG OUT</button>
-` : `
+ if(username.length<3){
 
-<p>Create a local demo account to unlock the arcade.</p>
+  result.textContent=
+   "⚠️ Username must have at least 3 characters.";
 
-<input id="nameInput" maxlength="18" placeholder="Username">
+  return;
+ }
 
-<br>
+ if(password.length<3){
 
-<button onclick="createAccount()">CREATE ACCOUNT</button>
+  result.textContent=
+   "⚠️ Password must have at least 3 characters.";
 
-`}
+  return;
+ }
 
-</div>
-`;
+ if(password!==password2){
 
+  result.textContent=
+   "❌ Passwords do not match.";
+
+  return;
+ }
+
+ if(
+  localStorage.getItem(
+   "orcaUser_"+username
+  )
+ ){
+
+  result.textContent=
+   "❌ This username already exists.";
+
+  return;
+ }
+
+ const newUser={
+  username:username,
+  password:password,
+  coins:50000
+ };
+
+ localStorage.setItem(
+  "orcaUser_"+username,
+  JSON.stringify(newUser)
+ );
+
+ account=newUser;
+ coins=50000;
+
+ localStorage.setItem(
+  "orcaAccount",
+  JSON.stringify(account)
+ );
+
+ closeModal();
+ updateUI();
 }
 
-function createAccount(){
-
-const name=document.getElementById("nameInput").value.trim();
-
-if(name.length<2){
-
-alert("Username musí mať aspoň 2 znaky.");
-
-return;
-
-}
-
-account={name:name};
-
-localStorage.setItem("orcaAccount",JSON.stringify(account));
-
-update();
-
-showAccount();
-
-}
+/* =========================
+ LOGOUT
+========================= */
 
 function logout(){
 
-account=null;
+ if(!account)return;
 
-localStorage.removeItem("orcaAccount");
+ account=null;
+ coins=50000;
 
-update();
+ localStorage.removeItem(
+  "orcaAccount"
+ );
 
-showAccount();
-
+ updateUI();
 }
 
-function escapeHtml(text){
+/* =========================
+ MODAL
+========================= */
 
-return text.replace(/[&<>"']/g,m=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-}[m]));
+function closeModal(){
 
+ document.getElementById("modal").style.display="none";
 }
 
-function discord(){
+/* =========================
+ GAMES
+========================= */
 
-window.open(
-"https://discord.gg/TZRAGfKaFx",
-"_blank"
-);
+function openGame(type){
 
+ if(!requireAccount())return;
+
+ document.getElementById("modal").style.display="flex";
+
+ if(type==="chicken")chickenGame();
+ if(type==="coin")coinGame();
+ if(type==="wheel")wheelGame();
+ if(type==="memory")memoryGame();
+ if(type==="reaction")reactionGame();
+ if(type==="roulette")rouletteGame();
+ if(type==="777")sevenGame();
+ if(type==="dice")diceGame();
+ if(type==="vault")vaultGame();
 }
 
-
-/* ---------------- COIN FLIP ---------------- */
-
-function coinGame(){
-
-document.getElementById("modalTitle").textContent="🪙 COIN FLIP";
-
-document.getElementById("modalContent").innerHTML=`
-
-<div class="gameArea">
-
-<div class="coin3d" id="coin3d">
-
-<div class="coinFace">🐋</div>
-
-<div class="coinFace coinBack">ORCA</div>
-
-</div>
-
-<p>Choose a side:</p>
-
-<div class="gameButtons">
-
-<button onclick="flipCoin('HEADS')">HEADS</button>
-
-<button onclick="flipCoin('TAILS')">TAILS</button>
-
-</div>
-
-<div class="result" id="coinResult"></div>
-
-</div>
-
-`;
-
-}
-
-function flipCoin(choice){
-
-const coin=document.getElementById("coin3d");
-
-coin.style.transform=
-"rotateY("+(1800+(Math.random()<.5?0:180))+"deg)";
-
-const result=Math.random()<.5?"HEADS":"TAILS";
-
-setTimeout(()=>{
-
-if(choice===result){
-
-const reward=5000;
-
-addCoins(reward);
-
-document.getElementById("coinResult").textContent=
-"🎉 "+result+" • +"+format(reward)+" OrcaCoins";
-
-}else{
-
-document.getElementById("coinResult").textContent=
-"❌ "+result+" • Try again!";
-
-}
-
-},1500);
-
-}
-
-
-/* ---------------- CHICKEN ROAD ---------------- */
-
-let chickenStep=0;
+/* CHICKEN */
 
 function chickenGame(){
 
-chickenStep=0;
+ document.getElementById("modalTitle").textContent=
+  "🐔 Chicken Road";
 
-document.getElementById("modalTitle").textContent="🐔 CHICKEN ROAD";
+ document.getElementById("modalContent").innerHTML=`
 
-document.getElementById("modalContent").innerHTML=`
+  <div class="gameArea">
 
-<div class="gameArea">
+   <h3 id="chickenLevel">
+    Level 1
+   </h3>
 
-<div class="multiplier" id="multiplier">2×</div>
+   <div style="font-size:65px;margin:25px">
+    🐔
+   </div>
 
-<div class="road">
+   <p id="chickenText">
+    Cross the road when the timing is right.
+   </p>
 
-<div class="roadLine"></div>
+   <button
+    class="gameButton"
+    id="chickenButton"
+    onclick="crossChicken()">
+    CROSS ROAD
+   </button>
 
-<div class="side" id="chicken">🐔</div>
+   <p
+    class="result"
+    id="chickenResult">
+   </p>
 
-<div class="car" id="car">🚗</div>
+  </div>
+ `;
 
-</div>
+ window.chickenLevel=1;
+ window.chickenBusy=false;
+}
 
-<p id="chickenInfo">
-Move forward. Every safe step increases the multiplier.
-</p>
+function crossChicken(){
 
-<div class="gameButtons">
+ if(window.chickenBusy)return;
 
-<button onclick="chickenMove()">⬆️ CROSS</button>
+ window.chickenBusy=true;
 
-<button onclick="chickenCash()">COLLECT</button>
+ const button=
+  document.getElementById("chickenButton");
 
-</div>
+ const result=
+  document.getElementById("chickenResult");
 
-<div class="result" id="chickenResult"></div>
+ button.disabled=true;
 
-</div>
+ const difficulty=
+  Math.min(
+   .72,
+   .12+window.chickenLevel*.07
+  );
 
-`;
+ result.textContent=
+  "🚗 Traffic incoming...";
+
+ setTimeout(()=>{
+
+  const hit=
+   Math.random()<difficulty;
+
+  if(hit){
+
+   result.textContent=
+    "💥 Traffic got you!";
+
+   window.chickenLevel=1;
+
+  }else{
+
+   const reward=
+    5000*window.chickenLevel;
+
+   addCoins(reward);
+
+   window.chickenLevel++;
+
+   document.getElementById(
+    "chickenLevel"
+   ).textContent=
+    "Level "+window.chickenLevel;
+
+   result.textContent=
+    "🐔 SAFE! +"+
+    reward.toLocaleString()+
+    " OrcaCoins";
+  }
+
+  button.disabled=false;
+  window.chickenBusy=false;
+
+ },Math.max(
+  500,
+  1600-window.chickenLevel*80
+ ));
 
 }
 
-function chickenMove(){
+/* COIN */
 
-const chicken=document.getElementById("chicken");
-const car=document.getElementById("car");
+function coinGame(){
 
-chickenStep++;
+ document.getElementById("modalTitle").textContent=
+  "🪙 Coin Flip";
 
-chicken.style.left=
-(45+chickenStep*10)+"px";
+ document.getElementById("modalContent").innerHTML=`
 
-const multiplier=Math.min(2+chickenStep,10);
+  <div class="gameArea">
 
-document.getElementById("multiplier").textContent=
-multiplier+"×";
+   <p>
+    Flip the coin and test your luck.
+   </p>
 
-car.classList.remove("drive");
+   <div
+    class="coin"
+    id="coin">
+    🪙
+   </div>
 
-void car.offsetWidth;
+   <button
+    class="gameButton"
+    id="coinButton"
+    onclick="flipCoin()">
+    FLIP
+   </button>
 
-car.classList.add("drive");
+   <p
+    class="result"
+    id="coinResult">
+   </p>
 
-setTimeout(()=>{
-
-if(Math.random()<.12){
-
-document.getElementById("chickenResult").textContent=
-"🚗 The car passed too close! Round over.";
-
-chickenStep=0;
-
-document.getElementById("multiplier").textContent="2×";
-
-chicken.style.left="45px";
-
+  </div>
+ `;
 }
 
-},900);
+function flipCoin(){
 
+ const coin=
+  document.getElementById("coin");
+
+ const button=
+  document.getElementById("coinButton");
+
+ const result=
+  document.getElementById("coinResult");
+
+ button.disabled=true;
+
+ coin.classList.remove("coinFlip");
+
+ void coin.offsetWidth;
+
+ coin.classList.add("coinFlip");
+
+ setTimeout(()=>{
+
+  if(Math.random()<.5){
+
+   addCoins(12000);
+
+   result.textContent=
+    "🟢 HEADS! +12,000 OrcaCoins";
+
+  }else{
+
+   result.textContent=
+    "🔵 TAILS! Try again.";
+
+  }
+
+  button.disabled=false;
+
+ },1500);
 }
 
-function chickenCash(){
-
-if(chickenStep===0){
-
-document.getElementById("chickenResult").textContent=
-"Cross at least once first!";
-
-return;
-
-}
-
-const multiplier=Math.min(2+chickenStep,10);
-
-const reward=5000*multiplier;
-
-addCoins(reward);
-
-document.getElementById("chickenResult").textContent=
-"🏆 +"+format(reward)+" OrcaCoins • "+multiplier+"×";
-
-chickenStep=0;
-
-document.getElementById("multiplier").textContent="2×";
-
-document.getElementById("chicken").style.left="45px";
-
-}
-
-
-/* ---------------- DAILY WHEEL ---------------- */
+/* DAILY WHEEL */
 
 function wheelGame(){
 
-document.getElementById("modalTitle").textContent="🎡 DAILY WHEEL";
+ const today=
+  new Date().toDateString();
 
-document.getElementById("modalContent").innerHTML=`
+ const last=
+  localStorage.getItem("orcaWheel");
 
-<div class="gameArea">
+ const used=
+  last===today;
 
-<div class="wheel" id="wheel">🐋</div>
+ document.getElementById("modalTitle").textContent=
+  "🎡 Daily Wheel";
 
-<button onclick="spinWheel()">SPIN</button>
+ document.getElementById("modalContent").innerHTML=`
 
-<div class="result" id="wheelResult"></div>
+  <div class="gameArea">
 
-</div>
+   <div style="font-size:100px;margin:25px">
+    🎡
+   </div>
 
-`;
+   <button
+    class="gameButton"
+    onclick="spinDaily()"
+    ${used?"disabled":""}>
+    ${used?"COME BACK TOMORROW":"SPIN WHEEL"}
+   </button>
 
+   <p
+    class="result"
+    id="wheelResult">
+   </p>
+
+  </div>
+ `;
 }
 
-function spinWheel(){
+function spinDaily(){
 
-const today=new Date().toDateString();
+ localStorage.setItem(
+  "orcaWheel",
+  new Date().toDateString()
+ );
 
-if(localStorage.getItem("orcaWheel")===today){
+ const rewards=[
+  10000,
+  25000,
+  50000,
+  75000,
+  100000
+ ];
 
-document.getElementById("wheelResult").textContent=
-"⏳ You already used the Daily Wheel today.";
+ const reward=
+  rewards[
+   Math.floor(
+    Math.random()*rewards.length
+   )
+  ];
 
-return;
+ addCoins(reward);
 
+ document.getElementById(
+  "wheelResult"
+ ).textContent=
+  "🎉 +"+
+  reward.toLocaleString()+
+  " OrcaCoins!";
 }
 
-localStorage.setItem("orcaWheel",today);
+/* MEMORY */
 
-const reward=
-[5000,10000,15000,25000][
-Math.floor(Math.random()*4)
-];
-
-const rotation=1440+Math.random()*1080;
-
-document.getElementById("wheel").style.transform=
-"rotate("+rotation+"deg)";
-
-setTimeout(()=>{
-
-addCoins(reward);
-
-document.getElementById("wheelResult").textContent=
-"🎉 +"+format(reward)+" OrcaCoins!";
-
-},2000);
-
-}
-
-
-/* ---------------- MEMORY ---------------- */
+let memoryFirst=null;
+let memoryLock=false;
+let memoryMatches=0;
+let memoryMistakes=0;
 
 function memoryGame(){
 
-const icons=["🐋","🐔","🪙","⚡"];
+ const icons=[
+  "🐋","💎","⚡","🌊","🔥",
+  "⭐","🐔","🎯","🦈","👑"
+ ];
 
-let cards=[...icons,...icons];
+ const cards=
+  [...icons,...icons]
+  .sort(()=>Math.random()-.5);
 
-cards.sort(()=>Math.random()-.5);
+ memoryFirst=null;
+ memoryLock=false;
+ memoryMatches=0;
+ memoryMistakes=0;
 
-let html="";
+ document.getElementById("modalTitle").textContent=
+  "🧠 Memory";
 
-cards.forEach((icon,i)=>{
+ document.getElementById("modalContent").innerHTML=`
 
-html+=`
-<button class="mem" id="mem${i}" onclick="memoryClick(${i},'${icon}')">❓</button>
-`;
+  <div class="gameArea">
 
-});
+   <p id="memoryInfo">
+    Matches: 0 / 10 • Mistakes: 0 / 5
+   </p>
 
-document.getElementById("modalTitle").textContent="🧠 MEMORY";
+   <div class="memoryGrid">
 
-document.getElementById("modalContent").innerHTML=`
+    ${cards.map((icon,i)=>`
 
-<div class="gameArea">
+     <button
+      class="memoryCard"
+      data-value="${icon}"
+      onclick="memoryClick(this)">
+      ?
+     </button>
 
-<p>Find all matching pairs.</p>
+    `).join("")}
 
-<div class="memoryGrid">${html}</div>
+   </div>
 
-<div class="result" id="memoryResult"></div>
-
-</div>
-
-`;
-
-window.memoryCards=cards;
-window.memoryOpen=[];
-window.memoryFound=0;
-
+  </div>
+ `;
 }
 
-function memoryClick(i,icon){
+function memoryClick(card){
 
-const btn=document.getElementById("mem"+i);
+ if(
+  memoryLock||
+  card.classList.contains("open")
+ )return;
 
-if(window.memoryOpen.some(x=>x.i===i)) return;
+ card.textContent=
+  card.dataset.value;
 
-if(btn.textContent!=="❓") return;
+ card.classList.add("open");
 
-btn.textContent=icon;
+ if(!memoryFirst){
 
-window.memoryOpen.push({i,icon});
+  memoryFirst=card;
+  return;
+ }
 
-if(window.memoryOpen.length===2){
+ memoryLock=true;
 
-const a=window.memoryOpen[0];
-const b=window.memoryOpen[1];
+ if(
+  memoryFirst.dataset.value===
+  card.dataset.value
+ ){
 
-if(a.icon===b.icon){
+  memoryMatches++;
 
-window.memoryFound++;
+  addCoins(10000);
 
-window.memoryOpen=[];
+  memoryFirst=null;
+  memoryLock=false;
 
-if(window.memoryFound===4){
+  if(memoryMatches===10){
 
-addCoins(25000);
+   addCoins(100000);
 
-document.getElementById("memoryResult").textContent=
-"🧠 PERFECT! +25,000 OrcaCoins";
+   document.getElementById(
+    "memoryInfo"
+   ).textContent=
+    "🏆 PERFECT! +100,000 BONUS";
 
+  }else{
+
+   document.getElementById(
+    "memoryInfo"
+   ).textContent=
+    "Matches: "+
+    memoryMatches+
+    " / 10 • Mistakes: "+
+    memoryMistakes+
+    " / 5";
+  }
+
+ }else{
+
+  memoryMistakes++;
+
+  setTimeout(()=>{
+
+   memoryFirst.textContent="?";
+   card.textContent="?";
+
+   memoryFirst.classList.remove("open");
+   card.classList.remove("open");
+
+   memoryFirst=null;
+   memoryLock=false;
+
+   document.getElementById(
+    "memoryInfo"
+   ).textContent=
+    "Matches: "+
+    memoryMatches+
+    " / 10 • Mistakes: "+
+    memoryMistakes+
+    " / 5";
+
+  },650);
+ }
 }
 
-}else{
+/* REACTION */
 
-setTimeout(()=>{
-
-document.getElementById("mem"+a.i).textContent="❓";
-document.getElementById("mem"+b.i).textContent="❓";
-
-window.memoryOpen=[];
-
-},650);
-
-}
-
-}
-
-}
-
-
-/* ---------------- REACTION ---------------- */
+let reactionTimeout;
 
 function reactionGame(){
 
-document.getElementById("modalTitle").textContent="⚡ REACTION";
+ document.getElementById("modalTitle").textContent=
+  "⚡ Reaction";
 
-document.getElementById("modalContent").innerHTML=`
+ document.getElementById("modalContent").innerHTML=`
 
-<div class="gameArea">
+  <div class="gameArea">
 
-<h2 id="reactionText">WAIT...</h2>
+   <p>
+    Don't click until the box turns green.
+   </p>
 
-<button id="reactionButton" onclick="reactionClick()" disabled>
-WAIT
-</button>
+   <div
+    class="reactionBox"
+    id="reactionBox"
+    onclick="reactionClick()">
+    WAIT...
+   </div>
 
-<div class="result" id="reactionResult"></div>
+   <p
+    class="result"
+    id="reactionResult">
+   </p>
 
-</div>
+  </div>
+ `;
 
-`;
+ const delay=
+  1500+Math.random()*3500;
 
-const delay=1500+Math.random()*3000;
+ reactionTimeout=
+  setTimeout(()=>{
 
-window.reactionReady=false;
+   const box=
+    document.getElementById("reactionBox");
 
-setTimeout(()=>{
+   box.classList.add("ready");
 
-window.reactionReady=true;
+   box.textContent="CLICK!";
 
-document.getElementById("reactionText").textContent="⚡ CLICK NOW!";
+   box.dataset.ready="true";
 
-document.getElementById("reactionButton").textContent="CLICK!";
+   box.dataset.start=
+    performance.now();
 
-document.getElementById("reactionButton").disabled=false;
-
-window.reactionStart=performance.now();
-
-},delay);
-
+  },delay);
 }
 
 function reactionClick(){
 
-if(!window.reactionReady) return;
+ const box=
+  document.getElementById("reactionBox");
 
-const time=Math.round(performance.now()-window.reactionStart);
+ const result=
+  document.getElementById("reactionResult");
 
-let reward=5000;
+ if(box.dataset.ready!=="true"){
 
-if(time<250) reward=25000;
-else if(time<400) reward=15000;
-else if(time<700) reward=10000;
+  clearTimeout(reactionTimeout);
 
-addCoins(reward);
+  result.textContent=
+   "❌ Too early!";
 
-document.getElementById("reactionResult").textContent=
-"⚡ "+time+"ms • +"+format(reward)+" OrcaCoins";
+  return;
+ }
 
+ const time=
+  performance.now()-
+  Number(box.dataset.start);
+
+ const reward=
+  time<200?50000:
+  time<300?30000:
+  time<450?15000:
+  5000;
+
+ addCoins(reward);
+
+ result.textContent=
+  time.toFixed(0)+
+  " ms • +"+
+  reward.toLocaleString();
+
+ box.dataset.ready="false";
 }
 
+/* ROULETTE */
 
-/* ---------------- TARGET ---------------- */
+function rouletteGame(){
 
-function targetGame(){
+ document.getElementById("modalTitle").textContent=
+  "🎰 Roulette Challenge";
 
-document.getElementById("modalTitle").textContent="🎯 TARGET";
+ document.getElementById("modalContent").innerHTML=`
 
-document.getElementById("modalContent").innerHTML=`
+  <div class="gameArea">
 
-<div class="gameArea">
+   <p>
+    Choose a color before the wheel spins.
+   </p>
 
-<div id="targetArea"
-style="
-height:300px;
-position:relative;
-background:#020b16;
-border:1px solid #1268ad;
-border-radius:15px;
-overflow:hidden;
-">
+   <div
+    class="rouletteWheel"
+    id="rouletteWheel">
+   </div>
 
-<button id="target"
-style="
-position:absolute;
-width:65px;
-height:65px;
-padding:0;
-border-radius:50%;
-font-size:25px;
-"
-onclick="hitTarget()">
-🎯
-</button>
+   <div style="
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+   ">
 
-</div>
+    <button
+     class="gameButton"
+     onclick="rouletteSpin('red')">
+     🔴 RED
+    </button>
 
-<div class="result" id="targetResult">
-Hit the target!
-</div>
+    <button
+     class="gameButton"
+     onclick="rouletteSpin('black')">
+     ⚫ BLACK
+    </button>
 
-</div>
+   </div>
 
-`;
+   <p
+    class="result"
+    id="rouletteResult">
+   </p>
 
-moveTarget();
-
+  </div>
+ `;
 }
 
-function moveTarget(){
+function rouletteSpin(choice){
 
-const area=document.getElementById("targetArea");
+ const wheel=
+  document.getElementById("rouletteWheel");
 
-const target=document.getElementById("target");
+ wheel.classList.remove("rouletteSpin");
 
-if(!area||!target)return;
+ void wheel.offsetWidth;
 
-const x=Math.random()*(area.clientWidth-70);
+ wheel.classList.add("rouletteSpin");
 
-const y=Math.random()*(area.clientHeight-70);
+ setTimeout(()=>{
 
-target.style.left=x+"px";
+  const color=
+   Math.random()<.5?
+   "red":
+   "black";
 
-target.style.top=y+"px";
+  const result=
+   document.getElementById(
+    "rouletteResult"
+   );
 
+  if(choice===color){
+
+   addCoins(25000);
+
+   result.textContent=
+    "🎯 CORRECT! "+
+    color.toUpperCase()+
+    " • +25,000";
+
+  }else{
+
+   result.textContent=
+    "❌ It landed on "+
+    color.toUpperCase();
+
+  }
+
+ },3000);
 }
 
-function hitTarget(){
+/* 777 */
 
-const reward=10000+Math.floor(Math.random()*10000);
+function sevenGame(){
 
-addCoins(reward);
+ document.getElementById("modalTitle").textContent=
+  "7️⃣ 777";
 
-document.getElementById("targetResult").textContent=
-"🎯 HIT! +"+format(reward)+" OrcaCoins";
+ document.getElementById("modalContent").innerHTML=`
 
-moveTarget();
+  <div class="gameArea">
 
+   <p>
+    Match three symbols.
+   </p>
+
+   <div class="slotMachine">
+
+    <div class="slot" id="slot1">❔</div>
+    <div class="slot" id="slot2">❔</div>
+    <div class="slot" id="slot3">❔</div>
+
+   </div>
+
+   <button
+    class="gameButton"
+    id="spin777"
+    onclick="spin777()">
+    🎰 SPIN
+   </button>
+
+   <p
+    class="result"
+    id="sevenResult">
+   </p>
+
+  </div>
+ `;
 }
 
+function spin777(){
 
-/* ---------------- TIMER ---------------- */
+ const button=
+  document.getElementById("spin777");
 
-function countdown(){
+ button.disabled=true;
 
-const now=new Date();
+ const symbols=[
+  "7️⃣","💎","🐋",
+  "⚡","🍒","⭐"
+ ];
 
-const day=now.getDay();
+ const slots=[
+  document.getElementById("slot1"),
+  document.getElementById("slot2"),
+  document.getElementById("slot3")
+ ];
 
-const days=day===0?1:8-day;
+ slots.forEach(s=>
+  s.classList.add("spinning")
+ );
 
-const next=new Date(now);
+ const final=[
+  symbols[Math.floor(Math.random()*symbols.length)],
+  symbols[Math.floor(Math.random()*symbols.length)],
+  symbols[Math.floor(Math.random()*symbols.length)]
+ ];
 
-next.setDate(now.getDate()+days);
+ setTimeout(()=>{
+  slots[0].textContent=final[0];
+ },700);
 
-next.setHours(0,0,0,0);
+ setTimeout(()=>{
+  slots[1].textContent=final[1];
+ },1400);
 
-const diff=next-now;
+ setTimeout(()=>{
 
-const d=Math.floor(diff/86400000);
-const h=Math.floor(diff/3600000)%24;
-const m=Math.floor(diff/60000)%60;
-const s=Math.floor(diff/1000)%60;
+  slots[2].textContent=final[2];
 
-document.getElementById("timer").textContent=
-d+"d "+h+"h "+m+"m "+s+"s";
+  slots.forEach(s=>
+   s.classList.remove("spinning")
+  );
 
+  const result=
+   document.getElementById("sevenResult");
+
+  if(
+   final[0]==="7️⃣"&&
+   final[1]==="7️⃣"&&
+   final[2]==="7️⃣"
+  ){
+
+   addCoins(250000);
+
+   result.textContent=
+    "🔥 JACKPOT 777! +250,000";
+
+  }else if(
+   final[0]===final[1]&&
+   final[1]===final[2]
+  ){
+
+   addCoins(100000);
+
+   result.textContent=
+    "💎 THREE MATCH! +100,000";
+
+  }else if(
+   final[0]===final[1]||
+   final[1]===final[2]||
+   final[0]===final[2]
+  ){
+
+   addCoins(25000);
+
+   result.textContent=
+    "⚡ TWO MATCH! +25,000";
+
+  }else{
+
+   result.textContent=
+    "❌ No match.";
+
+  }
+
+  button.disabled=false;
+
+ },2100);
 }
 
-function resetDemo(){
+/* DICE */
 
-coins=50000;
+function diceGame(){
 
-save();
+ document.getElementById("modalTitle").textContent=
+  "🎲 Lucky Dice";
 
-alert("Demo reset to 50,000 OrcaCoins.");
+ document.getElementById("modalContent").innerHTML=`
 
+  <div class="gameArea">
+
+   <p>
+    Roll two dice. Reach 10 or more.
+   </p>
+
+   <div
+    class="dice"
+    id="dice">
+    🎲
+   </div>
+
+   <br>
+
+   <button
+    class="gameButton"
+    onclick="rollDice()">
+    ROLL
+   </button>
+
+   <p
+    class="result"
+    id="diceResult">
+   </p>
+
+  </div>
+ `;
 }
 
-update();
-countdown();
-setInterval(countdown,1000);
+function rollDice(){
+
+ const dice=
+  document.getElementById("dice");
+
+ const result=
+  document.getElementById("diceResult");
+
+ dice.classList.remove("diceRoll");
+
+ void dice.offsetWidth;
+
+ dice.classList.add("diceRoll");
+
+ setTimeout(()=>{
+
+  const a=
+   Math.floor(Math.random()*6)+1;
+
+  const b=
+   Math.floor(Math.random()*6)+1;
+
+  const total=a+b;
+
+  if(total>=10){
+
+   addCoins(40000);
+
+   result.textContent=
+    "🎲 "+
+    a+" + "+b+
+    " = "+total+
+    " • +40,000";
+
+  }else{
+
+   result.textContent=
+    "🎲 "+
+    a+" + "+b+
+    " = "+total+
+    " • Need 10+";
+
+  }
+
+ },800);
+}
+
+/* VAULT */
+
+function vaultGame(){
+
+ const treasure=
+  Math.floor(Math.random()*6);
+
+ document.getElementById("modalTitle").textContent=
+  "🔐 Treasure Vault";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="gameArea">
+
+   <p>
+    Find the legendary Orca Crystal.
+   </p>
+
+   <div style="
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    max-width:500px;
+    margin:20px auto;
+   ">
+
+    ${[0,1,2,3,4,5].map(i=>`
+
+     <button
+      class="treasure"
+      onclick="openVault(${i},${treasure},this)">
+      🔒
+     </button>
+
+    `).join("")}
+
+   </div>
+
+   <p
+    class="result"
+    id="vaultResult">
+   </p>
+
+  </div>
+ `;
+}
+
+function openVault(index,treasure,button){
+
+ if(button.dataset.opened)return;
+
+ button.dataset.opened="true";
+
+ const result=
+  document.getElementById("vaultResult");
+
+ if(index===treasure){
+
+  button.textContent="💎";
+
+  addCoins(100000);
+
+  result.textContent=
+   "🏆 LEGENDARY CRYSTAL! +100,000";
+
+ }else{
+
+  button.textContent="💨";
+
+  result.textContent=
+   "Empty vault! Try another one.";
+
+ }
+}
+
+/* 10M */
+
+function showMilestone(){
+
+ document.getElementById("modal").style.display="flex";
+
+ document.getElementById("modalTitle").textContent=
+  "🏆 MILESTONE UNLOCKED";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="milestone">
+
+   <div class="million">
+    10M
+   </div>
+
+   <h2>
+    🐋 ORCA LEGEND
+   </h2>
+
+   <p class="milestoneText">
+
+    You reached
+    <strong>10,000,000 OrcaCoins!</strong>
+
+    <br><br>
+
+    Redeem your virtual milestone reward
+    in the OrcaSMP Discord.
+
+   </p>
+
+   <a
+    class="bigDiscord"
+    href="https://discord.gg/TZRAGfKaFx"
+    target="_blank">
+
+    💬 JOIN DISCORD
+
+   </a>
+
+  </div>
+ `;
+}
+
+/* START */
+
+updateUI();
 
 </script>
 
 </body>
 </html>
-```
