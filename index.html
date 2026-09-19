@@ -1,270 +1,249 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OrcaSMPFlip</title>
+<title>OrcaSmpFlip</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
-    margin:0;
-    min-height:100vh;
-    font-family:Arial,Helvetica,sans-serif;
-    color:white;
-    background:
-        radial-gradient(circle at 20% 20%,#063b70 0%,transparent 35%),
-        radial-gradient(circle at 80% 80%,#001d42 0%,transparent 35%),
-        linear-gradient(135deg,#02050b,#00152d,#000812);
-    overflow-x:hidden;
+margin:0;
+font-family:Arial,sans-serif;
+color:white;
+background:
+radial-gradient(circle at 20% 20%,#064b91,transparent 35%),
+radial-gradient(circle at 80% 80%,#002b58,transparent 35%),
+linear-gradient(135deg,#02050b,#00152d,#000812);
+min-height:100vh;
 }
-
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:
-        radial-gradient(circle,#168cff 1px,transparent 1px);
-    background-size:45px 45px;
-    opacity:.12;
-    animation:move 15s linear infinite;
-}
-
-@keyframes move{
-    from{background-position:0 0}
-    to{background-position:450px 450px}
-}
-
 header{
-    height:75px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 35px;
-    background:rgba(0,8,20,.75);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid #0d5ca8;
-    position:sticky;
-    top:0;
-    z-index:10;
+height:75px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 30px;
+background:#020b17dd;
+border-bottom:1px solid #087fff;
+position:sticky;
+top:0;
+z-index:10;
+backdrop-filter:blur(15px);
 }
-
 .logo{
-    font-size:25px;
-    font-weight:900;
-    color:#42aaff;
-    text-shadow:0 0 20px #087fff;
+font-size:25px;
+font-weight:900;
+color:#35aaff;
+text-shadow:0 0 20px #008cff;
 }
-
 .logo span{color:white}
-
-nav{
-    display:flex;
-    gap:12px;
-}
-
+nav{display:flex;gap:10px}
 button{
-    border:0;
-    color:white;
-    background:#071b31;
-    border:1px solid #1268ad;
-    padding:11px 17px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:.2s;
-    font-weight:bold;
+border:1px solid #168cff;
+background:#061a30;
+color:white;
+padding:11px 16px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+transition:.2s;
 }
-
 button:hover{
-    transform:translateY(-2px);
-    background:#0b3963;
-    box-shadow:0 0 20px #087fff;
+transform:translateY(-2px);
+box-shadow:0 0 20px #008cff;
+background:#0b3860;
 }
-
-.discord{
-    background:#5865f2;
-    border-color:#7d87ff;
-}
+.discord{background:#5865f2}
 
 .hero{
-    text-align:center;
-    padding:80px 20px 45px;
+text-align:center;
+padding:70px 20px 35px;
 }
-
 .hero h1{
-    font-size:65px;
-    margin:0;
-    letter-spacing:2px;
-    text-shadow:
-        0 0 10px #008cff,
-        0 0 40px #005cff;
+font-size:65px;
+margin:0;
+text-shadow:0 0 10px #008cff,0 0 45px #006cff;
 }
+.hero p{color:#8eb8df}
 
-.hero p{
-    color:#91b9df;
-    font-size:18px;
+.stats,.games{
+max-width:1100px;
+margin:20px auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
 }
-
-.stats{
-    max-width:1000px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    padding:20px;
+.stat,.card{
+background:#061626dd;
+border:1px solid #1268ad;
+border-radius:18px;
+padding:25px;
+box-shadow:0 0 25px #008cff18;
 }
-
-.stat{
-    padding:25px;
-    background:rgba(5,20,38,.8);
-    border:1px solid #0d5ca8;
-    border-radius:18px;
-    text-align:center;
-    box-shadow:0 0 25px rgba(0,130,255,.12);
-}
-
+.stat{text-align:center}
 .stat h2{
-    color:#42aaff;
-    margin:5px 0;
-    font-size:30px;
-}
-
-.stat p{
-    margin:0;
-    color:#779cc2;
+color:#43b2ff;
+font-size:30px;
+margin:8px;
 }
 
 .section{
-    max-width:1100px;
-    margin:40px auto;
-    padding:20px;
+max-width:1100px;
+margin:auto;
+padding:20px;
 }
-
-.section h2{
-    font-size:30px;
-}
-
-.games{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
+.section h2{font-size:30px}
 
 .card{
-    min-height:210px;
-    padding:25px;
-    border-radius:20px;
-    background:
-        linear-gradient(145deg,rgba(8,35,63,.95),rgba(2,10,20,.95));
-    border:1px solid #1268ad;
-    position:relative;
-    overflow:hidden;
-    transition:.25s;
+min-height:210px;
+transition:.2s;
 }
-
 .card:hover{
-    transform:translateY(-7px) scale(1.02);
-    box-shadow:0 0 35px rgba(0,140,255,.35);
-    border-color:#42aaff;
+transform:translateY(-6px);
+box-shadow:0 0 35px #008cff45;
+}
+.icon{font-size:50px}
+.card h3{font-size:23px}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+backdrop-filter:blur(8px);
+align-items:center;
+justify-content:center;
+z-index:30;
+}
+.modalBox{
+width:min(650px,92%);
+background:#061626;
+border:1px solid #168cff;
+border-radius:20px;
+padding:30px;
+box-shadow:0 0 60px #008cff55;
+text-align:center;
+}
+.close{
+float:right;
+cursor:pointer;
+font-size:22px;
 }
 
-.icon{
-    font-size:48px;
-    margin-bottom:10px;
+.gameArea{
+margin-top:20px;
+background:#020b16;
+border:1px solid #1268ad;
+border-radius:15px;
+padding:20px;
 }
 
-.card h3{
-    font-size:23px;
-    margin:5px 0 10px;
+.coin{
+font-size:90px;
+margin:20px;
+transition:.5s;
 }
 
-.card p{
-    color:#86a9ce;
-    line-height:1.5;
+.choice{
+display:flex;
+justify-content:center;
+gap:10px;
 }
 
-.card button{
-    margin-top:10px;
+#road{
+height:260px;
+background:#292929;
+border-radius:15px;
+position:relative;
+overflow:hidden;
+border:2px solid #555;
 }
 
-.profile{
-    max-width:700px;
-    margin:30px auto 70px;
-    padding:30px;
-    border-radius:20px;
-    background:rgba(4,16,30,.9);
-    border:1px solid #1268ad;
-    text-align:center;
+.lane{
+position:absolute;
+left:0;
+right:0;
+height:5px;
+background:#ddd;
+opacity:.7;
+top:50%;
+}
+
+.chicken{
+position:absolute;
+bottom:15px;
+left:50%;
+font-size:40px;
+transform:translateX(-50%);
+}
+
+.car{
+position:absolute;
+font-size:40px;
+right:-60px;
+animation:drive 2s linear infinite;
+}
+
+@keyframes drive{
+from{right:-60px}
+to{right:100%}
+}
+
+.wheel{
+width:230px;
+height:230px;
+border-radius:50%;
+margin:20px auto;
+border:10px solid #168cff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:35px;
+background:conic-gradient(
+#086cff 0deg 60deg,
+#061b34 60deg 120deg,
+#086cff 120deg 180deg,
+#061b34 180deg 240deg,
+#086cff 240deg 300deg,
+#061b34 300deg
+);
+box-shadow:0 0 35px #008cff;
+transition:transform 2s cubic-bezier(.1,.7,.1,1);
 }
 
 .progress{
-    height:16px;
-    background:#071426;
-    border-radius:20px;
-    overflow:hidden;
-    border:1px solid #164a78;
+height:14px;
+background:#06101e;
+border-radius:20px;
+overflow:hidden;
+}
+.progress div{
+height:100%;
+background:linear-gradient(90deg,#006eff,#42c8ff);
+box-shadow:0 0 15px #008cff;
 }
 
-.progress div{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,#006eff,#42c8ff);
-    box-shadow:0 0 15px #008cff;
-    transition:.5s;
+.profile{
+max-width:700px;
+margin:30px auto 60px;
+padding:25px;
+text-align:center;
 }
 
 footer{
-    padding:30px;
-    text-align:center;
-    color:#55799e;
-    border-top:1px solid #092b4b;
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(8px);
-    align-items:center;
-    justify-content:center;
-    z-index:20;
-}
-
-.modalBox{
-    width:min(420px,90%);
-    padding:30px;
-    border-radius:20px;
-    background:#061323;
-    border:1px solid #168cff;
-    box-shadow:0 0 50px rgba(0,130,255,.4);
-    text-align:center;
-}
-
-.close{
-    float:right;
-    cursor:pointer;
-    color:#6da9d9;
+text-align:center;
+padding:30px;
+border-top:1px solid #092b4b;
+color:#6285a7;
 }
 
 @media(max-width:750px){
-    .stats,.games{
-        grid-template-columns:1fr;
-    }
-
-    header{
-        padding:0 15px;
-    }
-
-    nav button{
-        padding:8px;
-    }
-
-    .hero h1{
-        font-size:42px;
-    }
+.stats,.games{grid-template-columns:1fr}
+.hero h1{font-size:42px}
+header{padding:0 12px}
+nav button{padding:8px}
 }
 </style>
 </head>
@@ -272,239 +251,386 @@ footer{
 <body>
 
 <header>
-    <div class="logo">ORCA<span>SMPFLIP</span></div>
+<div class="logo">ORCA<span>SMPFLIP</span></div>
 
-    <nav>
-        <button onclick="openModal('login')">LOGIN</button>
-        <button onclick="openModal('create')">CREATE ACCOUNT</button>
-        <button class="discord" onclick="discord()">💬 DISCORD</button>
-    </nav>
+<nav>
+<button onclick="login()">🔐 LOGIN</button>
+<button onclick="createAccount()">🚀 CREATE ACCOUNT</button>
+<button class="discord" onclick="discord()">💬 DISCORD</button>
+</nav>
 </header>
 
 <section class="hero">
-    <h1>ORCASMPFLIP</h1>
-    <p>⚡ The ultimate blue & black game lobby ⚡</p>
+<h1>ORCASMPFLIP</h1>
+<p>⚡ BLUE • BLACK • MINI GAMES ⚡</p>
 </section>
 
 <section class="stats">
 
-    <div class="stat">
-        <p>Your XP</p>
-        <h2 id="balance">50,000</h2>
-    </div>
+<div class="stat">
+<p>YOUR XP</p>
+<h2 id="xp">50,000</h2>
+</div>
 
-    <div class="stat">
-        <p>Weekly Maximum</p>
-        <h2>10,000,000</h2>
-    </div>
+<div class="stat">
+<p>MAX XP</p>
+<h2>10,000,000</h2>
+</div>
 
-    <div class="stat">
-        <p>Weekly Reset</p>
-        <h2 id="timer">Loading...</h2>
-    </div>
+<div class="stat">
+<p>WEEKLY RESET</p>
+<h2 id="timer">...</h2>
+</div>
 
 </section>
 
 <section class="section">
 
-<h2>🎮 Games</h2>
+<h2>🎮 MINI GAMES</h2>
 
 <div class="games">
 
-    <div class="card">
-        <div class="icon">🐔</div>
-        <h3>Chicken Cross</h3>
-        <p>Cross the road and collect virtual XP.</p>
-        <button onclick="play('Chicken Cross')">PLAY</button>
-    </div>
-
-    <div class="card">
-        <div class="icon">🪙</div>
-        <h3>Coin Flip</h3>
-        <p>A simple virtual coin-flip minigame.</p>
-        <button onclick="play('Coin Flip')">PLAY</button>
-    </div>
-
-    <div class="card">
-        <div class="icon">🎡</div>
-        <h3>Daily Wheel</h3>
-        <p>Spin once per day and receive virtual XP.</p>
-        <button onclick="wheel()">SPIN</button>
-    </div>
-
+<div class="card">
+<div class="icon">🐔</div>
+<h3>Chicken Cross</h3>
+<p>Get the chicken safely across the road.</p>
+<button onclick="openGame('chicken')">PLAY NOW</button>
 </div>
 
+<div class="card">
+<div class="icon">🪙</div>
+<h3>Coin Flip</h3>
+<p>Choose heads or tails and flip the coin.</p>
+<button onclick="openGame('coin')">PLAY NOW</button>
+</div>
+
+<div class="card">
+<div class="icon">🎡</div>
+<h3>Daily Wheel</h3>
+<p>One free virtual XP spin every day.</p>
+<button onclick="openGame('wheel')">SPIN NOW</button>
+</div>
+
+</div>
 </section>
 
 <section class="profile">
 
-<h2>👤 Player Progress</h2>
-
-<p>XP Progress</p>
+<h2>📊 YOUR PROGRESS</h2>
 
 <div class="progress">
-    <div id="bar"></div>
+<div id="bar"></div>
 </div>
 
-<p id="progressText">50,000 / 10,000,000 XP</p>
+<p id="progressText"></p>
 
 <button onclick="resetXP()">RESET DEMO XP</button>
 
 </section>
 
 <footer>
-    <p>© 2026 OrcaSMPFlip</p>
-    <p>🎮 Virtual XP only • No real-money gambling</p>
-
-    <button class="discord" onclick="discord()">
-        💬 Join our Discord
-    </button>
+<p>© 2026 OrcaSmpFlip</p>
+<p>Virtual XP only • No real-money gambling</p>
+<button class="discord" onclick="discord()">💬 JOIN DISCORD</button>
 </footer>
 
+
 <div class="modal" id="modal">
-    <div class="modalBox">
-        <span class="close" onclick="closeModal()">✕</span>
-        <h2 id="modalTitle">Welcome</h2>
-        <p>This demo account system is only for the website interface.</p>
-        <button onclick="closeModal()">CONTINUE</button>
-    </div>
+
+<div class="modalBox">
+
+<span class="close" onclick="closeGame()">✕</span>
+
+<h2 id="gameTitle"></h2>
+
+<div id="gameContent"></div>
+
 </div>
+</div>
+
 
 <script>
 
-let xp = Number(localStorage.getItem("orcaxp")) || 50000;
+let xp=Number(localStorage.getItem("orcaXP"))||50000;
 
-const MAX = 10000000;
-
-function format(number){
-    return number.toLocaleString("en-US");
-}
+const MAX=10000000;
 
 function update(){
 
-    document.getElementById("balance").textContent = format(xp);
+document.getElementById("xp").textContent=
+xp.toLocaleString();
 
-    document.getElementById("progressText").textContent =
-        format(xp) + " / " + format(MAX) + " XP";
+document.getElementById("progressText").textContent=
+xp.toLocaleString()+" / "+
+MAX.toLocaleString()+" XP";
 
-    document.getElementById("bar").style.width =
-        Math.min((xp / MAX) * 100,100) + "%";
+document.getElementById("bar").style.width=
+Math.min(xp/MAX*100,100)+"%";
 }
 
 function addXP(amount){
 
-    xp = Math.min(MAX,xp + amount);
+xp=Math.min(MAX,xp+amount);
 
-    localStorage.setItem("orcaxp",xp);
+localStorage.setItem("orcaXP",xp);
 
-    update();
+update();
 }
 
-function play(game){
+function openGame(game){
 
-    const reward = Math.floor(Math.random()*25000)+5000;
+document.getElementById("modal").style.display="flex";
 
-    addXP(reward);
+if(game==="coin") coinGame();
 
-    alert(
-        "🎮 " + game +
-        "\\n\\nYou earned " +
-        format(reward) +
-        " virtual XP!"
-    );
+if(game==="chicken") chickenGame();
+
+if(game==="wheel") wheelGame();
+
 }
 
-function wheel(){
+function closeGame(){
 
-    const today = new Date().toDateString();
-    const last = localStorage.getItem("wheelDate");
+document.getElementById("modal").style.display="none";
 
-    if(last === today){
-
-        alert("🎡 You already used the Daily Wheel today!");
-
-        return;
-    }
-
-    const reward =
-        Math.floor(Math.random()*50000)+10000;
-
-    localStorage.setItem("wheelDate",today);
-
-    addXP(reward);
-
-    alert(
-        "🎡 DAILY WHEEL!\\n\\n+" +
-        format(reward) +
-        " virtual XP!"
-    );
 }
 
-function resetXP(){
+function coinGame(){
 
-    xp = 50000;
+document.getElementById("gameTitle").textContent="🪙 COIN FLIP";
 
-    localStorage.setItem("orcaxp",xp);
+document.getElementById("gameContent").innerHTML=`
 
-    update();
+<div class="gameArea">
+
+<div class="coin" id="coin">🪙</div>
+
+<p>Choose your side:</p>
+
+<div class="choice">
+
+<button onclick="flip('HEADS')">HEADS</button>
+
+<button onclick="flip('TAILS')">TAILS</button>
+
+</div>
+
+<p id="coinResult"></p>
+
+</div>
+`;
+}
+
+function flip(choice){
+
+const result=Math.random()<.5?"HEADS":"TAILS";
+
+const coin=document.getElementById("coin");
+
+coin.style.transform="rotateY(1080deg)";
+
+setTimeout(()=>{
+
+coin.style.transform="rotateY(0deg)";
+
+document.getElementById("coinResult").textContent=
+"Result: "+result;
+
+if(choice===result){
+
+const reward=Math.floor(Math.random()*15000)+5000;
+
+addXP(reward);
+
+document.getElementById("coinResult").textContent+=
+" 🎉 +"+reward.toLocaleString()+" XP";
+
+}else{
+
+document.getElementById("coinResult").textContent+=
+" 😭 Try again!";
+
+}
+
+},500);
+
+}
+
+function chickenGame(){
+
+document.getElementById("gameTitle").textContent="🐔 CHICKEN CROSS";
+
+document.getElementById("gameContent").innerHTML=`
+
+<div class="gameArea">
+
+<div id="road">
+
+<div class="lane"></div>
+
+<div class="chicken" id="chicken">🐔</div>
+
+<div class="car">🚗</div>
+
+</div>
+
+<p>Press the button to move the chicken forward!</p>
+
+<button onclick="moveChicken()">⬆️ MOVE</button>
+
+<p id="chickenResult"></p>
+
+</div>
+`;
+
+window.chickenPosition=15;
+
+}
+
+function moveChicken(){
+
+window.chickenPosition+=20;
+
+const chicken=document.getElementById("chicken");
+
+chicken.style.bottom=
+window.chickenPosition+"px";
+
+if(window.chickenPosition>=215){
+
+const reward=Math.floor(Math.random()*25000)+10000;
+
+addXP(reward);
+
+document.getElementById("chickenResult").textContent=
+"🏆 YOU MADE IT! +"+
+reward.toLocaleString()+" XP";
+
+window.chickenPosition=15;
+
+}
+
+}
+
+function wheelGame(){
+
+document.getElementById("gameTitle").textContent="🎡 DAILY WHEEL";
+
+document.getElementById("gameContent").innerHTML=`
+
+<div class="gameArea">
+
+<div class="wheel" id="wheel">🎡</div>
+
+<button onclick="spinWheel()">SPIN</button>
+
+<p id="wheelResult"></p>
+
+</div>
+`;
+
+}
+
+function spinWheel(){
+
+const today=new Date().toDateString();
+
+if(localStorage.getItem("orcaWheel")===today){
+
+document.getElementById("wheelResult").textContent=
+"⏳ You already spun today!";
+
+return;
+
+}
+
+localStorage.setItem("orcaWheel",today);
+
+const reward=Math.floor(Math.random()*50000)+10000;
+
+document.getElementById("wheel").style.transform=
+"rotate("+(1440+Math.random()*720)+"deg)";
+
+setTimeout(()=>{
+
+addXP(reward);
+
+document.getElementById("wheelResult").textContent=
+"🎉 YOU WON "+reward.toLocaleString()+" XP!";
+
+},1800);
+
+}
+
+function login(){
+
+alert("🔐 Login system coming soon!");
+
+}
+
+function createAccount(){
+
+alert("🚀 Account creation system coming soon!");
+
 }
 
 function discord(){
 
-    window.open(
-        "https://discord.gg/TZRAGfKaFx",
-        "_blank"
-    );
+window.open(
+"https://discord.gg/TZRAGfKaFx",
+"_blank"
+);
+
 }
 
-function openModal(type){
+function resetXP(){
 
-    document.getElementById("modal").style.display="flex";
+xp=50000;
 
-    if(type === "login"){
-        document.getElementById("modalTitle").textContent =
-            "🔐 Login";
-    }else{
-        document.getElementById("modalTitle").textContent =
-            "🚀 Create Account";
-    }
-}
+localStorage.setItem("orcaXP",xp);
 
-function closeModal(){
+update();
 
-    document.getElementById("modal").style.display="none";
 }
 
 function countdown(){
 
-    const now = new Date();
+const now=new Date();
 
-    const day = now.getDay();
+const day=now.getDay();
 
-    const daysUntilMonday =
-        day === 0 ? 1 : 8 - day;
+const days=day===0?1:8-day;
 
-    const next = new Date(now);
+const next=new Date(now);
 
-    next.setDate(now.getDate()+daysUntilMonday);
-    next.setHours(0,0,0,0);
+next.setDate(now.getDate()+days);
 
-    const diff = next-now;
+next.setHours(0,0,0,0);
 
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor(diff/3600000)%24;
-    const m = Math.floor(diff/60000)%60;
-    const s = Math.floor(diff/1000)%60;
+let diff=next-now;
 
-    document.getElementById("timer").textContent =
-        `${d}d ${h}h ${m}m ${s}s`;
+let d=Math.floor(diff/86400000);
+
+let h=Math.floor(diff/3600000)%24;
+
+let m=Math.floor(diff/60000)%60;
+
+let s=Math.floor(diff/1000)%60;
+
+document.getElementById("timer").textContent=
+d+"d "+h+"h "+m+"m "+s+"s";
+
 }
 
 update();
+
 countdown();
+
 setInterval(countdown,1000);
 
 </script>
 
 </body>
 </html>
+```
+
