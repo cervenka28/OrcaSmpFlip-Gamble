@@ -247,8 +247,6 @@ footer{
     border-top:1px solid #073246;
 }
 
-/* MODAL */
-
 .modal{
     display:none;
     position:fixed;
@@ -262,6 +260,8 @@ footer{
 
 .modal-box{
     width:min(430px,100%);
+    max-height:90vh;
+    overflow:auto;
     padding:25px;
     border-radius:18px;
     background:#061622;
@@ -326,6 +326,16 @@ footer{
     gap:10px;
     justify-content:center;
     flex-wrap:wrap;
+}
+
+.game-buttons button{
+    width:auto;
+}
+
+.small-info{
+    text-align:center;
+    color:#7895a5;
+    margin-top:10px;
 }
 
 @media(max-width:600px){
@@ -400,8 +410,6 @@ footer{
 
 <div class="container">
 
-    <!-- ACCOUNT -->
-
     <div class="panel">
 
         <div class="account-top">
@@ -409,10 +417,7 @@ footer{
             <div>
                 <h2>👤 Account</h2>
 
-                <div
-                    class="status"
-                    id="status"
-                >
+                <div class="status" id="status">
                     Not logged in
                 </div>
             </div>
@@ -429,17 +434,11 @@ footer{
                 Login
             </button>
 
-            <button
-                class="secondary"
-                id="registerOpen"
-            >
+            <button class="secondary" id="registerOpen">
                 Create Account
             </button>
 
-            <button
-                class="red"
-                id="logout"
-            >
+            <button class="red" id="logout">
                 Logout
             </button>
 
@@ -447,8 +446,6 @@ footer{
 
     </div>
 
-
-    <!-- PROGRESS -->
 
     <div class="panel">
 
@@ -476,34 +473,24 @@ footer{
     </div>
 
 
-    <!-- RESET -->
-
     <div class="panel reset">
 
         <div class="reset-title">
             🔄 WEEKLY RESET
         </div>
 
-        <div
-            class="countdown"
-            id="countdown"
-        >
-            Loading...
+        <div class="countdown" id="countdown">
+            Login to see your reset timer
         </div>
 
         <div class="reset-text">
-            Every account resets to 50,000 OrcaCoins every week.
+            Every account resets to 50,000 OrcaCoins every 7 days.
         </div>
 
     </div>
 
 
-    <!-- MILESTONE -->
-
-    <div
-        class="panel milestone"
-        id="milestone"
-    >
+    <div class="panel milestone" id="milestone">
 
         <h2>
             🐋 10,000,000 ORCACOINS!
@@ -524,8 +511,6 @@ footer{
     </div>
 
 
-    <!-- GAMES -->
-
     <h2 class="games-title">
         🎮 Games
     </h2>
@@ -533,138 +518,59 @@ footer{
     <div class="games">
 
         <div class="game">
-
             <div class="icon">🪙</div>
-
             <h3>Coin Flip</h3>
-
-            <p>
-                Choose heads or tails and earn virtual OrcaCoins.
-            </p>
-
-            <button data-game="coin">
-                Play
-            </button>
-
+            <p>Choose heads or tails and earn virtual OrcaCoins.</p>
+            <button data-game="coin">Play</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">🎯</div>
-
             <h3>Roulette Challenge</h3>
-
-            <p>
-                Guess the winning color.
-            </p>
-
-            <button data-game="roulette">
-                Play
-            </button>
-
+            <p>Guess the winning color.</p>
+            <button data-game="roulette">Play</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">7️⃣</div>
-
             <h3>777</h3>
-
-            <p>
-                Spin three numbers and try to match them.
-            </p>
-
-            <button data-game="777">
-                Spin
-            </button>
-
+            <p>Spin three numbers and try to match them.</p>
+            <button data-game="777">Spin</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">🎲</div>
-
             <h3>Lucky Dice</h3>
-
-            <p>
-                Roll a dice and receive a virtual reward.
-            </p>
-
-            <button data-game="dice">
-                Roll
-            </button>
-
+            <p>Roll a dice and receive a virtual reward.</p>
+            <button data-game="dice">Roll</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">🧠</div>
-
             <h3>Memory</h3>
-
-            <p>
-                Remember the number and enter it correctly.
-            </p>
-
-            <button data-game="memory">
-                Play
-            </button>
-
+            <p>Remember the number and enter it correctly.</p>
+            <button data-game="memory">Play</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">⚡</div>
-
             <h3>Reaction</h3>
-
-            <p>
-                Test how quickly you can react.
-            </p>
-
-            <button data-game="reaction">
-                Play
-            </button>
-
+            <p>Test how quickly you can react.</p>
+            <button data-game="reaction">Play</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">💎</div>
-
             <h3>Treasure Vault</h3>
-
-            <p>
-                Choose a vault and discover the reward.
-            </p>
-
-            <button data-game="treasure">
-                Open
-            </button>
-
+            <p>Choose a vault and discover the reward.</p>
+            <button data-game="treasure">Open</button>
         </div>
 
-
         <div class="game">
-
             <div class="icon">🐔</div>
-
             <h3>Chicken Road</h3>
-
-            <p>
-                Help the chicken cross the road.
-            </p>
-
-            <button data-game="chicken">
-                Play
-            </button>
-
+            <p>Help the chicken cross the road.</p>
+            <button data-game="chicken">Play</button>
         </div>
 
     </div>
@@ -679,17 +585,11 @@ footer{
 
 <!-- LOGIN -->
 
-<div
-    class="modal"
-    id="loginModal"
->
+<div class="modal" id="loginModal">
 
     <div class="modal-box">
 
-        <span
-            class="close"
-            data-close="loginModal"
-        >
+        <span class="close" data-close="loginModal">
             ×
         </span>
 
@@ -713,10 +613,7 @@ footer{
             Login
         </button>
 
-        <div
-            class="message"
-            id="loginMessage"
-        ></div>
+        <div class="message" id="loginMessage"></div>
 
     </div>
 
@@ -725,17 +622,11 @@ footer{
 
 <!-- REGISTER -->
 
-<div
-    class="modal"
-    id="registerModal"
->
+<div class="modal" id="registerModal">
 
     <div class="modal-box">
 
-        <span
-            class="close"
-            data-close="registerModal"
-        >
+        <span class="close" data-close="registerModal">
             ×
         </span>
 
@@ -766,10 +657,7 @@ footer{
             Create Account
         </button>
 
-        <div
-            class="message"
-            id="registerMessage"
-        ></div>
+        <div class="message" id="registerMessage"></div>
 
     </div>
 
@@ -778,17 +666,11 @@ footer{
 
 <!-- GAME -->
 
-<div
-    class="modal"
-    id="gameModal"
->
+<div class="modal" id="gameModal">
 
     <div class="modal-box">
 
-        <span
-            class="close"
-            data-close="gameModal"
-        >
+        <span class="close" data-close="gameModal">
             ×
         </span>
 
@@ -808,6 +690,8 @@ footer{
 const START_BALANCE = 50000;
 const MAX_BALANCE = 10000000;
 
+const RESET_TIME = 7 * 24 * 60 * 60 * 1000;
+
 const ACCOUNTS_KEY = "orca_accounts";
 const CURRENT_USER_KEY = "orca_current_user";
 
@@ -819,12 +703,15 @@ const CURRENT_USER_KEY = "orca_current_user";
 function getAccounts(){
 
     try{
+
         return JSON.parse(
             localStorage.getItem(ACCOUNTS_KEY)
         ) || {};
-    }
-    catch{
+
+    }catch{
+
         return {};
+
     }
 }
 
@@ -835,6 +722,7 @@ function saveAccounts(accounts){
         ACCOUNTS_KEY,
         JSON.stringify(accounts)
     );
+
 }
 
 
@@ -843,6 +731,7 @@ function getCurrentUsername(){
     return localStorage.getItem(
         CURRENT_USER_KEY
     );
+
 }
 
 
@@ -852,6 +741,7 @@ function setCurrentUsername(username){
         CURRENT_USER_KEY,
         username
     );
+
 }
 
 
@@ -860,40 +750,20 @@ function logoutUser(){
     localStorage.removeItem(
         CURRENT_USER_KEY
     );
+
 }
 
 
 /* =========================
-   WEEK IDENTIFIER
+   RESET
 ========================= */
 
-function getWeekId(){
+function createResetTime(){
 
-    const date = new Date();
+    return Date.now() + RESET_TIME;
 
-    const first = new Date(
-        date.getFullYear(),
-        0,
-        1
-    );
-
-    const days = Math.floor(
-        (date - first) / 86400000
-    );
-
-    return (
-        date.getFullYear() +
-        "-" +
-        Math.floor(
-            (days + first.getDay()) / 7
-        )
-    );
 }
 
-
-/* =========================
-   RESET CURRENT ACCOUNT
-========================= */
 
 function checkWeeklyReset(){
 
@@ -911,26 +781,49 @@ function checkWeeklyReset(){
         accounts[username];
 
     if(!account){
+
         logoutUser();
         return;
+
     }
 
-    const currentWeek =
-        getWeekId();
 
-    if(account.weekId !== currentWeek){
+    /*
+       Upgrade old accounts that used
+       the previous weekId system.
+    */
+
+    if(!account.resetAt){
+
+        account.resetAt =
+            createResetTime();
 
         account.balance =
-            START_BALANCE;
-
-        account.weekId =
-            currentWeek;
+            Number(account.balance) || START_BALANCE;
 
         accounts[username] =
             account;
 
         saveAccounts(accounts);
+
     }
+
+
+    if(Date.now() >= account.resetAt){
+
+        account.balance =
+            START_BALANCE;
+
+        account.resetAt =
+            createResetTime();
+
+        accounts[username] =
+            account;
+
+        saveAccounts(accounts);
+
+    }
+
 }
 
 
@@ -953,11 +846,12 @@ function getCurrentAccount(){
         getAccounts();
 
     return accounts[username] || null;
+
 }
 
 
 /* =========================
-   BALANCE
+   COINS
 ========================= */
 
 function addCoins(amount){
@@ -966,8 +860,11 @@ function addCoins(amount){
         getCurrentUsername();
 
     if(!username){
-        return;
+        alert("You must be logged in to play.");
+        return false;
     }
+
+    checkWeeklyReset();
 
     const accounts =
         getAccounts();
@@ -976,13 +873,23 @@ function addCoins(amount){
         accounts[username];
 
     if(!account){
-        return;
+        return false;
+    }
+
+    amount =
+        Number(amount);
+
+    if(!Number.isFinite(amount)){
+        return false;
     }
 
     account.balance =
-        Math.min(
-            MAX_BALANCE,
-            account.balance + amount
+        Math.max(
+            0,
+            Math.min(
+                MAX_BALANCE,
+                account.balance + amount
+            )
         );
 
     accounts[username] =
@@ -991,6 +898,9 @@ function addCoins(amount){
     saveAccounts(accounts);
 
     updateUI();
+
+    return true;
+
 }
 
 
@@ -1015,16 +925,21 @@ function updateUI(){
             ? getCurrentUsername()
             : null;
 
+
     document.getElementById(
         "balance"
     ).textContent =
         "🪙 " +
         balance.toLocaleString();
 
+
     document.getElementById(
         "username"
     ).textContent =
-        username || "Guest";
+        username
+            ? account.username
+            : "Guest";
+
 
     document.getElementById(
         "status"
@@ -1033,21 +948,25 @@ function updateUI(){
             ? "● Logged in"
             : "Not logged in";
 
+
     const percent =
         Math.min(
             100,
             (balance / MAX_BALANCE) * 100
         );
 
+
     document.getElementById(
         "progressBar"
     ).style.width =
         percent + "%";
 
+
     document.getElementById(
         "progressText"
     ).textContent =
         percent.toFixed(2) + "%";
+
 
     document.getElementById(
         "milestone"
@@ -1055,6 +974,90 @@ function updateUI(){
         balance >= MAX_BALANCE
             ? "block"
             : "none";
+
+
+    updateCountdown();
+
+}
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+function updateCountdown(){
+
+    const countdown =
+        document.getElementById(
+            "countdown"
+        );
+
+    const account =
+        getCurrentAccount();
+
+    if(!account){
+
+        countdown.textContent =
+            "Login to see your reset timer";
+
+        return;
+
+    }
+
+
+    let diff =
+        account.resetAt - Date.now();
+
+
+    if(diff <= 0){
+
+        checkWeeklyReset();
+
+        const updated =
+            getCurrentAccount();
+
+        if(!updated){
+
+            countdown.textContent =
+                "Login to see your reset timer";
+
+            return;
+
+        }
+
+        diff =
+            updated.resetAt - Date.now();
+
+    }
+
+
+    const days =
+        Math.floor(
+            diff / 86400000
+        );
+
+    const hours =
+        Math.floor(
+            (diff % 86400000) / 3600000
+        );
+
+    const minutes =
+        Math.floor(
+            (diff % 3600000) / 60000
+        );
+
+    const seconds =
+        Math.floor(
+            (diff % 60000) / 1000
+        );
+
+
+    countdown.textContent =
+        days + "d " +
+        String(hours).padStart(2,"0") + "h " +
+        String(minutes).padStart(2,"0") + "m " +
+        String(seconds).padStart(2,"0") + "s";
+
 }
 
 
@@ -1067,6 +1070,7 @@ function openModal(id){
     document.getElementById(
         id
     ).style.display = "flex";
+
 }
 
 
@@ -1075,6 +1079,7 @@ function closeModal(id){
     document.getElementById(
         id
     ).style.display = "none";
+
 }
 
 
@@ -1108,7 +1113,9 @@ document.getElementById(
                 "registerMessage"
             );
 
+
         message.textContent = "";
+
 
         if(username.length < 3){
 
@@ -1116,7 +1123,19 @@ document.getElementById(
                 "Username must have at least 3 characters.";
 
             return;
+
         }
+
+
+        if(!/^[a-zA-Z0-9_]+$/.test(username)){
+
+            message.textContent =
+                "Username can only contain letters, numbers and _.";
+
+            return;
+
+        }
+
 
         if(password.length < 4){
 
@@ -1124,7 +1143,9 @@ document.getElementById(
                 "Password must have at least 4 characters.";
 
             return;
+
         }
+
 
         if(password !== password2){
 
@@ -1132,7 +1153,9 @@ document.getElementById(
                 "Passwords do not match.";
 
             return;
+
         }
+
 
         const accounts =
             getAccounts();
@@ -1140,13 +1163,16 @@ document.getElementById(
         const key =
             username.toLowerCase();
 
+
         if(accounts[key]){
 
             message.textContent =
                 "This username already exists.";
 
             return;
+
         }
+
 
         accounts[key] = {
 
@@ -1156,9 +1182,10 @@ document.getElementById(
 
             balance:START_BALANCE,
 
-            weekId:getWeekId()
+            resetAt:createResetTime()
 
         };
+
 
         saveAccounts(accounts);
 
@@ -1167,6 +1194,7 @@ document.getElementById(
         closeModal("registerModal");
 
         updateUI();
+
 
         alert(
             "Account created! You received 50,000 OrcaCoins."
@@ -1201,7 +1229,9 @@ document.getElementById(
                 "loginMessage"
             );
 
+
         message.textContent = "";
+
 
         const accounts =
             getAccounts();
@@ -1212,13 +1242,16 @@ document.getElementById(
         const account =
             accounts[key];
 
+
         if(!account){
 
             message.textContent =
                 "Account not found.";
 
             return;
+
         }
+
 
         if(account.password !== password){
 
@@ -1226,9 +1259,13 @@ document.getElementById(
                 "Incorrect password.";
 
             return;
+
         }
 
+
         setCurrentUsername(key);
+
+        checkWeeklyReset();
 
         closeModal("loginModal");
 
@@ -1250,6 +1287,8 @@ document.getElementById(
 
         logoutUser();
 
+        closeModal("gameModal");
+
         updateUI();
 
     }
@@ -1265,7 +1304,9 @@ document.getElementById(
 ).addEventListener(
     "click",
     function(){
+
         openModal("loginModal");
+
     }
 );
 
@@ -1275,7 +1316,9 @@ document.getElementById(
 ).addEventListener(
     "click",
     function(){
+
         openModal("registerModal");
+
     }
 );
 
@@ -1317,7 +1360,7 @@ function coinGame(){
         <h2>🪙 Coin Flip</h2>
 
         <p style="margin-top:10px;color:#8ca9b8">
-            Choose a side.
+            Choose a side. Correct guess = +5,000.
         </p>
 
         <div class="game-buttons" style="margin-top:20px">
@@ -1338,25 +1381,33 @@ function coinGame(){
         ></div>
     `;
 
+
     openModal("gameModal");
+
 
     document.getElementById(
         "heads"
     ).addEventListener(
         "click",
         function(){
+
             flip("Heads");
+
         }
     );
+
 
     document.getElementById(
         "tails"
     ).addEventListener(
         "click",
         function(){
+
             flip("Tails");
+
         }
     );
+
 }
 
 
@@ -1367,10 +1418,12 @@ function flip(choice){
             ? "Heads"
             : "Tails";
 
+
     const resultBox =
         document.getElementById(
             "gameResult"
         );
+
 
     if(choice === result){
 
@@ -1381,7 +1434,7 @@ function flip(choice){
         resultBox.textContent =
             "🟢 " +
             result +
-            "! +" +
+            "! +"+
             reward.toLocaleString() +
             " OrcaCoins";
 
@@ -1393,6 +1446,7 @@ function flip(choice){
             "! Try again.";
 
     }
+
 }
 
 
@@ -1409,7 +1463,7 @@ function rouletteGame(){
         <h2>🎯 Roulette Challenge</h2>
 
         <p style="margin-top:10px;color:#8ca9b8">
-            Guess the winning color.
+            Guess the winning color. No coins are lost.
         </p>
 
         <div class="game-buttons" style="margin-top:20px">
@@ -1434,7 +1488,9 @@ function rouletteGame(){
         ></div>
     `;
 
+
     openModal("gameModal");
+
 
     document.getElementById("red")
         .addEventListener(
@@ -1442,44 +1498,50 @@ function rouletteGame(){
             () => spinRoulette("Red")
         );
 
+
     document.getElementById("black")
         .addEventListener(
             "click",
             () => spinRoulette("Black")
         );
 
+
     document.getElementById("green")
         .addEventListener(
             "click",
             () => spinRoulette("Green")
         );
+
 }
 
 
 function spinRoulette(choice){
 
-    const colors =
-        [
-            "Red",
-            "Black",
-            "Red",
-            "Black",
-            "Red",
-            "Black",
-            "Green"
-        ];
+    const colors = [
+        "Red",
+        "Black",
+        "Red",
+        "Black",
+        "Red",
+        "Black",
+        "Green"
+    ];
+
 
     const result =
         colors[
             Math.floor(
-                Math.random() * colors.length
+                Math.random() *
+                colors.length
             )
         ];
+
 
     const box =
         document.getElementById(
             "gameResult"
         );
+
 
     if(choice === result){
 
@@ -1488,7 +1550,9 @@ function spinRoulette(choice){
                 ? 50000
                 : 10000;
 
+
         addCoins(reward);
+
 
         box.textContent =
             "🟢 " +
@@ -1505,6 +1569,7 @@ function spinRoulette(choice){
             ".";
 
     }
+
 }
 
 
@@ -1515,25 +1580,51 @@ function spinRoulette(choice){
 function sevenGame(){
 
     const a =
-        Math.floor(Math.random()*9)+1;
+        Math.floor(
+            Math.random()*9
+        ) + 1;
 
     const b =
-        Math.floor(Math.random()*9)+1;
+        Math.floor(
+            Math.random()*9
+        ) + 1;
 
     const c =
-        Math.floor(Math.random()*9)+1;
+        Math.floor(
+            Math.random()*9
+        ) + 1;
+
 
     let reward = 0;
 
-    if(a === 7 && b === 7 && c === 7){
+
+    if(
+        a === 7 &&
+        b === 7 &&
+        c === 7
+    ){
+
         reward = 1000000;
+
     }
-    else if(a === b && b === c){
+    else if(
+        a === b &&
+        b === c
+    ){
+
         reward = 100000;
+
     }
-    else if(a === b || b === c || a === c){
+    else if(
+        a === b ||
+        b === c ||
+        a === c
+    ){
+
         reward = 10000;
+
     }
+
 
     document.getElementById(
         "gameContent"
@@ -1545,26 +1636,36 @@ function sevenGame(){
             ${a} ${b} ${c}
         </div>
 
-        <div
-            class="game-result"
-        >
+        <div class="game-result">
+
             ${
                 reward > 0
-                    ? "+" + reward.toLocaleString() + " OrcaCoins!"
+                    ? "+" +
+                      reward.toLocaleString() +
+                      " OrcaCoins!"
                     : "No match."
             }
+
         </div>
 
         <div style="text-align:center;margin-top:20px">
 
             <button id="claim777">
-                ${reward > 0 ? "Claim Reward" : "Close"}
+
+                ${
+                    reward > 0
+                        ? "Claim Reward"
+                        : "Close"
+                }
+
             </button>
 
         </div>
     `;
 
+
     openModal("gameModal");
+
 
     document.getElementById(
         "claim777"
@@ -1573,13 +1674,16 @@ function sevenGame(){
         function(){
 
             if(reward > 0){
+
                 addCoins(reward);
+
             }
 
             closeModal("gameModal");
 
         }
     );
+
 }
 
 
@@ -1594,18 +1698,22 @@ function diceGame(){
             Math.random()*6
         ) + 1;
 
-    const rewards =
-        {
-            1:1000,
-            2:2500,
-            3:5000,
-            4:10000,
-            5:25000,
-            6:50000
-        };
+
+    const rewards = {
+
+        1:1000,
+        2:2500,
+        3:5000,
+        4:10000,
+        5:25000,
+        6:50000
+
+    };
+
 
     const reward =
         rewards[dice];
+
 
     document.getElementById(
         "gameContent"
@@ -1630,7 +1738,9 @@ function diceGame(){
         </div>
     `;
 
+
     openModal("gameModal");
+
 
     document.getElementById(
         "claimDice"
@@ -1644,6 +1754,7 @@ function diceGame(){
 
         }
     );
+
 }
 
 
@@ -1658,6 +1769,7 @@ function memoryGame(){
             10000 +
             Math.random()*90000
         );
+
 
     document.getElementById(
         "gameContent"
@@ -1704,7 +1816,9 @@ function memoryGame(){
         ></div>
     `;
 
+
     openModal("gameModal");
+
 
     document.getElementById(
         "hideNumber"
@@ -1712,4 +1826,596 @@ function memoryGame(){
         "click",
         function(){
 
-            document
+            document.getElementById(
+                "memoryNumber"
+            ).style.display =
+                "none";
+
+            this.style.display =
+                "none";
+
+            document.getElementById(
+                "memoryInput"
+            ).style.display =
+                "block";
+
+            document.getElementById(
+                "memoryCheck"
+            ).style.display =
+                "block";
+
+            document.getElementById(
+                "memoryInput"
+            ).focus();
+
+        }
+    );
+
+
+    document.getElementById(
+        "memoryCheck"
+    ).addEventListener(
+        "click",
+        function(){
+
+            const input =
+                document.getElementById(
+                    "memoryInput"
+                ).value.trim();
+
+
+            const result =
+                document.getElementById(
+                    "memoryResult"
+                );
+
+
+            if(input === String(number)){
+
+                addCoins(25000);
+
+                result.textContent =
+                    "🟢 Correct! +25,000 OrcaCoins";
+
+            }else{
+
+                result.textContent =
+                    "🔴 Wrong! The number was " +
+                    number;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   REACTION
+========================= */
+
+function reactionGame(){
+
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
+
+        <h2>⚡ Reaction</h2>
+
+        <p style="text-align:center;color:#8ca9b8;margin-top:10px">
+            Wait until the button turns green.
+        </p>
+
+        <button
+            id="reactionButton"
+            style="
+                margin-top:25px;
+                width:100%;
+                background:#7c2638;
+            "
+        >
+            WAIT...
+        </button>
+
+        <div
+            class="game-result"
+            id="reactionResult"
+        ></div>
+    `;
+
+
+    openModal("gameModal");
+
+
+    const button =
+        document.getElementById(
+            "reactionButton"
+        );
+
+    const result =
+        document.getElementById(
+            "reactionResult"
+        );
+
+
+    let ready = false;
+    let startTime = 0;
+    let timeout;
+
+
+    const delay =
+        1500 +
+        Math.random()*3500;
+
+
+    timeout =
+        setTimeout(
+            function(){
+
+                ready = true;
+
+                startTime =
+                    performance.now();
+
+                button.textContent =
+                    "CLICK NOW!";
+
+                button.style.background =
+                    "#159447";
+
+            },
+            delay
+        );
+
+
+    button.addEventListener(
+        "click",
+        function(){
+
+            if(!ready){
+
+                clearTimeout(timeout);
+
+                result.textContent =
+                    "🔴 Too early! Try again.";
+
+                return;
+
+            }
+
+
+            const reaction =
+                Math.round(
+                    performance.now() -
+                    startTime
+                );
+
+
+            let reward = 0;
+
+
+            if(reaction < 200){
+                reward = 50000;
+            }
+            else if(reaction < 350){
+                reward = 25000;
+            }
+            else if(reaction < 600){
+                reward = 10000;
+            }
+            else{
+                reward = 5000;
+            }
+
+
+            addCoins(reward);
+
+
+            result.textContent =
+                "⚡ " +
+                reaction +
+                " ms! +" +
+                reward.toLocaleString() +
+                " OrcaCoins";
+
+
+            button.disabled = true;
+
+        }
+    );
+
+}
+
+
+/* =========================
+   TREASURE
+========================= */
+
+function treasureGame(){
+
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
+
+        <h2>💎 Treasure Vault</h2>
+
+        <p style="margin-top:10px;color:#8ca9b8;text-align:center">
+            Choose one vault.
+        </p>
+
+        <div class="game-buttons" style="margin-top:25px">
+
+            <button data-vault="1">
+                🧰 Vault 1
+            </button>
+
+            <button data-vault="2">
+                🧰 Vault 2
+            </button>
+
+            <button data-vault="3">
+                🧰 Vault 3
+            </button>
+
+        </div>
+
+        <div
+            class="game-result"
+            id="gameResult"
+        ></div>
+    `;
+
+
+    openModal("gameModal");
+
+
+    document.querySelectorAll(
+        "[data-vault]"
+    ).forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const vault =
+                        Number(
+                            button.dataset.vault
+                        );
+
+
+                    const winningVault =
+                        Math.floor(
+                            Math.random()*3
+                        ) + 1;
+
+
+                    const result =
+                        document.getElementById(
+                            "gameResult"
+                        );
+
+
+                    if(vault === winningVault){
+
+                        const rewards = [
+                            10000,
+                            25000,
+                            50000,
+                            100000
+                        ];
+
+
+                        const reward =
+                            rewards[
+                                Math.floor(
+                                    Math.random() *
+                                    rewards.length
+                                )
+                            ];
+
+
+                        addCoins(reward);
+
+
+                        result.textContent =
+                            "💎 JACKPOT! +" +
+                            reward.toLocaleString() +
+                            " OrcaCoins";
+
+                    }else{
+
+                        result.textContent =
+                            "🔒 Empty vault! Winning vault was " +
+                            winningVault + ".";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   CHICKEN ROAD
+========================= */
+
+function chickenGame(){
+
+    let position = 0;
+
+    const target = 5;
+
+
+    document.getElementById(
+        "gameContent"
+    ).innerHTML = `
+
+        <h2>🐔 Chicken Road</h2>
+
+        <p style="text-align:center;color:#8ca9b8;margin-top:10px">
+            Cross 5 roads. Each safe step gives more reward.
+        </p>
+
+        <div
+            class="big"
+            id="chicken"
+        >
+            🐔
+        </div>
+
+        <div
+            class="game-result"
+            id="chickenResult"
+        >
+            Road 0 / 5
+        </div>
+
+        <button
+            id="crossRoad"
+            style="width:100%;margin-top:20px"
+        >
+            Cross Road 🚦
+        </button>
+    `;
+
+
+    openModal("gameModal");
+
+
+    const button =
+        document.getElementById(
+            "crossRoad"
+        );
+
+
+    const chicken =
+        document.getElementById(
+            "chicken"
+        );
+
+
+    const result =
+        document.getElementById(
+            "chickenResult"
+        );
+
+
+    button.addEventListener(
+        "click",
+        function(){
+
+            const safe =
+                Math.random() < .72;
+
+
+            if(!safe){
+
+                chicken.textContent =
+                    "💥🐔";
+
+                result.textContent =
+                    "🔴 The chicken got stopped! Try again.";
+
+                button.disabled =
+                    true;
+
+                return;
+
+            }
+
+
+            position++;
+
+
+            chicken.textContent =
+                "🐔" +
+                "➡️".repeat(position);
+
+
+            result.textContent =
+                "🟢 Road " +
+                position +
+                " / " +
+                target;
+
+
+            if(position >= target){
+
+                const reward =
+                    75000;
+
+
+                addCoins(reward);
+
+
+                result.textContent =
+                    "🏆 CROSSSED! +75,000 OrcaCoins";
+
+
+                button.textContent =
+                    "Completed";
+
+
+                button.disabled =
+                    true;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   GAME BUTTONS
+========================= */
+
+document.querySelectorAll(
+    "[data-game]"
+).forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const game =
+                    button.dataset.game;
+
+
+                if(!getCurrentAccount()){
+
+                    alert(
+                        "Create an account or login first."
+                    );
+
+                    return;
+
+                }
+
+
+                switch(game){
+
+                    case "coin":
+                        coinGame();
+                        break;
+
+                    case "roulette":
+                        rouletteGame();
+                        break;
+
+                    case "777":
+                        sevenGame();
+                        break;
+
+                    case "dice":
+                        diceGame();
+                        break;
+
+                    case "memory":
+                        memoryGame();
+                        break;
+
+                    case "reaction":
+                        reactionGame();
+                        break;
+
+                    case "treasure":
+                        treasureGame();
+                        break;
+
+                    case "chicken":
+                        chickenGame();
+                        break;
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================
+   MODAL BACKGROUND
+========================= */
+
+document.querySelectorAll(
+    ".modal"
+).forEach(
+    function(modal){
+
+        modal.addEventListener(
+            "click",
+            function(event){
+
+                if(event.target === modal){
+
+                    modal.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            document.querySelectorAll(
+                ".modal"
+            ).forEach(
+                function(modal){
+
+                    modal.style.display =
+                        "none";
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+updateUI();
+
+
+setInterval(
+    function(){
+
+        checkWeeklyReset();
+        updateUI();
+
+    },
+    1000
+);
+
+</script>
+
+</body>
+</html>
